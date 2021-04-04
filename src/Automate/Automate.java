@@ -29,5 +29,29 @@ public class Automate {
         }
     }
 
+    boolean isAsynchrone() {
+        boolean state = false;
+        for (int i = 0; i < nbEntrees; i++){
+            boolean next = entrees[i].isAsynchrone();
+            if (next) {
+                state = true;
+                asynchrone = true;
+            }
+        }
+        for (int i = 0; i < nbEntrees; i++){
+            entrees[i].resetRead();
+        }
+        return state;
+    }
+
+    boolean contains(String string) {
+        boolean contains = false;
+        for(Etat etat: entrees) {
+            contains = etat.contains(string);
+            if (contains) return true;
+        }
+        return false;
+    }
+
 }
 
