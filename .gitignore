@@ -1,8 +1,7 @@
 # Default ignored files
 /shelf/
-/workspace.xml
+/.idea/
 # Datasource local storage ignored files
-/../../../../../../../../../:\Quentin\Documents\Cours\L2\Maths\Maths pour l'info\Projet MPI\.idea/dataSources/
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
