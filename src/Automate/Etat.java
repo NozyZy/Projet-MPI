@@ -80,18 +80,41 @@ public class Etat {
 
     boolean contains(String string, int index) {
         if (string == null) return false;
-        if (sortie && string.length() == index) return true;
+        if (string.length() == index) {
+            if (sortie) return true;
+            int i = 0;
+            while(i < nbTransitions && charTransitions[i] != MOT_VIDE) {
+                i++;
+            }
+            if (i < nbTransitions && charTransitions[i] == MOT_VIDE) return transitions[i].contains(string, index);
+            else return false;
+        }
         if (string.length() <= index) return false;
         int i = 0;
-        while(i < nbTransitions && charTransitions[i] != string.charAt(index)) {
+        while(i < nbTransitions && charTransitions[i] != string.charAt(index) && charTransitions[i] != MOT_VIDE) {
             i++;
         }
         if (i == nbTransitions) return false;
-        return transitions[i].contains(string, index+1);
+        if (charTransitions[i] != MOT_VIDE || string.charAt(index) == MOT_VIDE) index++;
+        return transitions[i].contains(string, index);
     }
 
     boolean contains(String string) {
         return contains(string, 0);
+    }
+
+    boolean isAsynchrone() {
+        int i;
+        boolean state = false, next = false;
+        read = true;
+        for (i = 0; i < nbTransitions; i++){
+            if (!transitions[i].read) next = transitions[i].isAsynchrone();
+            if (charTransitions[i] == MOT_VIDE) {
+                state = true;
+            }
+            if (next && !state) state = true;
+        }
+        return state;
     }
 
 }
