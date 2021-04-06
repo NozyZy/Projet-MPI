@@ -61,7 +61,9 @@ public class Automate {
 
         this.nbTransitions = lecture.nextInt();
 
-
+        /**
+         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
+         */
         for (int i = 0; i < this.nbTransitions; i++) {
             int x = lecture.nextInt();//on copie le nom de l'element
             this.entrees[x].charTransitions.add(lecture.next());//on ajoute la transtion (a,b,c,d...)
@@ -69,13 +71,13 @@ public class Automate {
             
         }
 
-        lecture.close();
+        lecture.close();//fermeture de la lecture du txt
     }
 
     /**
      * Affiche l'automate en string
      */
-    void afficherAutomate() {
+    public void afficherAutomate() {
         System.out.println("Voici l'automate : "+this.label);
         for (int i = 0; i < this.nbEtats; i++) {
             if (this.entrees[i].entree == true){
