@@ -1,10 +1,9 @@
 package Automate;
 
 import java.io.*;
-import java.lang.management.ThreadInfo;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Automate {
     String label;

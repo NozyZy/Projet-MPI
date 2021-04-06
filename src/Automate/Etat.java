@@ -1,7 +1,7 @@
 package Automate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Etat {
     int label;               //nom de l'état
@@ -15,7 +15,9 @@ public class Etat {
     public final char MOT_VIDE = '*';
 
 
-    public Etat(int label){ this.label = label; }
+    public Etat(int label){ 
+        this.label = label; 
+    }
 
     public int getLabel() {
         return this.label;
