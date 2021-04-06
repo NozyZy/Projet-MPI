@@ -99,8 +99,8 @@ public class Automate {
 
     public void navigation(){
         int nav = 1;
-        int etat = 0;
-        int xetats = 1;
+        int etat = 2;
+        int k = 0;
         String transision;
         Scanner saisi = new Scanner(System.in);//Objet saisisseur
 
@@ -118,21 +118,27 @@ public class Automate {
             System.out.println("Choisi ton chemin");
             transision = saisi.next();
 
-            while (xetats == 1) {
-                int k = 0;
-
-                if (this.entrees[etat].charTransitions.get(k) == transision) {
-                    etat = k;
+            for (int i = 0; i < this.entrees[etat].charTransitions.size(); i++) {
+                if (this.entrees[etat].charTransitions.get(i).equals(transision)) {
+            
+                    etat = this.entrees[etat].transitions.get(i);
                     this.entrees[etat].affiche_etat();
-                    xetats = 0;
+
+                    System.out.println("Voulez vous choisir cet Etat ?" + "\n" + "appuyer sur o pour oui et n pour non");
+                    String choix = saisi.next();
+                    if (choix.equals("o")) {
+                        i = 666;
+                    }
                 }
-                System.out.print("k = "+k);
-                k = k + 1;
             }
 
-            
-            nav = 0;
-            saisi.close();
+            System.out.println("Voulez vous continuer de naviguer ?" + "\n" + 
+            "appuyer sur o pour oui et n pour non");
+            String choix = saisi.next();
+            if (choix.equals("n")) {
+               nav = 0;
+               saisi.close();
+            }
 
         }
     }

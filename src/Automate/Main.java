@@ -11,6 +11,7 @@ public class Main {
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);
 
+        automate.afficherAutomate();
         automate.navigation();
     }
 
