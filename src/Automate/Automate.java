@@ -114,6 +114,9 @@ public class Automate {
                 System.out.println("-> : " + this.entrees[0].charTransitions.get(i));
             }
 
+            transision = saisi.next();
+
+            
             nav = 0;
             saisi.close();
 
