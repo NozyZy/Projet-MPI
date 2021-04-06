@@ -94,7 +94,29 @@ public class Automate {
 
             }
             System.out.println("\n");
+        }
+    }
+
+    public void navigation(){
+        int nav = 1;
+        int etat = 0;
+        String transision;
+        Scanner saisi = new Scanner(System.in);//Objet saisisseur
+
+        System.out.println("Bienvenue dans le menu de navigation de l'automate"+"\n");
+
+        while (nav == 1) {
+
+            this.entrees[0].affiche_etat();
+            System.out.println("Voici les chemins possibles : ");
             
+            for (int i = 0; i < this.entrees[0].charTransitions.size(); i++) {
+                System.out.println("-> : " + this.entrees[0].charTransitions.get(i));
+            }
+
+            nav = 0;
+            saisi.close();
+
         }
     }
 }

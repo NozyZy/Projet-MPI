@@ -75,6 +75,10 @@ public class Etat {
         return this.MOT_VIDE;
     }
 
+    public void affiche_etat(){
+        System.out.println("Vous êtes à l'état : "+ this.label);
+    }
+
     
 
 
