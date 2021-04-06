@@ -4,24 +4,15 @@ import java.io.*;
 
 public class Readwrite {
 
-    public static void main(String[] args) {
+    public static Automate readAutomateFile(String fileName) {
 
         try{
-
-            FileInputStream fichier = new FileInputStream("src/Automate/test_automate.txt");
-
-            Automate test = new Automate(fichier);
-            test.afficherAutomate();
-            
-
+            FileInputStream fichier = new FileInputStream(fileName);
+            return new Automate(fichier);
         }
         catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
-        
-
-
-       
+        return null;
     }
 }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Etat {
     int label;               //nom de l'état
     ArrayList<Integer> transitions;     //toutes les transitions
-    ArrayList<String>charTransitions;     //tous les caractères de transition
+    ArrayList<String> charTransitions;     //tous les caractères de transition
     int nbTransitions;          //le nombre de transistions sortantes
     boolean entree;             //true si oui, false sinon
     boolean sortie;             //true si oui, false sinon
@@ -15,10 +15,7 @@ public class Etat {
     public final char MOT_VIDE = '*';
 
 
-    public Etat(int label){
-        this.setLabel(label);
-    }
-
+    public Etat(int label){ this.label = label; }
 
     public int getLabel() {
         return this.label;
@@ -27,7 +24,6 @@ public class Etat {
     public void setLabel(int label) {
         this.label = label;
     }
-
 
     public int getNbTransitions() {
         return this.nbTransitions;
