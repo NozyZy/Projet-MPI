@@ -100,6 +100,7 @@ public class Automate {
     public void navigation(){
         int nav = 1;
         int etat = 0;
+        int xetats = 1;
         String transision;
         Scanner saisi = new Scanner(System.in);//Objet saisisseur
 
@@ -107,14 +108,27 @@ public class Automate {
 
         while (nav == 1) {
 
-            this.entrees[0].affiche_etat();
+            this.entrees[etat].affiche_etat();
             System.out.println("Voici les chemins possibles : ");
             
             for (int i = 0; i < this.entrees[0].charTransitions.size(); i++) {
                 System.out.println("-> : " + this.entrees[0].charTransitions.get(i));
             }
 
+            System.out.println("Choisi ton chemin");
             transision = saisi.next();
+
+            while (xetats == 1) {
+                int k = 0;
+
+                if (this.entrees[etat].charTransitions.get(k) == transision) {
+                    etat = k;
+                    this.entrees[etat].affiche_etat();
+                    xetats = 0;
+                }
+                System.out.print("k = "+k);
+                k = k + 1;
+            }
 
             
             nav = 0;
