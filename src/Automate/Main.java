@@ -12,7 +12,7 @@ public class Main {
         // System.out.println(etat.label);
 
         automate.afficherAutomate();
-        automate.navigation();
+        //automate.navigation();
     }
 
 }

@@ -99,8 +99,7 @@ public class Automate {
 
     public void navigation(){
         int nav = 1;
-        int etat = 2;
-        int k = 0;
+        int etat = 0;
         String transision;
         Scanner saisi = new Scanner(System.in);//Objet saisisseur
 
