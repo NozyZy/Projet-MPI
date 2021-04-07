@@ -1,10 +1,9 @@
 package Automate;
 
 import java.io.*;
-import java.lang.management.ThreadInfo;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class Automate {
     String label;
@@ -64,7 +63,9 @@ public class Automate {
 
         this.nbTransitions = lecture.nextInt();
 
-
+        /**
+         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
+         */
         for (int i = 0; i < this.nbTransitions; i++) {
             int x = lecture.nextInt();                          //on copie le nom de l'element
             this.etats[x].charTransitions.add(lecture.next());  //on ajoute la transtion (a,b,c,d...)
@@ -72,13 +73,13 @@ public class Automate {
             this.etats[x].nbTransitions++;
         }
 
-        lecture.close();
+        lecture.close();//fermeture de la lecture du txt
     }
 
     /**
      * Affiche l'automate en string
      */
-    void afficherAutomate() {
+    public void afficherAutomate() {
         System.out.println("Voici l'automate : "+this.label);
         for (int i = 0; i < this.nbEtats; i++) {
             if (this.etats[i].entree){
@@ -95,7 +96,51 @@ public class Automate {
 
             }
             System.out.println("\n");
+        }
+    }
+
+    public void navigation(){
+        int nav = 1;
+        int etat = 0;
+        String transision;
+        Scanner saisi = new Scanner(System.in);//Objet saisisseur
+
+        System.out.println("Bienvenue dans le menu de navigation de l'automate"+"\n");
+
+        while (nav == 1) {
+
+            this.entrees[etat].affiche_etat();
+            System.out.println("Voici les chemins possibles : ");
             
+            for (int i = 0; i < this.entrees[0].charTransitions.size(); i++) {
+                System.out.println("-> : " + this.entrees[0].charTransitions.get(i));
+            }
+
+            System.out.println("Choisi ton chemin");
+            transision = saisi.next();
+
+            for (int i = 0; i < this.entrees[etat].charTransitions.size(); i++) {
+                if (this.entrees[etat].charTransitions.get(i).equals(transision)) {
+            
+                    etat = this.entrees[etat].transitions.get(i);
+                    this.entrees[etat].affiche_etat();
+
+                    System.out.println("Voulez vous choisir cet Etat ?" + "\n" + "appuyer sur o pour oui et n pour non");
+                    String choix = saisi.next();
+                    if (choix.equals("o")) {
+                        i = 666;
+                    }
+                }
+            }
+
+            System.out.println("Voulez vous continuer de naviguer ?" + "\n" + 
+            "appuyer sur o pour oui et n pour non");
+            String choix = saisi.next();
+            if (choix.equals("n")) {
+               nav = 0;
+               saisi.close();
+            }
+
         }
     }
 }
