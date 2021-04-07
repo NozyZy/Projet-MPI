@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Automate {
     String label;
-    Etat[] entrees;
+    Etat[] etats;
     int nbEtats;
     int nbEntrees;
     int nbSorties;
@@ -19,10 +19,12 @@ public class Automate {
     boolean standard;
     boolean minimale;
 
-    Automate(String label, Etat[] entrees, int nbEntrees, int nbEtats){
+    public final char MOT_VIDE = '*';
+
+    Automate(String label, Etat[] etats, int nbEntrees, int nbEtats){
         this.label = label;
-        if (entrees == null) this.entrees = null;
-        else this.entrees = entrees.clone();
+        if (etats == null) this.etats = null;
+        else this.etats = etats.clone();
         this.nbEntrees = nbEntrees;
         this.nbEtats = nbEtats;
         deterministe = complet = asynchrone = standard = minimale = false;
@@ -40,34 +42,34 @@ public class Automate {
        
 
         this.nbEtats = lecture.nextInt();
-        this.entrees = new Etat[this.nbEtats];//creation du nombre d'élement dans l'automate
+        this.etats = new Etat[this.nbEtats];//creation du nombre d'élement dans l'automate
 
         for (int i = 0; i < this.nbEtats; i++) {
-            this.entrees[i] = new Etat(i);
-            this.entrees[i].transitions = new ArrayList<Integer>();
-            this.entrees[i].charTransitions = new ArrayList<String>();
+            this.etats[i] = new Etat(i);
+            this.etats[i].transitions = new ArrayList<Integer>();
+            this.etats[i].charTransitions = new ArrayList<String>();
         }
         System.out.println("\n");
 
         
         this.nbEntrees = lecture.nextInt();
         for (int i = 0; i < this.nbEntrees; i++) {
-            this.entrees[lecture.nextInt()].setEntree(true);
+            this.etats[lecture.nextInt()].setEntree(true);
         }
 
         this.nbSorties = lecture.nextInt();
         for (int i = 0; i < this.nbSorties; i++) {
-            this.entrees[lecture.nextInt()].setSortie(true);
+            this.etats[lecture.nextInt()].setSortie(true);
         }
 
         this.nbTransitions = lecture.nextInt();
 
 
         for (int i = 0; i < this.nbTransitions; i++) {
-            int x = lecture.nextInt();//on copie le nom de l'element
-            this.entrees[x].charTransitions.add(lecture.next());//on ajoute la transtion (a,b,c,d...)
-            this.entrees[x].transitions.add(lecture.nextInt());//on ajoute l'élement pointer (etat 1, etat2...)
-            
+            int x = lecture.nextInt();                          //on copie le nom de l'element
+            this.etats[x].charTransitions.add(lecture.next());  //on ajoute la transtion (a,b,c,d...)
+            this.etats[x].transitions.add(lecture.nextInt());   //on ajoute l'élement pointer (etat 1, etat2...)
+            this.etats[x].nbTransitions++;
         }
 
         lecture.close();
@@ -79,17 +81,17 @@ public class Automate {
     void afficherAutomate() {
         System.out.println("Voici l'automate : "+this.label);
         for (int i = 0; i < this.nbEtats; i++) {
-            if (this.entrees[i].entree == true){
+            if (this.etats[i].entree){
                 System.out.print("E-->");
             }
-            if (this.entrees[i].sortie == true) {
+            if (this.etats[i].sortie) {
                 System.out.print("-->S");
             }
-            System.out.println("(("+this.entrees[i].label+"))");
-            for (int j = 0; j < this.entrees[i].charTransitions.size(); j++) {
-                System.out.print("(" + this.entrees[i].label + ")");
-                System.out.print("-" + this.entrees[i].charTransitions.get(j) + "->");
-                System.out.print("("+this.entrees[i].transitions.get(j)+")");
+            System.out.println("(("+this.etats[i].label + "))");
+            for (int j = 0; j < this.etats[i].charTransitions.size(); j++) {
+                System.out.print("(" + this.etats[i].label + ")");
+                System.out.print("-" + this.etats[i].charTransitions.get(j) + "->");
+                System.out.print("("+this.etats[i].transitions.get(j)+")");
 
             }
             System.out.println("\n");

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Etat {
-    int label;               //nom de l'état
+    int label;                          //nom de l'état
     ArrayList<Integer> transitions;     //toutes les transitions
-    ArrayList<String> charTransitions;     //tous les caractères de transition
-    int nbTransitions;          //le nombre de transistions sortantes
-    boolean entree;             //true si oui, false sinon
-    boolean sortie;             //true si oui, false sinon
-    boolean read;               //true si déjà lu, false sinon
+    ArrayList<String> charTransitions;  //tous les caractères de transition
+    int nbTransitions;                  //le nombre de transistions sortantes
+    boolean entree;                     //true si oui, false sinon
+    boolean sortie;                     //true si oui, false sinon
+    boolean read;                       //true si déjà lu, false sinon
 
     public final char MOT_VIDE = '*';
 
@@ -72,9 +72,5 @@ public class Etat {
     public char getMOT_VIDE() {
         return this.MOT_VIDE;
     }
-
-    
-
-
 
 }
