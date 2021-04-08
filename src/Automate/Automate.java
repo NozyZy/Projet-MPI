@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 
-public class Automate {
+public class Automate implements Cloneable {
     String label;
     Etat[] entrees;
     int nbEtats;
@@ -17,6 +17,7 @@ public class Automate {
     boolean asynchrone;
     boolean standard;
     boolean minimale;
+
 
     Automate(String label, Etat[] entrees, int nbEntrees, int nbEtats){
         this.label = label;
@@ -72,6 +73,14 @@ public class Automate {
         }
 
         lecture.close();//fermeture de la lecture du txt
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
     }
 
     /**
@@ -138,8 +147,12 @@ public class Automate {
                nav = 0;
                saisi.close();
             }
-
         }
     }
+
+    public void determinisation(){
+
+    }
+
 }
 
