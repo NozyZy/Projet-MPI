@@ -111,30 +111,30 @@ public class Automate implements Cloneable {
         int nav = 1;
         int etat = 0;
         String transision;
-        Scanner saisi = new Scanner(System.in);//Objet saisisseur
+        Scanner saisie = new Scanner(System.in);//Objet saisisseur
 
         System.out.println("Bienvenue dans le menu de navigation de l'automate"+"\n");
 
         while (nav == 1) {
 
-            this.entrees[etat].affiche_etat();
+            this.etats[etat].affiche_etat();
             System.out.println("Voici les chemins possibles : ");
             
-            for (int i = 0; i < this.entrees[0].charTransitions.size(); i++) {
-                System.out.println("-> : " + this.entrees[0].charTransitions.get(i));
+            for (int i = 0; i < this.etats[0].charTransitions.size(); i++) {
+                System.out.println("-> : " + this.etats[0].charTransitions.get(i));
             }
 
             System.out.println("Choisi ton chemin");
-            transision = saisi.next();
+            transision = saisie.next();
 
-            for (int i = 0; i < this.entrees[etat].charTransitions.size(); i++) {
-                if (this.entrees[etat].charTransitions.get(i).equals(transision)) {
+            for (int i = 0; i < this.etats[etat].charTransitions.size(); i++) {
+                if (this.etats[etat].charTransitions.get(i).equals(transision)) {
             
-                    etat = this.entrees[etat].transitions.get(i);
-                    this.entrees[etat].affiche_etat();
+                    etat = this.etats[etat].transitions.get(i);
+                    this.etats[etat].affiche_etat();
 
                     System.out.println("Voulez vous choisir cet Etat ?" + "\n" + "appuyer sur o pour oui et n pour non");
-                    String choix = saisi.next();
+                    String choix = saisie.next();
                     if (choix.equals("o")) {
                         i = 666;
                     }
@@ -143,10 +143,10 @@ public class Automate implements Cloneable {
 
             System.out.println("Voulez vous continuer de naviguer ?" + "\n" + 
             "appuyer sur o pour oui et n pour non");
-            String choix = saisi.next();
+            String choix = saisie.next();
             if (choix.equals("n")) {
                nav = 0;
-               saisi.close();
+               saisie.close();
             }
         }
     }

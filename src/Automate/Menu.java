@@ -7,7 +7,7 @@ public class Menu {
         int menu0 = 1;
         int menu1 = 1;
         String choix;
-        Scanner saisie = new Scanner(System.in);
+        Scanner saisie = new Scanner(System.in);// Objet saisisseur
 
         Automate automate = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
         assert automate != null;
@@ -28,6 +28,7 @@ public class Menu {
                 if (choix.equals("d")) {
                     Automate deter = (Automate) automate.clone();
                     deter.afficherAutomate();
+                    deter.navigation();
                 }
 
             }
@@ -47,6 +48,7 @@ public class Menu {
             choix = saisie.next();
             if (choix.equals("o")){
                 menu0 = 0;
+                saisie.close();
             }
         }
     }
