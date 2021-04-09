@@ -148,9 +148,9 @@ public class Automate implements Cloneable {
 
         Scanner lecture = new Scanner(fichier);//debut de lecture du fichier
 
-        this.setLabel(lecture.nextLine());
+        setLabel(lecture.nextLine());
 
-        this.setNbEtats(lecture.nextInt());
+        setNbEtats(lecture.nextInt());
         this.etats = new Etat[this.nbEtats];//creation du nombre d'élement dans l'automate
 
         for (int i = 0; i < this.nbEtats; i++) {
@@ -187,6 +187,48 @@ public class Automate implements Cloneable {
         lecture.close();//fermeture de la lecture du txt
     }
 
+    public Automate(FileInputStream fichier, String test){
+
+        Scanner lecture = new Scanner(fichier);// debut de lecture du fichier
+
+        setLabel(lecture.nextLine());
+        setNbEtats(lecture.nextInt());
+        
+        this.etats = new Etat[this.nbEtats];// creation du nombre d'élement dans l'automate
+
+        for (int i = 0; i < this.nbEtats; i++) {
+            this.etats[i] = new Etat(i);
+            this.etats[i].transitions = new ArrayList<Integer>();
+            this.etats[i].charTransitions = new ArrayList<String>();
+        }
+        System.out.println("\n");
+
+        this.setNbEntrees(lecture.nextInt());
+
+        for (int i = 0; i < this.nbEntrees; i++) {
+            this.etats[lecture.nextInt()].setEntree(true);
+        }
+
+        this.nbSorties = lecture.nextInt();
+        for (int i = 0; i < this.nbSorties; i++) {
+            this.etats[lecture.nextInt()].setSortie(true);
+        }
+
+        this.setNbTransitions(lecture.nextInt());
+
+        /**
+         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
+         */
+        for (int i = 0; i < this.nbTransitions; i++) {
+            int x = lecture.nextInt(); // on copie le nom de l'element
+            this.etats[x].charTransitions.add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
+            this.etats[x].transitions.add(lecture.nextInt()); // on ajoute l'élement pointer (etat 1, etat2...)
+            this.etats[x].nbTransitions++;
+        }
+
+        lecture.close();// fermeture de la lecture du txt
+    }
+
     public Object clone() {
         try {
             return super.clone();
@@ -215,6 +257,14 @@ public class Automate implements Cloneable {
 
             }
             System.out.println("\n");
+        }
+    }
+
+    public void afficherAutomate(String test){
+        System.out.println("Voici l'automate : " + this.label + "\n");
+
+        for (int i = 0; i < this.nbEtats; i++) {
+            
         }
     }
 

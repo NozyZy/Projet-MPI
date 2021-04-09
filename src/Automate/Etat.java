@@ -3,7 +3,8 @@ package Automate;
 import java.util.ArrayList;
 
 public class Etat {
-    int label;                          //nom de l'état
+    int label;
+    String nom;                          //nom de l'état
     ArrayList<Integer> transitions;     //toutes les transitions
     ArrayList<String> charTransitions;  //tous les caractères de transition
     int nbTransitions;                  //le nombre de transistions sortantes
@@ -14,7 +15,21 @@ public class Etat {
     public final char MOT_VIDE = '*';
 
 
-    public Etat(int label){ this.label = label; }
+    public Etat(int label){ 
+      setLabel(label);
+    }
+
+    public Etat(String nom){
+        setNom(nom);
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     public int getLabel() {
         return this.label;
@@ -75,5 +90,7 @@ public class Etat {
     public void affiche_etat(){
         System.out.println("\n"+"Vous êtes à l'état : "+this.label);
     }
+
+
 
 }
