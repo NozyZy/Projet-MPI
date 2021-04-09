@@ -2,6 +2,7 @@ package Automate;
 
 import java.io.*;
 import java.util.Scanner;
+
 import java.util.ArrayList;
 
 
@@ -274,6 +275,24 @@ public class Automate implements Cloneable {
     }
 
     public void doublon(){
+        String tmp;
+        int occ = 0;
+
+        System.out.println("Traitement en cours...");
+
+        for (int i = 0; i < this.etats[i].charTransitions.size(); i++) {
+            for (int j = 0; j < this.etats[i].charTransitions.size(); j++) {
+
+                System.out.print("Lettre : "+ this.etats[i].charTransitions.get(j)+"|");
+
+                for (int j2 = 0; j2 < this.etats[i].charTransitions.size(); j2++) {
+                    System.out.print(this.etats[i].charTransitions.get(j2));
+                }
+                System.out.println();
+            }
+           
+        }
+
         
     }
 

@@ -10,8 +10,9 @@ public class Main {
         automate.afficherAutomate();
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);
-        automate.navigation();
+        //automate.navigation();
 
+        automate.doublon();
 
     }
 
