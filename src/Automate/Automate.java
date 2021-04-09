@@ -218,6 +218,10 @@ public class Automate implements Cloneable {
         }
     }
 
+
+    /**
+     * Fonction de navigation dans l'automate
+     */
     public void navigation(){
         int nav = 1;
         int etat = 0;
@@ -247,7 +251,7 @@ public class Automate implements Cloneable {
 
             if (transision.equals("s")) {
                 nav = 0;
-                System.out.println("--Sortie de l'automate--");
+                System.out.println("\n"+"--Sortie de l'automate--");
             }
 
             for (int i = 0; i < this.etats[etat].charTransitions.size(); i++) {
@@ -255,12 +259,17 @@ public class Automate implements Cloneable {
             
                     etat = this.etats[etat].transitions.get(i);
                     this.etats[etat].affiche_etat();
-
-                    System.out.println("\n"+"Voulez vous choisir cet Etat ?" + "\n" + "appuyer sur o pour oui et n pour non");
-                    choix = saisie.next();
-                    if (choix.equals("o")) {
-                        i = 666;
+                    
+                    if (doublon(this.etats[etat].charTransitions)) {
+                        System.out.println("\n" + "Voulez vous choisir cet Etat ?" + "\n"
+                                + "appuyer sur o pour oui et n pour non");
+                        choix = saisie.next();
+                        if (choix.equals("o")) {
+                            i = 666;
+                        }
                     }
+                   
+                   
                 }
             }
 
@@ -276,8 +285,8 @@ public class Automate implements Cloneable {
 
     /**
      * Recoit le tableau de transition et return true s'il ya un doublon dans les transition
-     * @param tab
-     * @return
+     * @param tab tableau de char en dynamique
+     * @return true or false
      */
     public boolean doublon(ArrayList<String> tab){
         String tmp;
@@ -294,7 +303,6 @@ public class Automate implements Cloneable {
             }
 
             if (occ > 1) {
-                System.out.println("\n" + "OCC EST SUPERIEUR A 1 MGL");
                 occ = 0;
                 return true;
             }
@@ -303,8 +311,8 @@ public class Automate implements Cloneable {
     }
 
     public void determinisation(){
-
+      
     }
-
+    
 }
 
