@@ -152,7 +152,7 @@ public class Automate implements Cloneable {
     }
 
     public void determinisation(){
-
+        
     }
 
 }

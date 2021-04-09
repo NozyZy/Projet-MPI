@@ -8,7 +8,7 @@ public class Main {
         assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans
                                 // readwrite la fonction try permet la meme chose a voir)
 
-        // automate.afficherAutomate();
+        automate.afficherAutomate();
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);
         //automate.navigation();
