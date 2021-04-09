@@ -73,7 +73,7 @@ public class Etat {
     }
 
     public void affiche_etat(){
-        System.out.println("Vous êtes à l'état : "+this.label);
+        System.out.println("\n"+"Vous êtes à l'état : "+this.label);
     }
 
 }

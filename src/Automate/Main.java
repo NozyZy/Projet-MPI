@@ -1,7 +1,6 @@
 package Automate;
 
 public class Main {
-
     public static void main(String[] args) {
 
         Automate automate = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
@@ -11,7 +10,7 @@ public class Main {
         automate.afficherAutomate();
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);
-        //automate.navigation();
+        automate.navigation();
 
 
     }

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 
 public class Automate implements Cloneable {
+    public final char MOT_VIDE = '*';
+
     String label;
     Etat[] etats;
     int nbEtats;
@@ -18,7 +20,115 @@ public class Automate implements Cloneable {
     boolean standard;
     boolean minimale;
 
-    public final char MOT_VIDE = '*';
+
+
+    public char getMOT_VIDE() {
+        return this.MOT_VIDE;
+    }
+
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+
+    public int getNbEtats() {
+        return this.nbEtats;
+    }
+
+    public void setNbEtats(int nbEtats) {
+        this.nbEtats = nbEtats;
+    }
+
+    public int getNbEntrees() {
+        return this.nbEntrees;
+    }
+
+    public void setNbEntrees(int nbEntrees) {
+        this.nbEntrees = nbEntrees;
+    }
+
+    public int getNbSorties() {
+        return this.nbSorties;
+    }
+
+    public void setNbSorties(int nbSorties) {
+        this.nbSorties = nbSorties;
+    }
+
+    public int getNbTransitions() {
+        return this.nbTransitions;
+    }
+
+    public void setNbTransitions(int nbTransitions) {
+        this.nbTransitions = nbTransitions;
+    }
+
+    public boolean isDeterministe() {
+        return this.deterministe;
+    }
+
+    public boolean getDeterministe() {
+        return this.deterministe;
+    }
+
+    public void setDeterministe(boolean deterministe) {
+        this.deterministe = deterministe;
+    }
+
+    public boolean isComplet() {
+        return this.complet;
+    }
+
+    public boolean getComplet() {
+        return this.complet;
+    }
+
+    public void setComplet(boolean complet) {
+        this.complet = complet;
+    }
+
+    public boolean isAsynchrone() {
+        return this.asynchrone;
+    }
+
+    public boolean getAsynchrone() {
+        return this.asynchrone;
+    }
+
+    public void setAsynchrone(boolean asynchrone) {
+        this.asynchrone = asynchrone;
+    }
+
+    public boolean isStandard() {
+        return this.standard;
+    }
+
+    public boolean getStandard() {
+        return this.standard;
+    }
+
+    public void setStandard(boolean standard) {
+        this.standard = standard;
+    }
+
+    public boolean isMinimale() {
+        return this.minimale;
+    }
+
+    public boolean getMinimale() {
+        return this.minimale;
+    }
+
+    public void setMinimale(boolean minimale) {
+        this.minimale = minimale;
+    }
+
+
 
     Automate(String label, Etat[] etats, int nbEntrees, int nbEtats){
         this.label = label;
@@ -37,10 +147,9 @@ public class Automate implements Cloneable {
 
         Scanner lecture = new Scanner(fichier);//debut de lecture du fichier
 
-        this.label = lecture.nextLine();
-       
+        this.setLabel(lecture.nextLine());
 
-        this.nbEtats = lecture.nextInt();
+        this.setNbEtats(lecture.nextInt());
         this.etats = new Etat[this.nbEtats];//creation du nombre d'élement dans l'automate
 
         for (int i = 0; i < this.nbEtats; i++) {
@@ -51,7 +160,8 @@ public class Automate implements Cloneable {
         System.out.println("\n");
 
         
-        this.nbEntrees = lecture.nextInt();
+        this.setNbEntrees(lecture.nextInt());
+
         for (int i = 0; i < this.nbEntrees; i++) {
             this.etats[lecture.nextInt()].setEntree(true);
         }
@@ -61,7 +171,7 @@ public class Automate implements Cloneable {
             this.etats[lecture.nextInt()].setSortie(true);
         }
 
-        this.nbTransitions = lecture.nextInt();
+        this.setNbTransitions(lecture.nextInt());
 
         /**
          * Boucle qui permet l'enrengistrement de l'automate depuis un txt
@@ -88,7 +198,7 @@ public class Automate implements Cloneable {
      * Affiche l'automate en string
      */
     public void afficherAutomate() {
-        System.out.println("Voici l'automate : "+this.label);
+        System.out.println("Voici l'automate : "+this.label+"\n");
         for (int i = 0; i < this.nbEtats; i++) {
             if (this.etats[i].entree){
                 System.out.print("E-->");
@@ -111,21 +221,33 @@ public class Automate implements Cloneable {
         int nav = 1;
         int etat = 0;
         String transision;
+        String choix;
         Scanner saisie = new Scanner(System.in);//Objet saisisseur
 
         System.out.println("Bienvenue dans le menu de navigation de l'automate"+"\n");
 
+        System.out.println("--Entrée de l'automate--");
         while (nav == 1) {
+            
 
             this.etats[etat].affiche_etat();
-            System.out.println("Voici les chemins possibles : ");
+            System.out.println("\n"+"Voici les chemins possibles : ");
             
-            for (int i = 0; i < this.etats[0].charTransitions.size(); i++) {
-                System.out.println("-> : " + this.etats[0].charTransitions.get(i));
+            for (int i = 0; i < this.etats[etat].charTransitions.size(); i++) {
+                System.out.println("-> : " + this.etats[etat].charTransitions.get(i));
+            }
+            if (this.etats[etat].sortie == true) {
+                System.out.println("Sortie : s");
             }
 
-            System.out.println("Choisi ton chemin");
+            System.out.println("\n"+"Choisi ton chemin :");
             transision = saisie.next();
+
+
+            if (transision.equals("s")) {
+                nav = 0;
+                System.out.println("--Sortie de l'automate--");
+            }
 
             for (int i = 0; i < this.etats[etat].charTransitions.size(); i++) {
                 if (this.etats[etat].charTransitions.get(i).equals(transision)) {
@@ -133,17 +255,17 @@ public class Automate implements Cloneable {
                     etat = this.etats[etat].transitions.get(i);
                     this.etats[etat].affiche_etat();
 
-                    System.out.println("Voulez vous choisir cet Etat ?" + "\n" + "appuyer sur o pour oui et n pour non");
-                    String choix = saisie.next();
+                    System.out.println("\n"+"Voulez vous choisir cet Etat ?" + "\n" + "appuyer sur o pour oui et n pour non");
+                    choix = saisie.next();
                     if (choix.equals("o")) {
                         i = 666;
                     }
                 }
             }
 
-            System.out.println("Voulez vous continuer de naviguer ?" + "\n" + 
+            System.out.println("\n"+"Voulez vous continuer de naviguer ?" + "\n" + 
             "appuyer sur o pour oui et n pour non");
-            String choix = saisie.next();
+            choix = saisie.next();
             if (choix.equals("n")) {
                nav = 0;
                saisie.close();
@@ -151,8 +273,12 @@ public class Automate implements Cloneable {
         }
     }
 
-    public void determinisation(){
+    public void doublon(){
         
+    }
+
+    public void determinisation(){
+
     }
 
 }
