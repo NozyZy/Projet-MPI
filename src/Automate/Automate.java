@@ -274,26 +274,32 @@ public class Automate implements Cloneable {
         }
     }
 
-    public void doublon(){
+    /**
+     * Recoit le tableau de transition et return true s'il ya un doublon dans les transition
+     * @param tab
+     * @return
+     */
+    public boolean doublon(ArrayList<String> tab){
         String tmp;
         int occ = 0;
 
-        System.out.println("Traitement en cours...");
+        for (int i = 0; i < tab.size(); i++) {
+            tmp = tab.get(i);
 
-        for (int i = 0; i < this.etats[i].charTransitions.size(); i++) {
-            for (int j = 0; j < this.etats[i].charTransitions.size(); j++) {
-
-                System.out.print("Lettre : "+ this.etats[i].charTransitions.get(j)+"|");
-
-                for (int j2 = 0; j2 < this.etats[i].charTransitions.size(); j2++) {
-                    System.out.print(this.etats[i].charTransitions.get(j2));
+            for (int j = 0; j < tab.size(); j++) {
+                if (tab.get(j).equals(tmp)) {
+                    occ++;
                 }
-                System.out.println();
-            }
-           
-        }
 
-        
+            }
+
+            if (occ > 1) {
+                System.out.println("\n" + "OCC EST SUPERIEUR A 1 MGL");
+                occ = 0;
+                return true;
+            }
+        }
+        return false;
     }
 
     public void determinisation(){

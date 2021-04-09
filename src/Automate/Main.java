@@ -12,7 +12,7 @@ public class Main {
         // System.out.println(etat.label);
         //automate.navigation();
 
-        automate.doublon();
+        automate.doublon(automate.etats[0].charTransitions);
 
     }
 
