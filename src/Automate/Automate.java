@@ -144,7 +144,8 @@ public class Automate implements Cloneable {
      * Constructeur d'automate a partir d'un fichier txt
      * @param fichier
      */
-    public Automate(FileInputStream fichier){
+
+    /*public Automate(FileInputStream fichier){
 
         Scanner lecture = new Scanner(fichier);//debut de lecture du fichier
 
@@ -177,7 +178,7 @@ public class Automate implements Cloneable {
         /**
          * Boucle qui permet l'enrengistrement de l'automate depuis un txt
          */
-        for (int i = 0; i < this.nbTransitions; i++) {
+        /*for (int i = 0; i < this.nbTransitions; i++) {
             int x = lecture.nextInt();                          //on copie le nom de l'element
             this.etats[x].charTransitions.add(lecture.next());  //on ajoute la transtion (a,b,c,d...)
             this.etats[x].transitions.add(lecture.nextInt());   //on ajoute l'élement pointer (etat 1, etat2...)
@@ -185,9 +186,20 @@ public class Automate implements Cloneable {
         }
 
         lecture.close();//fermeture de la lecture du txt
+        /
+    }*/
+
+    
+    public String toString(int x) {
+        return String.valueOf(x);
     }
 
-    public Automate(FileInputStream fichier, String test){
+    /**
+     * Constructeur d'automate a partir d'un fichier txt
+     * 
+     * @param fichier
+     */
+    public Automate(FileInputStream fichier){
 
         Scanner lecture = new Scanner(fichier);// debut de lecture du fichier
 
@@ -197,24 +209,24 @@ public class Automate implements Cloneable {
         this.etats = new Etat[this.nbEtats];// creation du nombre d'élement dans l'automate
 
         for (int i = 0; i < this.nbEtats; i++) {
-            this.etats[i] = new Etat(i);
-            this.etats[i].transitions = new ArrayList<Integer>();
+            this.etats[i] = new Etat(toString(i));
+            this.etats[i].transitions = new ArrayList<String>();
             this.etats[i].charTransitions = new ArrayList<String>();
         }
-        System.out.println("\n");
 
-        this.setNbEntrees(lecture.nextInt());
+        setNbEntrees(lecture.nextInt());
 
         for (int i = 0; i < this.nbEntrees; i++) {
             this.etats[lecture.nextInt()].setEntree(true);
         }
 
-        this.nbSorties = lecture.nextInt();
+        setNbSorties(lecture.nextInt());
+
         for (int i = 0; i < this.nbSorties; i++) {
             this.etats[lecture.nextInt()].setSortie(true);
         }
 
-        this.setNbTransitions(lecture.nextInt());
+        setNbTransitions(lecture.nextInt());
 
         /**
          * Boucle qui permet l'enrengistrement de l'automate depuis un txt
@@ -222,7 +234,7 @@ public class Automate implements Cloneable {
         for (int i = 0; i < this.nbTransitions; i++) {
             int x = lecture.nextInt(); // on copie le nom de l'element
             this.etats[x].charTransitions.add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
-            this.etats[x].transitions.add(lecture.nextInt()); // on ajoute l'élement pointer (etat 1, etat2...)
+            this.etats[x].transitions.add(lecture.next()); // on ajoute l'élement pointer (etat 1, etat2...)
             this.etats[x].nbTransitions++;
         }
 
@@ -242,20 +254,25 @@ public class Automate implements Cloneable {
      */
     public void afficherAutomate() {
         System.out.println("Voici l'automate : "+this.label+"\n");
+
         for (int i = 0; i < this.nbEtats; i++) {
+
             if (this.etats[i].entree){
                 System.out.print("E-->");
             }
             if (this.etats[i].sortie) {
                 System.out.print("-->S");
             }
-            System.out.println("(("+this.etats[i].label + "))");
+
+            System.out.println("(("+this.etats[i].nom + "))");
+
             for (int j = 0; j < this.etats[i].charTransitions.size(); j++) {
-                System.out.print("(" + this.etats[i].label + ")");
+                System.out.print("(" + this.etats[i].nom + ")");
                 System.out.print("-" + this.etats[i].charTransitions.get(j) + "->");
                 System.out.print("("+this.etats[i].transitions.get(j)+")");
 
             }
+
             System.out.println("\n");
         }
     }

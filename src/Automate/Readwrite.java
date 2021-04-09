@@ -8,7 +8,7 @@ public class Readwrite {
 
         try{
             FileInputStream fichier = new FileInputStream(fileName);
-            return new Automate(fichier, "x");
+            return new Automate(fichier);
         }
         catch (FileNotFoundException e){
             e.printStackTrace();
