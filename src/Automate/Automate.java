@@ -49,6 +49,9 @@ public class Automate implements Cloneable {
         this.initnbEtats = initnbEtats;
     }
 
+    public void suppression_Etat(Etat element){
+        this.etats.remove(element);
+    }
 
     /**
      * Permet de recuper un état à un indice donnée
@@ -468,7 +471,7 @@ public class Automate implements Cloneable {
 
     public void determinisation(){
 
-        if (getNbEntrees() > 1) {
+        if (getNbEntrees() > 1) {//S'il y a plusieurs entrées on standardise le tout
             String fusionString = "";
 
             for (int i = 0; i < getTabEtats().size(); i++) {
@@ -477,9 +480,14 @@ public class Automate implements Cloneable {
                 }
             }
             standardisation(fusionString);
+
+            for (int i = 0; i < fusionString.length(); i++) {
+               suppression_Etat(pointeur_Etat(fusionString.substring(i, i + 1)));
+            }
         }
 
-        
+
+
 
     }
     
