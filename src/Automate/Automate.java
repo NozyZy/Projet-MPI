@@ -178,6 +178,35 @@ public class Automate implements Cloneable {
         return etats[0];
     }
 
+    /**
+     * Recoit le tableau de transition et return true s'il ya un doublon dans les
+     * transition
+     * 
+     * @param tab tableau de char en dynamique
+     * @return true or false
+     */
+    public boolean doublon(ArrayList<String> tab) {
+        String tmp;
+        int occ = 0;
+
+        for (int i = 0; i < tab.size(); i++) {
+            tmp = tab.get(i);
+
+            for (int j = 0; j < tab.size(); j++) {
+                if (tab.get(j).equals(tmp)) {
+                    occ++;
+                }
+
+            }
+
+            if (occ > 1) {
+                occ = 0;
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     Automate(String label, Etat[] etats, int nbEntrees, int nbEtats){
@@ -316,7 +345,7 @@ public class Automate implements Cloneable {
     /**
      * Fonction de navigation dans l'automate
      */
-    public void navigation(){
+    /**public void navigation(){
         int nav = 1;
         int etat = 0;
         String transision;
@@ -375,34 +404,13 @@ public class Automate implements Cloneable {
                saisie.close();
             }
         }
+    }**/
+
+    public void standardisation(){
+        
     }
 
-    /**
-     * Recoit le tableau de transition et return true s'il ya un doublon dans les transition
-     * @param tab tableau de char en dynamique
-     * @return true or false
-     */
-    public boolean doublon(ArrayList<String> tab){
-        String tmp;
-        int occ = 0;
-
-        for (int i = 0; i < tab.size(); i++) {
-            tmp = tab.get(i);
-
-            for (int j = 0; j < tab.size(); j++) {
-                if (tab.get(j).equals(tmp)) {
-                    occ++;
-                }
-
-            }
-
-            if (occ > 1) {
-                occ = 0;
-                return true;
-            }
-        }
-        return false;
-    }
+    
 
     public void determinisation(){
       
