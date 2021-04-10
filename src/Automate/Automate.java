@@ -467,29 +467,44 @@ public class Automate implements Cloneable {
         setStandard(true);
     }
 
+    public void fusion_Etat(Etat a, Etat b){
+        setEtats(getNbEtats(), a.nom + b.nom);
+
+        for (int i = 0; i < pointeur_Etat(a.nom).getTabTransitions().size(); i++) {
+            pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(a.nom).getCharTransitions(i), pointeur_Etat(a.nom).getTransitions(i));
+        }
+
+        for (int i = 0; i < pointeur_Etat(b.nom).getTabTransitions().size(); i++) {
+            pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(b.nom).getCharTransitions(i),pointeur_Etat(b.nom).getTransitions(i));
+        }
+
+        suppression_Etat(a);
+        suppression_Etat(b);
+    }
+
     
 
     public void determinisation(){
 
-        if (getNbEntrees() > 1) {//S'il y a plusieurs entrées on standardise le tout
-            String fusionString = "";
+        if (getNbEntrees() > 1) {
+            String memory = "";
 
             for (int i = 0; i < getTabEtats().size(); i++) {
                 if (getEtats(i).isEntree()) {
-                    fusionString += getEtats(i).nom;
+                    if (memory.equals("")) {
+                        memory = getEtats(i).nom;
+                    }
+                    else{
+                        fusion_Etat(pointeur_Etat(memory), getEtats(i));
+                        memory = "";
+                    }
+                    
                 }
-            }
-            standardisation(fusionString);
 
-            for (int i = 0; i < fusionString.length(); i++) {
-               suppression_Etat(pointeur_Etat(fusionString.substring(i, i + 1)));
             }
+
         }
-
-
-
-
     }
-    
+
 }
 
