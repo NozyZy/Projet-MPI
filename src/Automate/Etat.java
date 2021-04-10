@@ -120,12 +120,20 @@ public class Etat {
         this.charTransitions = new ArrayList<String>();
     }
 
+    public ArrayList<String> getTabCharTransitions(){
+        return charTransitions;
+    }
+
     /**
      * Cree un tableau dynamique en <String> pour le tableau des transitions
      * (e0, e1, e2...)
      */
     public void setTabTransitions() {
         this.transitions = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getTabTransitions() {
+        return transitions;
     }
 
 

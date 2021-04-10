@@ -57,7 +57,6 @@ public class Automate implements Cloneable {
         this.label = label;
     }
 
-
     public int getNbEtats() {
         return this.nbEtats;
     }
@@ -241,7 +240,7 @@ public class Automate implements Cloneable {
 
 
     /**
-     * Constructeur d'automate a partir d'un fichier txt
+     * Constructeur d'automate a partir d'un fichier txt V2
      * 
      * @param fichier
      */
@@ -256,7 +255,6 @@ public class Automate implements Cloneable {
 
         for (int i = 0; i < getNbEtats(); i++) {
             setEtats(i,lecture.next());
-            getEtats(i).affiche_etat();
             getEtats(i).setTabTransitions();
             getEtats(i).setTabCharTransitions();
         }
@@ -279,9 +277,9 @@ public class Automate implements Cloneable {
          * Boucle qui permet l'enrengistrement de l'automate depuis un txt
          */
         for (int i = 0; i < getNbTransitions(); i++) {
-            int x = pointeur_Etat(lecture.next()).index;
-            getEtats(x).charTransitions.add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
-            getEtats(x).transitions.add(lecture.next()); // on ajoute l'élement pointer (etat 1, etat2...)
+            int x = pointeur_Etat(lecture.next()).getIndex();
+            getEtats(x).getTabCharTransitions().add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
+            getEtats(x).getTabTransitions().add(lecture.next()); // on ajoute l'élement pointer (etat 1, etat2...)
             getEtats(x).nbTransitions++; //on augmente le nombre de transitions
         }
         lecture.close();// fermeture de la lecture du txt
@@ -291,38 +289,29 @@ public class Automate implements Cloneable {
      * Affiche l'automate en string
      */
     public void afficherAutomate() {
-        System.out.println("Voici l'automate : "+this.label+"\n");
+        System.out.println("Voici l'automate : "+ getLabel() +"\n");
 
-        for (int i = 0; i < this.nbEtats; i++) {
+        for (int i = 0; i < getNbEtats(); i++) {
 
-            if (this.etats[i].entree){
+            if (getEtats(i).isEntree()){
                 System.out.print("E-->");
             }
-            if (this.etats[i].sortie) {
+            if (getEtats(i).isSortie()){
                 System.out.print("-->S");
             }
 
-            System.out.println("(("+this.etats[i].nom + "))");
+            System.out.println("(("+getEtats(i).getNom() + "))");
 
-            for (int j = 0; j < this.etats[i].charTransitions.size(); j++) {
-                System.out.print("(" + this.etats[i].nom + ")");
-                System.out.print("-" + this.etats[i].charTransitions.get(j) + "->");
-                System.out.print("("+this.etats[i].transitions.get(j)+")");
+            for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
+                System.out.print("(" + getEtats(i).getNom() + ")");
+                System.out.print("-" + getEtats(i).getTabCharTransitions().get(j) + "->");
+                System.out.print("("+getEtats(i).getTabTransitions().get(j)+")");
 
             }
 
             System.out.println("\n");
         }
     }
-
-    public void afficherAutomate(String test){
-        System.out.println("Voici l'automate : " + this.label + "\n");
-
-        for (int i = 0; i < this.nbEtats; i++) {
-            
-        }
-    }
-
 
     /**
      * Fonction de navigation dans l'automate
