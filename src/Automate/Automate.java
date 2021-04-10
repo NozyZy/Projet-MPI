@@ -51,6 +51,7 @@ public class Automate implements Cloneable {
 
     public void suppression_Etat(Etat element){
         this.etats.remove(element);
+        this.nbEtats -= 1;
     }
 
     /**
@@ -485,25 +486,7 @@ public class Automate implements Cloneable {
     
 
     public void determinisation(){
-
-        if (getNbEntrees() > 1) {
-            String memory = "";
-
-            for (int i = 0; i < getTabEtats().size(); i++) {
-                if (getEtats(i).isEntree()) {
-                    if (memory.equals("")) {
-                        memory = getEtats(i).nom;
-                    }
-                    else{
-                        fusion_Etat(pointeur_Etat(memory), getEtats(i));
-                        memory = "";
-                    }
-                    
-                }
-
-            }
-
-        }
+        
     }
 
 }

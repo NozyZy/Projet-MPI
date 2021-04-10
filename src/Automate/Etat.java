@@ -146,6 +146,17 @@ public class Etat {
         System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
     }
 
+    public void affiche_etat(String all) {
+        System.out.println("\n" + "Vous êtes à l'état : " + this.nom);
+
+        for (int j = 0; j < getTabCharTransitions().size(); j++) {
+            System.out.print("(" + getNom() + ")");
+            System.out.print("-" + getTabCharTransitions().get(j) + "->");
+            System.out.println("(" + getTabTransitions().get(j) + "), ");
+
+        }
+    }
+
 
 
 }
