@@ -28,7 +28,6 @@ public class Menu {
                 if (choix.equals("d")) {
                     Automate deter = (Automate) automate.clone();
                     deter.afficherAutomate();
-                    deter.navigation();
                 }
 
             }

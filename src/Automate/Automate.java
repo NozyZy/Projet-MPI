@@ -10,7 +10,7 @@ public class Automate implements Cloneable {
     public final char MOT_VIDE = '*';
 
     String label;
-    Etat[] etats;
+    ArrayList<Etat> etats;
     int nbEtats;
     int nbEntrees;
     int nbSorties;
@@ -33,7 +33,7 @@ public class Automate implements Cloneable {
      * @return l'état
      */
     public Etat getEtats(int i) {
-        return this.etats[i];
+        return this.etats.get(i);
     }
 
     /**
@@ -41,12 +41,12 @@ public class Automate implements Cloneable {
      * @param i indice
      * @param nom le nom de l'etat en string
      */
-    public void setEtats(int i, String nom) {
-        this.etats[i] = new Etat(nom,i);
+    public void setEtats(int i, String nom){
+        this.etats.add(i, new Etat(nom,i));
     }
 
-    public void setTabEtats(int taille){
-        this.etats = new Etat[taille];
+    public void setTabEtats(){
+        this.etats = new ArrayList<Etat>();
     }
 
     public String getLabel() {
@@ -175,7 +175,7 @@ public class Automate implements Cloneable {
         }
 
         System.out.println("Je n'ai pas trouver votre état je vous renvoie l'etat 0");
-        return etats[0];
+        return etats.get(0);
     }
 
     /**
@@ -212,7 +212,7 @@ public class Automate implements Cloneable {
     Automate(String label, Etat[] etats, int nbEntrees, int nbEtats){
         this.label = label;
         if (etats == null) this.etats = null;
-        else this.etats = etats.clone();
+        //else this.etats = etats.clone();
         this.nbEntrees = nbEntrees;
         this.nbEtats = nbEtats;
         deterministe = complet = asynchrone = standard = minimale = false;
@@ -280,7 +280,7 @@ public class Automate implements Cloneable {
         setLabel(lecture.nextLine());
         setNbEtats(lecture.nextInt());
         
-        setTabEtats(getNbEtats());// creation du nombre d'élement dans l'automate
+        setTabEtats();// creation du tableau dynamique d'objet d'etat => l'automate
 
         for (int i = 0; i < getNbEtats(); i++) {
             setEtats(i,lecture.next());
@@ -407,7 +407,7 @@ public class Automate implements Cloneable {
     }**/
 
     public void standardisation(){
-        
+
     }
 
     
