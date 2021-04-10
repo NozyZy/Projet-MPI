@@ -8,8 +8,8 @@ public class Main {
                                 // readwrite la fonction try permet la meme chose a voir)
 
         automate.afficherAutomate();
-        automate.standardisation("Hello");
-        automate.setLabel("Standardisé");
+        //automate.standardisation("etat i");
+        //automate.setLabel("Standardisé");
         automate.determinisation();
         automate.setLabel("Deterministe");
         automate.afficherAutomate();

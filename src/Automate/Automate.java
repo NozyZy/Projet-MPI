@@ -3,6 +3,7 @@ package Automate;
 import java.io.*;
 import java.util.Scanner;
 
+
 import java.util.ArrayList;
 
 
@@ -355,23 +356,23 @@ public class Automate implements Cloneable {
                 System.out.print("E--> ");
                 
             }
-            
-            System.out.print("**"+getEtats(i).getNom() + "**");
-
             if (getEtats(i).isSortie()) {
-                System.out.print(" -->S");
+                System.out.print("S--> ");
             }
-
-            System.out.println("\n");
+            
+            
+            System.out.println("**" + getEtats(i).getNom() + "**");
+            
 
             for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
                 System.out.print("(" + getEtats(i).getNom() + ")");
                 System.out.print("-" + getEtats(i).getTabCharTransitions().get(j) + "->");
-                System.out.print("("+getEtats(i).getTabTransitions().get(j)+"), ");
+                System.out.println("("+getEtats(i).getTabTransitions().get(j)+"), ");
 
             }
+            System.out.println();
 
-            System.out.println("\n");
+            
         }
     }
 
@@ -461,16 +462,25 @@ public class Automate implements Cloneable {
 
         pointeur_Etat(nom).setEntree(true);//on le met en entrée
         setStandard(true);
-
-     
-
-       
     }
 
     
 
     public void determinisation(){
-      
+
+        if (getNbEntrees() > 1) {
+            String fusionString = "";
+
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                if (getEtats(i).isEntree()) {
+                    fusionString += getEtats(i).nom;
+                }
+            }
+            standardisation(fusionString);
+        }
+
+        
+
     }
     
 }
