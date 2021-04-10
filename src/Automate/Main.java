@@ -10,7 +10,7 @@ public class Main {
         //automate.standardisation("etat i");
         //automate.setLabel("Standardisé");
         automate.determinisation();
-        automate.setLabel("Deterministe");
+        //automate.setLabel("Deterministe");
         //automate.afficherAutomate();
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);

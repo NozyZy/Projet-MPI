@@ -51,7 +51,7 @@ public class Automate implements Cloneable {
 
     public void suppression_Etat(Etat element){
         this.etats.remove(element);
-        this.nbEtats -= 1;
+        this.nbEtats --;
     }
 
     /**
@@ -469,6 +469,10 @@ public class Automate implements Cloneable {
     }
 
     public void fusion_Etat(Etat a, Etat b){
+        System.out.println("--------------------------------");
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            System.out.println("Index 1 : " + getEtats(i).nom);
+        }
         setEtats(getNbEtats(), a.nom + b.nom);
 
         for (int i = 0; i < pointeur_Etat(a.nom).getTabTransitions().size(); i++) {
@@ -481,12 +485,41 @@ public class Automate implements Cloneable {
 
         suppression_Etat(a);
         suppression_Etat(b);
+
+        System.out.println("--------------------------------");
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            System.out.println("Index 2 : " + getEtats(i).nom);
+        }
+
+    }
+
+    public void fusion_transition(Etat element){
+        String memory_transition = "";
+        String memory_element = "";
+
+        element.affiche_etat("all");
+
+        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
+           memory_transition = element.getCharTransitions(i);
+           for (int j = 0; j < element.getTabCharTransitions().size(); j++){
+               if (memory_transition.equals(element.getCharTransitions(j))) {
+                   memory_element += element.getTransitions(j);
+               }
+           }
+        }
+
+        System.out.println("---------------------------> "+memory_element);
     }
 
     
 
     public void determinisation(){
-        
+
+        fusion_Etat(pointeur_Etat("1"), pointeur_Etat("4"));
+        fusion_transition(pointeur_Etat("14"));
+
+
     }
 
 }
