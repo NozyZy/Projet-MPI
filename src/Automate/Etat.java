@@ -3,7 +3,7 @@ package Automate;
 import java.util.ArrayList;
 
 public class Etat {
-    //int label;
+    int index;                             //index de l'état dans le tableau automate
     String nom;                          //nom de l'état
     ArrayList<String> transitions;     //toutes les transitions
     //ArrayList<Integer> transitions; // toutes les transitions version int
@@ -20,9 +20,25 @@ public class Etat {
       setLabel(label);
     }*/
 
-    public Etat(String nom){
+    /**
+     * Constructeur d'etat avec un nom et sa position dans l'automate
+     * @param nom
+     * @param index
+     */
+    public Etat(String nom, int index){
         setNom(nom);
+        setIndex(index);
     }
+
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
 
     public String getNom() {
         return this.nom;
@@ -95,6 +111,21 @@ public class Etat {
 
     public void setCharTransitions(String charTransitions, int x) {
         this.charTransitions.add(x, charTransitions);
+    }
+
+    /**
+     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
+     */
+    public void setTabCharTransitions(){
+        this.charTransitions = new ArrayList<String>();
+    }
+
+    /**
+     * Cree un tableau dynamique en <String> pour le tableau des transitions
+     * (e0, e1, e2...)
+     */
+    public void setTabTransitions() {
+        this.transitions = new ArrayList<String>();
     }
 
 

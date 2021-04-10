@@ -27,13 +27,26 @@ public class Automate implements Cloneable {
         return this.MOT_VIDE;
     }
 
-
+    /**
+     * Permet de recuper un état à un indice donnée
+     * @param i
+     * @return l'état
+     */
     public Etat getEtats(int i) {
         return this.etats[i];
     }
 
+    /**
+     * Permet de créer un etat dans l'automate à un indice donnée
+     * @param i indice
+     * @param nom le nom de l'etat en string
+     */
     public void setEtats(int i, String nom) {
-        this.etats[i] = new Etat(nom);
+        this.etats[i] = new Etat(nom,i);
+    }
+
+    public void setTabEtats(int taille){
+        this.etats = new Etat[taille];
     }
 
     public String getLabel() {
@@ -137,6 +150,35 @@ public class Automate implements Cloneable {
         this.minimale = minimale;
     }
 
+    public String toString(int x) {
+        return String.valueOf(x);
+    }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new InternalError();
+        }
+    }
+
+    /**
+     * Cherche l'etat dans l'automate (tableau d'objets etats) et renvoie l'etat demander par son nom lorsqu'il le trouve 
+     * @param nom : etat demander
+     * @return l'etat trouver par son nom
+     */
+    public Etat pointeur_Etat(String nom){
+
+        for (int i = 0; i < getNbEtats(); i++) {
+            if (getEtats(i).getNom().equals(nom)){
+                return getEtats(i);
+            }
+        }
+
+        System.out.println("Je n'ai pas trouver votre état je vous renvoie l'etat 0");
+        return etats[0];
+    }
+
 
 
     Automate(String label, Etat[] etats, int nbEntrees, int nbEtats){
@@ -197,10 +239,6 @@ public class Automate implements Cloneable {
         /
     }*/
 
-    
-    public String toString(int x) {
-        return String.valueOf(x);
-    }
 
     /**
      * Constructeur d'automate a partir d'un fichier txt
@@ -214,25 +252,25 @@ public class Automate implements Cloneable {
         setLabel(lecture.nextLine());
         setNbEtats(lecture.nextInt());
         
-        this.etats = new Etat[this.nbEtats];// creation du nombre d'élement dans l'automate
+        setTabEtats(getNbEtats());// creation du nombre d'élement dans l'automate
 
-        for (int i = 0; i < this.nbEtats; i++) {
-            setEtats(i, lecture.next());
-            this.etats[i].affiche_etat();
-            this.etats[i].transitions = new ArrayList<String>();
-            this.etats[i].charTransitions = new ArrayList<String>();
+        for (int i = 0; i < getNbEtats(); i++) {
+            setEtats(i,lecture.next());
+            getEtats(i).affiche_etat();
+            getEtats(i).setTabTransitions();
+            getEtats(i).setTabCharTransitions();
         }
 
         setNbEntrees(lecture.nextInt());
 
-        for (int i = 0; i < this.nbEntrees; i++) {
-            this.etats[lecture.nextInt()].setEntree(true);
+        for (int i = 0; i < getNbEntrees(); i++) {
+            pointeur_Etat(lecture.next()).setEntree(true);
         }
 
         setNbSorties(lecture.nextInt());
 
-        for (int i = 0; i < this.nbSorties; i++) {
-            this.etats[lecture.nextInt()].setSortie(true);
+        for (int i = 0; i < getNbSorties(); i++) {
+           pointeur_Etat(lecture.next()).setSortie(true);
         }
 
         setNbTransitions(lecture.nextInt());
@@ -240,22 +278,13 @@ public class Automate implements Cloneable {
         /**
          * Boucle qui permet l'enrengistrement de l'automate depuis un txt
          */
-        for (int i = 0; i < this.nbTransitions; i++) {
-            int x = lecture.nextInt(); // on copie le nom de l'element
-            this.etats[x].charTransitions.add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
-            this.etats[x].transitions.add(lecture.next()); // on ajoute l'élement pointer (etat 1, etat2...)
-            this.etats[x].nbTransitions++;
+        for (int i = 0; i < getNbTransitions(); i++) {
+            int x = pointeur_Etat(lecture.next()).index;
+            getEtats(x).charTransitions.add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
+            getEtats(x).transitions.add(lecture.next()); // on ajoute l'élement pointer (etat 1, etat2...)
+            getEtats(x).nbTransitions++; //on augmente le nombre de transitions
         }
-
         lecture.close();// fermeture de la lecture du txt
-    }
-
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new InternalError();
-        }
     }
 
     /**
