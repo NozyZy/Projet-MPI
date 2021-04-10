@@ -28,6 +28,14 @@ public class Automate implements Cloneable {
     }
 
 
+    public Etat getEtats(int i) {
+        return this.etats[i];
+    }
+
+    public void setEtats(int i, String nom) {
+        this.etats[i] = new Etat(nom);
+    }
+
     public String getLabel() {
         return this.label;
     }
@@ -209,7 +217,8 @@ public class Automate implements Cloneable {
         this.etats = new Etat[this.nbEtats];// creation du nombre d'élement dans l'automate
 
         for (int i = 0; i < this.nbEtats; i++) {
-            this.etats[i] = new Etat(toString(i));
+            setEtats(i, lecture.next());
+            this.etats[i].affiche_etat();
             this.etats[i].transitions = new ArrayList<String>();
             this.etats[i].charTransitions = new ArrayList<String>();
         }
