@@ -439,17 +439,28 @@ public class Automate implements Cloneable {
         }
     }**/
 
+    /**
+     * Standardisation de l'automate
+     */
     public void standardisation(){
 
         setEtats(getNbEtats(), "i");//creation de l'état initiale
 
         for (int i = 0; i < getTabEtats().size(); i++) {
-            if (getEtats(i).isEntree()) {
+            if (getEtats(i).isEntree()){
+                if (getEtats(i).isSortie()) {
+                    pointeur_Etat("i").setSortie(true);//si une entrée est une sortie l'état i en est aussi
+                }
+
+                for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
+                    pointeur_Etat("i").setTotalTransitions(getEtats(i).getCharTransitions(j), getEtats(i).getTransitions(j));
+                }
                 getEtats(i).setEntree(false);// on supprime les entrée
             }
         }
 
         pointeur_Etat("i").setEntree(true);//on le met en entrée
+        setStandard(true);
 
      
 
