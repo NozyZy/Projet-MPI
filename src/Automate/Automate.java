@@ -351,14 +351,18 @@ public class Automate implements Cloneable {
 
         for (int i = 0; i < getTabEtats().size(); i++) {
 
-            if (getEtats(i).isEntree()){
-                System.out.print("E-->");
+            if (getEtats(i).isEntree()) {
+                System.out.print("E--> ");
+                
             }
-            if (getEtats(i).isSortie()){
-                System.out.print("-->S");
+            
+            System.out.print("**"+getEtats(i).getNom() + "**");
+
+            if (getEtats(i).isSortie()) {
+                System.out.print(" -->S");
             }
 
-            System.out.println("(("+getEtats(i).getNom() + "))");
+            System.out.println("\n");
 
             for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
                 System.out.print("(" + getEtats(i).getNom() + ")");
@@ -438,15 +442,18 @@ public class Automate implements Cloneable {
     public void standardisation(){
 
         setEtats(getNbEtats(), "i");//creation de l'état initiale
-        pointeur_Etat("i").setEntree(true);//on le met en entrée
-        pointeur_Etat("i").setTotalTransitions("a", "e0");
-     
 
         for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).isEntree()) {
-                getEtats(i).setEntree(false);//on supprime les entrée
+                getEtats(i).setEntree(false);// on supprime les entrée
             }
         }
+
+        pointeur_Etat("i").setEntree(true);//on le met en entrée
+
+     
+
+       
     }
 
     
