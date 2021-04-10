@@ -1,16 +1,15 @@
 Test
-5
+4
 e0
 e1
 e2
 e3
-e4 
-1 e0  
-1 e4
+2 e0 e1
+2 e2 e3
 6
-e0 a e0
-e0 a e1
+e0 a e2
 e0 b e0
-e1 b e2 
-e2 a e3 
-e3 a e4 
+e1 a e3
+e2 a e0 
+e2 b e1 
+e3 b e2 

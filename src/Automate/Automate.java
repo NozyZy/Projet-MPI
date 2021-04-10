@@ -12,9 +12,11 @@ public class Automate implements Cloneable {
     String label;
     ArrayList<Etat> etats;
     int nbEtats;
+    int initnbEtats;
     int nbEntrees;
     int nbSorties;
     int nbTransitions;
+    int initnbTransitions;
     boolean deterministe;
     boolean complet;
     boolean asynchrone;
@@ -27,6 +29,26 @@ public class Automate implements Cloneable {
         return this.MOT_VIDE;
     }
 
+
+    public int getInitnbTransitions() {
+        return this.initnbTransitions;
+    }
+
+    public void setInitnbTransitions(int initnbTransitions) {
+        this.initnbTransitions = initnbTransitions;
+    }
+
+
+
+    public int getInitnbEtats() {
+        return this.initnbEtats;
+    }
+
+    public void setInitnbEtats(int initnbEtats) {
+        this.initnbEtats = initnbEtats;
+    }
+
+
     /**
      * Permet de recuper un état à un indice donnée
      * @param i
@@ -38,15 +60,23 @@ public class Automate implements Cloneable {
 
     /**
      * Permet de créer un etat dans l'automate à un indice donnée
+     * et ses tableaux de transitions sont egalement initialisés
      * @param i indice
      * @param nom le nom de l'etat en string
      */
     public void setEtats(int i, String nom){
         this.etats.add(i, new Etat(nom,i));
+        getEtats(i).setTabTransitions();
+        getEtats(i).setTabCharTransitions();
+        this.nbEtats++;
     }
 
     public void setTabEtats(){
         this.etats = new ArrayList<Etat>();
+    }
+
+    public ArrayList<Etat> getTabEtats(){
+        return etats;
     }
 
     public String getLabel() {
@@ -168,7 +198,7 @@ public class Automate implements Cloneable {
      */
     public Etat pointeur_Etat(String nom){
 
-        for (int i = 0; i < getNbEtats(); i++) {
+        for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).getNom().equals(nom)){
                 return getEtats(i);
             }
@@ -278,14 +308,13 @@ public class Automate implements Cloneable {
         Scanner lecture = new Scanner(fichier);// debut de lecture du fichier
 
         setLabel(lecture.nextLine());
-        setNbEtats(lecture.nextInt());
-        
+        setInitnbEtats(lecture.nextInt());//Nombre d'etat initiale donnée en txt
         setTabEtats();// creation du tableau dynamique d'objet d'etat => l'automate
 
-        for (int i = 0; i < getNbEtats(); i++) {
+       
+
+        for (int i = 0; i < getInitnbEtats(); i++) {
             setEtats(i,lecture.next());
-            getEtats(i).setTabTransitions();
-            getEtats(i).setTabCharTransitions();
         }
 
         setNbEntrees(lecture.nextInt());
@@ -300,15 +329,15 @@ public class Automate implements Cloneable {
            pointeur_Etat(lecture.next()).setSortie(true);
         }
 
-        setNbTransitions(lecture.nextInt());
+        setInitnbTransitions(lecture.nextInt());
 
         /**
          * Boucle qui permet l'enrengistrement de l'automate depuis un txt
          */
-        for (int i = 0; i < getNbTransitions(); i++) {
+        for (int i = 0; i < getInitnbTransitions(); i++) {
             int x = pointeur_Etat(lecture.next()).getIndex();
-            getEtats(x).getTabCharTransitions().add(lecture.next()); // on ajoute la transtion (a,b,c,d...)
-            getEtats(x).getTabTransitions().add(lecture.next()); // on ajoute l'élement pointer (etat 1, etat2...)
+
+            getEtats(x).setTotalTransitions(lecture.next(), lecture.next()); // on ajoute la transtion (a,b,c,d...), on ajoute l'élement pointer (etat 1, etat2...)
             getEtats(x).nbTransitions++; //on augmente le nombre de transitions
         }
         lecture.close();// fermeture de la lecture du txt
@@ -320,7 +349,7 @@ public class Automate implements Cloneable {
     public void afficherAutomate() {
         System.out.println("Voici l'automate : "+ getLabel() +"\n");
 
-        for (int i = 0; i < getNbEtats(); i++) {
+        for (int i = 0; i < getTabEtats().size() ; i++) {
 
             if (getEtats(i).isEntree()){
                 System.out.print("E-->");
@@ -334,7 +363,7 @@ public class Automate implements Cloneable {
             for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
                 System.out.print("(" + getEtats(i).getNom() + ")");
                 System.out.print("-" + getEtats(i).getTabCharTransitions().get(j) + "->");
-                System.out.print("("+getEtats(i).getTabTransitions().get(j)+")");
+                System.out.print("("+getEtats(i).getTabTransitions().get(j)+"), ");
 
             }
 
@@ -408,6 +437,16 @@ public class Automate implements Cloneable {
 
     public void standardisation(){
 
+        setEtats(getNbEtats(), "i");//creation de l'état initiale
+        pointeur_Etat("i").setEntree(true);//on le met en entrée
+        pointeur_Etat("i").setTotalTransitions("a", "e0");
+     
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            if (getEtats(i).isEntree()) {
+                getEtats(i).setEntree(false);//on supprime les entrée
+            }
+        }
     }
 
     

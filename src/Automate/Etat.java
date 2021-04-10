@@ -101,16 +101,21 @@ public class Etat {
         return this.transitions.get(x);
     }
 
-    public void setTransitions(String transitions, int x) {
-        this.transitions.add(x, transitions);
+    public void setTransitions(String transitions) {
+        this.transitions.add(transitions);
     }
 
     public String getCharTransitions(int x) {
         return this.charTransitions.get(x);
     }
 
-    public void setCharTransitions(String charTransitions, int x) {
-        this.charTransitions.add(x, charTransitions);
+    public void setCharTransitions(String charTransitions) {
+        this.charTransitions.add(charTransitions);
+    }
+
+    public void setTotalTransitions(String transition, String element){
+        setCharTransitions(transition);
+        setTransitions(element);
     }
 
     /**

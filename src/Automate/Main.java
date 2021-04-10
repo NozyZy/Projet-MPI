@@ -8,6 +8,9 @@ public class Main {
                                 // readwrite la fonction try permet la meme chose a voir)
 
         automate.afficherAutomate();
+        automate.standardisation();
+        automate.setLabel("Standardisé");
+        automate.afficherAutomate();
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);
         //automate.navigation();
