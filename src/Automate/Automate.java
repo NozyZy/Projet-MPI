@@ -349,7 +349,7 @@ public class Automate implements Cloneable {
     public void afficherAutomate() {
         System.out.println("Voici l'automate : "+ getLabel() +"\n");
 
-        for (int i = 0; i < getTabEtats().size() ; i++) {
+        for (int i = 0; i < getTabEtats().size(); i++) {
 
             if (getEtats(i).isEntree()){
                 System.out.print("E-->");

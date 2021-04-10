@@ -7,7 +7,7 @@ public class Main {
         assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans
                                 // readwrite la fonction try permet la meme chose a voir)
 
-        automate.afficherAutomate();
+        //automate.afficherAutomate();
         automate.standardisation();
         automate.setLabel("Standardisé");
         automate.afficherAutomate();
