@@ -513,32 +513,38 @@ public class Automate implements Cloneable {
 
         String memory_element = "";
         String memory_char = "";
+        int occ;
+        
 
         element.affiche_etat("all");
 
-        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
+        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//fusion des transition
+            
             memory_char = element.getCharTransitions(i);
 
-            System.out.println("\n-----le char-----> "+memory_char);
             
-
             for (int j = 0; j < element.getTabTransitions().size(); j++) {
                 if (element.getCharTransitions(j).equals(memory_char)){
                     memory_element += element.getTransitions(j);
-                    if (memory_element.equals("")){
-                        System.out.println("--------------->"+ element.getTransitions(j));
-                    }
-
                 }
-                
             }
-
-            System.out.println("------------------------------------->" + memory_element);
             element.setTransitions(i, memory_element);
             memory_element = "";
         }
 
+         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//boucle de netoyage
+            occ = 0;
+            memory_char = element.getCharTransitions(i);
 
+            for (int j = 0; j < element.getTabTransitions().size(); j++) {
+                if (element.getCharTransitions(j).equals(memory_char)){
+                  occ++;
+                  if (occ > 1) {
+                      suppression_Transition(element, j);
+                  }
+                }
+            }
+        }
         element.affiche_etat("all");
     }
 
