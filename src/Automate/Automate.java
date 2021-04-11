@@ -40,7 +40,6 @@ public class Automate implements Cloneable {
     }
 
 
-
     public int getInitnbEtats() {
         return this.initnbEtats;
     }
@@ -54,6 +53,11 @@ public class Automate implements Cloneable {
         this.nbEtats --;
     }
 
+    /**
+     * Supression des transitions depuis un état a une lettre donnée
+     * @param element
+     * @param transition
+     */
     public void suppression_Transition(Etat element, String transition){
         int x = element.getTabCharTransitions().indexOf(transition);
 
@@ -61,7 +65,13 @@ public class Automate implements Cloneable {
         element.getTabTransitions().remove(x);
 
     }
-
+    
+    /**
+     * Supression des transitions depuis un état a un index donnée
+     * 
+     * @param element
+     * @param transition
+     */
     public void suppression_Transition(Etat element, int x) {
 
         element.getTabCharTransitions().remove(x);
@@ -91,6 +101,9 @@ public class Automate implements Cloneable {
         this.nbEtats++;
     }
 
+    /**
+     * Cree le tableau dynamique d'etat
+     */
     public void setTabEtats(){
         this.etats = new ArrayList<Etat>();
     }
@@ -199,10 +212,18 @@ public class Automate implements Cloneable {
         this.minimale = minimale;
     }
 
+    /**
+     * Une fonction to string qui convertie les int en string
+     * @param x
+     * @return
+     */
     public String toString(int x) {
         return String.valueOf(x);
     }
 
+    /**
+     * Fonction de clonage profonde ( je crois )
+     */
     public Object clone() {
         try {
             return super.clone();
@@ -483,6 +504,11 @@ public class Automate implements Cloneable {
         setStandard(true);
     }
 
+    /**
+     * Fusionne les état a et b pour cree l'état ab et supprimer a et b. ab recupere les transtisions de a + b
+     * @param a
+     * @param b
+     */
     public void fusion_Etat(Etat a, Etat b){
         /**System.out.println("--------------------------------");
         for (int i = 0; i < getTabEtats().size(); i++) {
@@ -518,6 +544,10 @@ public class Automate implements Cloneable {
 
     }
 
+    /**
+     * Fusionne les transitions identique d'un element. Si element x a 2 transions de a ==> x a 1 transition a qui pointe vers un nouvel element consituer des transitions
+     * @param element
+     */
     public void fusion_transition(Etat element){
 
         String memory_element = "";
@@ -554,6 +584,11 @@ public class Automate implements Cloneable {
 
     }
 
+    /**
+     * Fonction qui convertie un Char en String
+     * @param x
+     * @return String
+     */
     public String fromCharToString(char x){
         String chaine;
 
@@ -562,6 +597,10 @@ public class Automate implements Cloneable {
         return chaine;
     }
 
+    /**
+     * Fonction qui cree tout les nouveaux état a partir d'un element, la fonction va chercher dans les transitions les nouveaux états
+     * @param element
+     */
     public void setMultipleEtat(Etat element){
 
         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
@@ -577,31 +616,26 @@ public class Automate implements Cloneable {
                         copy += a;
                         
                         if (copy.length() > 1){
-                            System.out.println("hey i'm the copy: " + copy);
-                            System.out.println("---------------------voici le couple a : " + copy + " et b : " + b);
+                            /**System.out.println("hey i'm the copy: " + copy);
+                            System.out.println("---------------------voici le couple a : " + copy + " et b : " + b);**/
                             fusion_Etat(pointeur_Etat(copy), pointeur_Etat(b));
                         }
                         else{
-                            System.out.println("---------------------voici le couple a : " + a + " et b : " + b);
+                            //System.out.println("---------------------voici le couple a : " + a + " et b : " + b);
                             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
                         }
-                        
-               
                     }
-                       
-                    
                 }
             }
         }
     }
     
     
-
     public void determinisation(){
 
-        fusion_Etat(pointeur_Etat("1"), pointeur_Etat("4"));
-        fusion_transition(pointeur_Etat("14"));
-        setMultipleEtat(pointeur_Etat("14"));
+        //fusion_Etat(pointeur_Etat("1"), pointeur_Etat("4"));
+        //fusion_transition(pointeur_Etat("14"));
+        //setMultipleEtat(pointeur_Etat("14"));
 
     }
 
