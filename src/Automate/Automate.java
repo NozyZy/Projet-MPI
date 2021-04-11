@@ -54,6 +54,14 @@ public class Automate implements Cloneable {
         this.nbEtats --;
     }
 
+    public void suppression_Transition(Etat element, String transition){
+        int x = element.getTabCharTransitions().indexOf(transition);
+
+        element.getTabCharTransitions().remove(x);
+        element.getTabTransitions().remove(x);
+
+    }
+
     /**
      * Permet de recuper un état à un indice donnée
      * @param i
@@ -502,14 +510,20 @@ public class Automate implements Cloneable {
 
         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
            memory_transition = element.getCharTransitions(i);
-           for (int j = 0; j < element.getTabCharTransitions().size(); j++){
-               if (memory_transition.equals(element.getCharTransitions(j))) {
+           memory_element = "";
+           for (int j = 0; j < element.getTabTransitions().size(); j++){
+               if (memory_transition.equals(element.getCharTransitions(j))){
                    memory_element += element.getTransitions(j);
                }
            }
+           System.out.println("---------------------------> " + memory_element);
         }
 
-        System.out.println("---------------------------> "+memory_element);
+        suppression_Transition(element, "a");
+
+        element.affiche_etat("all");
+
+        
     }
 
     
