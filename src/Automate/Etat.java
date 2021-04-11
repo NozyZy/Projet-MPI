@@ -105,12 +105,22 @@ public class Etat {
         this.transitions.add(transitions);
     }
 
+    public void setTransitions(int i, String transitions) {
+        getTabTransitions().remove(i);
+        this.transitions.add(i, transitions);
+    }
+
     public String getCharTransitions(int x) {
         return this.charTransitions.get(x);
     }
 
     public void setCharTransitions(String charTransitions) {
         this.charTransitions.add(charTransitions);
+    }
+
+    public void setCharTransitions(int i, String charTransitions) {
+        getTabCharTransitions().remove(i);
+        this.charTransitions.add(i, charTransitions);
     }
 
     public void setTotalTransitions(String transition, String element){

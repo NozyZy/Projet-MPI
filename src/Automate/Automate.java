@@ -503,27 +503,10 @@ public class Automate implements Cloneable {
     }
 
     public void fusion_transition(Etat element){
-        String memory_transition = "";
-        String memory_element = "";
-
-        element.affiche_etat("all");
-
-        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
-           memory_transition = element.getCharTransitions(i);
-           memory_element = "";
-           for (int j = 0; j < element.getTabTransitions().size(); j++){
-               if (memory_transition.equals(element.getCharTransitions(j))){
-                   memory_element += element.getTransitions(j);
-               }
-           }
-           System.out.println("---------------------------> " + memory_element);
-        }
-
-        suppression_Transition(element, "a");
-
-        element.affiche_etat("all");
-
         
+        element.affiche_etat("all");
+        element.setTransitions(0, "25");
+        element.affiche_etat("all");
     }
 
     
