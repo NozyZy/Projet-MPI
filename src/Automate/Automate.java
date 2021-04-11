@@ -224,7 +224,7 @@ public class Automate implements Cloneable {
             }
         }
 
-        System.out.println("Je n'ai pas trouver votre état je vous renvoie l'etat 0");
+        System.out.println("Je n'ai pas trouver votre état : "+nom+", je vous renvoie l'etat 0\n");
         return etats.get(0);
     }
 
@@ -565,16 +565,31 @@ public class Automate implements Cloneable {
     public void setMultipleEtat(Etat element){
 
         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
-            String a = "", b = "";
-            String lecture;
+            String a, b , copy = "";
 
             if (element.getTransitions(i).length() > 1) {
                 for (int j = 0; j < element.getTransitions(i).length(); j++) {
 
-                    lecture = fromCharToString(element.getTransitions(i).charAt(j));
+                    if (j+2 <= element.getTransitions(i).length()) {
+
+                        a = fromCharToString(element.getTransitions(i).charAt(j));
+                        b = fromCharToString(element.getTransitions(i).charAt(j+1));
+                        copy += a;
+                        
+                        if (copy.length() > 1){
+                            System.out.println("hey i'm the copy: " + copy);
+                            System.out.println("---------------------voici le couple a : " + copy + " et b : " + b);
+                            fusion_Etat(pointeur_Etat(copy), pointeur_Etat(b));
+                        }
+                        else{
+                            System.out.println("---------------------voici le couple a : " + a + " et b : " + b);
+                            fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
+                        }
+                        
+               
+                    }
+                       
                     
-                    System.out.println("lecture : " + lecture);
-   
                 }
             }
         }
