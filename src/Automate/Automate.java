@@ -62,6 +62,13 @@ public class Automate implements Cloneable {
 
     }
 
+    public void suppression_Transition(Etat element, int x) {
+
+        element.getTabCharTransitions().remove(x);
+        element.getTabTransitions().remove(x);
+
+    }
+
     /**
      * Permet de recuper un état à un indice donnée
      * @param i
@@ -503,9 +510,35 @@ public class Automate implements Cloneable {
     }
 
     public void fusion_transition(Etat element){
-        
+
+        String memory_element = "";
+        String memory_char = "";
+
         element.affiche_etat("all");
-        element.setTransitions(0, "25");
+
+        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
+            memory_char = element.getCharTransitions(i);
+
+            System.out.println("\n-----le char-----> "+memory_char);
+            
+
+            for (int j = 0; j < element.getTabTransitions().size(); j++) {
+                if (element.getCharTransitions(j).equals(memory_char)){
+                    memory_element += element.getTransitions(j);
+                    if (memory_element.equals("")){
+                        System.out.println("--------------->"+ element.getTransitions(j));
+                    }
+
+                }
+                
+            }
+
+            System.out.println("------------------------------------->" + memory_element);
+            element.setTransitions(i, memory_element);
+            memory_element = "";
+        }
+
+
         element.affiche_etat("all");
     }
 
