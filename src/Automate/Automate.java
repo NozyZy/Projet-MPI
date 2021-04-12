@@ -633,8 +633,10 @@ public class Automate implements Cloneable {
     public void lecture_automate_branche(Etat element, String transition){
  
         System.out.print("-> "+ element.nom);
- 
-        lecture_automate_branche(pointeur_Etat(element.getTransitions(element.getTabCharTransitions().indexOf(transition))), transition);
+        
+        if (element.getTabCharTransitions().contains(transition)){
+            lecture_automate_branche(pointeur_Etat(element.getTransitions(element.getTabCharTransitions().indexOf(transition))),transition);
+        }
 
     }
     
