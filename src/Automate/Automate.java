@@ -102,6 +102,20 @@ public class Automate implements Cloneable {
     }
 
     /**
+     * Permet de créer un etat dans l'automate à l'indice 0 et ses tableaux de
+     * transitions sont egalement initialisés
+     * 
+     * @param i   indice
+     * @param nom le nom de l'etat en string
+     */
+    public void setEtats(String nom) {
+        this.etats.add(0, new Etat(nom, 0));
+        getEtats(0).setTabTransitions();
+        getEtats(0).setTabCharTransitions();
+        this.nbEtats++;
+    }
+
+    /**
      * Cree le tableau dynamique d'etat
      */
     public void setTabEtats(){
@@ -219,6 +233,20 @@ public class Automate implements Cloneable {
      */
     public String toString(int x) {
         return String.valueOf(x);
+    }
+    
+    /**
+     * Fonction qui convertie un Char en String
+     * 
+     * @param x
+     * @return String
+     */
+    public String toString(char x) {
+        String chaine;
+
+        chaine = String.valueOf(x);
+
+        return chaine;
     }
 
     /**
@@ -485,7 +513,7 @@ public class Automate implements Cloneable {
      */
     public void standardisation(String nom){
 
-        setEtats(0, nom);//creation de l'état initiale
+        setEtats(nom);//creation de l'état initiale
 
         for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).isEntree()){
@@ -515,7 +543,7 @@ public class Automate implements Cloneable {
             System.out.println("Index 1 : " + getEtats(i).nom);
         }**/
         
-        setEtats(0, a.nom + b.nom);
+        setEtats(a.nom + b.nom);
 
         if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()){
             pointeur_Etat(a.nom + b.nom).setEntree(true);
@@ -584,18 +612,7 @@ public class Automate implements Cloneable {
 
     }
 
-    /**
-     * Fonction qui convertie un Char en String
-     * @param x
-     * @return String
-     */
-    public String fromCharToString(char x){
-        String chaine;
-
-        chaine = String.valueOf(x);
-
-        return chaine;
-    }
+   
 
     /**
      * Fonction qui cree tout les nouveaux état a partir d'un element, la fonction va chercher dans les transitions les nouveaux états
@@ -611,8 +628,8 @@ public class Automate implements Cloneable {
 
                     if (j+2 <= element.getTransitions(i).length()) {
 
-                        a = fromCharToString(element.getTransitions(i).charAt(j));
-                        b = fromCharToString(element.getTransitions(i).charAt(j+1));
+                        a = toString(element.getTransitions(i).charAt(j));
+                        b = toString(element.getTransitions(i).charAt(j+1));
                         copy += a;
                         
                         if (copy.length() > 1){
@@ -630,9 +647,14 @@ public class Automate implements Cloneable {
         }
     }
     
+    /**
+     * Permet de lire le plus long chemin d'une transition a partir d'un element de l'automate
+     * @param element -> Etat de départ
+     * @param transition -> Chemin souhaiter en string (a,b,c...)
+     */
     public void lecture_automate_branche(Etat element, String transition){
  
-        System.out.print("-> "+ element.nom);
+        System.out.print(" -"+transition+"-> "+ element.nom);
         
         if (element.getTabCharTransitions().contains(transition)){
             lecture_automate_branche(pointeur_Etat(element.getTransitions(element.getTabCharTransitions().indexOf(transition))),transition);
@@ -646,7 +668,9 @@ public class Automate implements Cloneable {
         //fusion_transition(pointeur_Etat("14"));
         //setMultipleEtat(pointeur_Etat("14"));
 
-
+        if (getNbEntrees() > 1) {
+            
+        }
 
     }
 
