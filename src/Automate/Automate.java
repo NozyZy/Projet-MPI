@@ -689,7 +689,8 @@ public class Automate implements Cloneable {
      * Reçois un Etat mère et construit les états filles non existantes
      * @param element Etat mère
      */
-    public void mitose(Etat element){
+    public Etat mitose(Etat element){
+
         fusion_transition(element);
 
         for (int i = 0; i < element.getTabTransitions().size(); i++) {
@@ -699,6 +700,8 @@ public class Automate implements Cloneable {
                     //System.out.println("Checked 1");
                     fusion_Etat(pointeur_Etat(toString(element.getTransitions(i).charAt(0))), 
                                 pointeur_Etat(toString(element.getTransitions(i).charAt(1))));
+                    
+                    mitose(pointeur_Etat(toString(element.getTransitions(i).charAt(0))+element.getTransitions(i).charAt(1)));
                 }
 
                 else{
@@ -713,26 +716,53 @@ public class Automate implements Cloneable {
 
                     fusion_Etat(pointeur_Etat(linked_transitions), 
                                 pointeur_Etat(toString(element.getTransitions(i).charAt(element.getTransitions(i).length()-1))));
+                    
+                    mitose(pointeur_Etat(linked_transitions+toString(element.getTransitions(i).charAt(element.getTransitions(i).length()-1)))); 
                 }
             }
         }
 
+        return Error;
+
+    }
+
+    /**
+     * Retourne la première Entree de l'automate
+     * @return Etat Entree
+     */
+    public Etat getEtatEntree(){
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            if (getEtats(i).isEntree()) {
+                return getEtats(i);
+            }
+        }
+
+        return Error;
+    }
+
+    /**
+     * Retourne la première Sortie de l'automate
+     * 
+     * @return Etat Sortie
+     */
+    public Etat getEtatSortie(){
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            if (getEtats(i).isSortie()) {
+                return getEtats(i);
+            }
+        }
+
+        return Error;
     }
 
 
     public void determinisation(){
         
-        mitose(pointeur_Etat("0"));
-        
-        mitose(pointeur_Etat("01"));
-        
-        mitose(pointeur_Etat("02"));
-
-        mitose(pointeur_Etat("013"));
-        
-
-
-       
+        if (getNbEntrees() <= 1 ) {
+            mitose(getEtatEntree());
+        }
     }
 
 }
