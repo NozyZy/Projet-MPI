@@ -275,6 +275,7 @@ public class Automate implements Cloneable {
             }
         }
 
+        //System.out.println(nom+" N'existe pas");
         return Error;
     }
 
@@ -684,6 +685,10 @@ public class Automate implements Cloneable {
         return true;
     }
 
+    /**
+     * Reçois un Etat mère et construit les états filles non existantes
+     * @param element Etat mère
+     */
     public void mitose(Etat element){
         fusion_transition(element);
 
@@ -691,19 +696,23 @@ public class Automate implements Cloneable {
             if (!doesEtatExist(element.getTransitions(i))) {
 
                 if (element.getTransitions(i).length() == 2) {
+                    //System.out.println("Checked 1");
                     fusion_Etat(pointeur_Etat(toString(element.getTransitions(i).charAt(0))), 
                                 pointeur_Etat(toString(element.getTransitions(i).charAt(1))));
                 }
 
                 else{
                     String linked_transitions = "";
+                    //System.out.println("Checked 2");
 
                     for (int j = 0; j < element.getTransitions(i).length()-1; j++) {
                         linked_transitions += toString(element.getTransitions(i).charAt(j));
+                        
                     }
-                    
+                    //System.out.println("-------------------------> " + linked_transitions);
+
                     fusion_Etat(pointeur_Etat(linked_transitions), 
-                                pointeur_Etat(toString(element.getTransitions(i).charAt(element.getTransitions(i).length()))));
+                                pointeur_Etat(toString(element.getTransitions(i).charAt(element.getTransitions(i).length()-1))));
                 }
             }
         }
@@ -714,13 +723,16 @@ public class Automate implements Cloneable {
     public void determinisation(){
         
         mitose(pointeur_Etat("0"));
-        mitose(pointeur_Etat("01"));    
+        
+        mitose(pointeur_Etat("01"));
+        
+        mitose(pointeur_Etat("02"));
 
-        fusion_transition(pointeur_Etat("02"));
-        fusion_Etat(pointeur_Etat("01"), pointeur_Etat("3"));
+        mitose(pointeur_Etat("013"));
+        
 
-        fusion_transition(pointeur_Etat("013"));
-        fusion_Etat(pointeur_Etat("01"), pointeur_Etat("4"));
+
+       
     }
 
 }
