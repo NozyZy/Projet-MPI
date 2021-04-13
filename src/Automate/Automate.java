@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 
 public class Automate implements Cloneable {
+    private static final Etat Error = null;
+
     public final char MOT_VIDE = '*';
 
     String label;
@@ -263,7 +265,7 @@ public class Automate implements Cloneable {
     /**
      * Cherche l'etat dans l'automate (tableau d'objets etats) et renvoie l'etat demander par son nom lorsqu'il le trouve 
      * @param nom : etat demander
-     * @return l'etat trouver par son nom
+     * @return l'etat trouver par son nom / retourne l'etat Error
      */
     public Etat pointeur_Etat(String nom){
 
@@ -273,8 +275,7 @@ public class Automate implements Cloneable {
             }
         }
 
-        System.out.println("Je n'ai pas trouver votre état : "+nom+", je vous renvoie l'etat 0\n");
-        return etats.get(0);
+        return Error;
     }
 
     /**
@@ -605,7 +606,7 @@ public class Automate implements Cloneable {
             memory_element = "";
         }
 
-         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//Nettoyage
+        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//Nettoyage
             occ = 0;
             memory_char = element.getCharTransitions(i);
 
@@ -624,7 +625,7 @@ public class Automate implements Cloneable {
    
 
     /**
-     * Fonction qui cree tout les nouveaux état a partir d'un element, la fonction va chercher dans les transitions les nouveaux états
+     * Fonction qui cree tout les nouveaux état a partir d'un element, la fonction va chercher dans les transitions les nouveaux états (pour l'instant pas utilisé)
      * @param element
      */
     public void setMultipleEtat(Etat element){
@@ -670,26 +671,56 @@ public class Automate implements Cloneable {
         }
 
     }
-    
-    public void fusion_Complete(String etata, String etatb){
-        fusion_Etat(pointeur_Etat(etata), pointeur_Etat(etatb));
-        fusion_transition(pointeur_Etat(etata + etatb));
-        setMultipleEtat(pointeur_Etat(etata + etatb));
+
+    /**
+     * Fonction qui test si un element existe par son nom
+     * @param nom
+     * @return True si existe False si non
+     */
+    public boolean doesEtatExist(String nom){
+        if (pointeur_Etat(nom) == null) {
+            return false;
+        }
+        return true;
     }
-    
+
+    public void mitose(Etat element){
+        fusion_transition(element);
+
+        for (int i = 0; i < element.getTabTransitions().size(); i++) {
+            if (!doesEtatExist(element.getTransitions(i))) {
+
+                if (element.getTransitions(i).length() == 2) {
+                    fusion_Etat(pointeur_Etat(toString(element.getTransitions(i).charAt(0))), 
+                                pointeur_Etat(toString(element.getTransitions(i).charAt(1))));
+                }
+
+                else{
+                    String linked_transitions = "";
+
+                    for (int j = 0; j < element.getTransitions(i).length()-1; j++) {
+                        linked_transitions += toString(element.getTransitions(i).charAt(j));
+                    }
+                    
+                    fusion_Etat(pointeur_Etat(linked_transitions), 
+                                pointeur_Etat(toString(element.getTransitions(i).charAt(element.getTransitions(i).length()))));
+                }
+            }
+        }
+
+    }
+
+
     public void determinisation(){
-      fusion_transition(pointeur_Etat("0"));
-      fusion_Etat(pointeur_Etat("0"), pointeur_Etat("1"));
-      fusion_transition(pointeur_Etat("01"));
-      fusion_Etat(pointeur_Etat("0"), pointeur_Etat("2"));
-      fusion_transition(pointeur_Etat("02"));
-      fusion_Etat(pointeur_Etat("01"), pointeur_Etat("3"));
-      fusion_transition(pointeur_Etat("013"));
-      fusion_Etat(pointeur_Etat("01"), pointeur_Etat("4"));
-      
+        
+        mitose(pointeur_Etat("0"));
+        mitose(pointeur_Etat("01"));    
 
+        fusion_transition(pointeur_Etat("02"));
+        fusion_Etat(pointeur_Etat("01"), pointeur_Etat("3"));
 
-
+        fusion_transition(pointeur_Etat("013"));
+        fusion_Etat(pointeur_Etat("01"), pointeur_Etat("4"));
     }
 
 }

@@ -14,6 +14,8 @@ public class Main {
         automate.determinisation();
         automate.setLabel("Deterministe");
         automate.afficherAutomate();
+        //automate.mitose(automate.getEtats(0));
+        //automate.afficherAutomate();
         // for(Etat etat: automate.entrees)
         // System.out.println(etat.label);
         //automate.navigation();
@@ -22,8 +24,5 @@ public class Main {
 
 
     }
-
-
-
 
 }
