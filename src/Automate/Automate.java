@@ -544,7 +544,7 @@ public class Automate implements Cloneable {
         for (int i = 0; i < getTabEtats().size(); i++) {
             System.out.println("Index 1 : " + getEtats(i).nom);
         }**/
-        
+        //System.out.println("---------------------------------------------> "+a);
         setEtats(a.nom + b.nom);
 
         if (getNbEntrees() > 1) {
@@ -630,7 +630,8 @@ public class Automate implements Cloneable {
      * @param element
      */
     public void setMultipleEtat(Etat element){
-
+        
+        element.affiche_etat("all");
         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
             String a, b , copy = "";
 
@@ -649,7 +650,8 @@ public class Automate implements Cloneable {
                             fusion_Etat(pointeur_Etat(copy), pointeur_Etat(b));
                         }
                         else{
-                            //System.out.println("---------------------voici le couple a : " + a + " et b : " + b);
+                            System.out.println("---------------------voici le couple a : " + a + " et b : " + b);
+                            pointeur_Etat(a).affiche_etat("all");
                             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
                         }
                     }
@@ -691,39 +693,50 @@ public class Automate implements Cloneable {
      */
     public Etat mitose(Etat element){
 
+        //element.affiche_etat("all");
+
         fusion_transition(element);
 
-        for (int i = 0; i < element.getTabTransitions().size(); i++) {
-            if (!doesEtatExist(element.getTransitions(i))) {
+        //element.affiche_etat("all");
 
-                if (element.getTransitions(i).length() == 2) {
-                    //System.out.println("Checked 1");
-                    fusion_Etat(pointeur_Etat(toString(element.getTransitions(i).charAt(0))), 
+        if (!element.getTabCharTransitions().isEmpty()){
+    
+        }
+        else{
+
+            for (int i = 0; i < element.getTabTransitions().size(); i++) {
+                if (!doesEtatExist(element.getTransitions(i))) {
+
+                    if (element.getTransitions(i).length() == 2) {
+                        // System.out.println("Checked 1");
+                        fusion_Etat(pointeur_Etat(toString(element.getTransitions(i).charAt(0))),
                                 pointeur_Etat(toString(element.getTransitions(i).charAt(1))));
-                    
-                    mitose(pointeur_Etat(toString(element.getTransitions(i).charAt(0))+element.getTransitions(i).charAt(1)));
-                }
 
-                else{
-                    String linked_transitions = "";
-                    //System.out.println("Checked 2");
-
-                    for (int j = 0; j < element.getTransitions(i).length()-1; j++) {
-                        linked_transitions += toString(element.getTransitions(i).charAt(j));
-                        
+                        mitose(pointeur_Etat(
+                                toString(element.getTransitions(i).charAt(0)) + element.getTransitions(i).charAt(1)));
                     }
-                    //System.out.println("-------------------------> " + linked_transitions);
 
-                    fusion_Etat(pointeur_Etat(linked_transitions), 
-                                pointeur_Etat(toString(element.getTransitions(i).charAt(element.getTransitions(i).length()-1))));
-                    
-                    mitose(pointeur_Etat(linked_transitions+toString(element.getTransitions(i).charAt(element.getTransitions(i).length()-1)))); 
+                    else {
+                        String linked_transitions = "";
+                        // System.out.println("Checked 2");
+
+                        for (int j = 0; j < element.getTransitions(i).length() - 1; j++) {
+                            linked_transitions += toString(element.getTransitions(i).charAt(j));
+
+                        }
+                        // System.out.println("-------------------------> " + linked_transitions);
+
+                        fusion_Etat(pointeur_Etat(linked_transitions), pointeur_Etat(
+                                toString(element.getTransitions(i).charAt(element.getTransitions(i).length() - 1))));
+
+                        mitose(pointeur_Etat(linked_transitions
+                                + toString(element.getTransitions(i).charAt(element.getTransitions(i).length() - 1))));
+                    }
                 }
             }
+
         }
-
         return Error;
-
     }
 
     /**
@@ -740,6 +753,23 @@ public class Automate implements Cloneable {
 
         return Error;
     }
+
+    /**
+     * Retourne la prochaine à partir de x Entree de l'automate
+     * 
+     * @return Etat Entree
+     */
+    public Etat getEtatEntree(int x) {
+
+        for (int i = x; i < getTabEtats().size(); i++) {
+            if (getEtats(i).isEntree()) {
+                return getEtats(i);
+            }
+        }
+
+        return Error;
+    }
+    
 
     /**
      * Retourne la première Sortie de l'automate
@@ -760,9 +790,26 @@ public class Automate implements Cloneable {
 
     public void determinisation(){
         
-        if (getNbEntrees() <= 1 ) {
+        if(getNbEntrees() <= 1 ) {
+            //System.out.println("checked");
             mitose(getEtatEntree());
         }
+
+        if (getNbEntrees() == 2) {
+            System.out.println("Checked");
+
+            fusion_Etat(pointeur_Etat("1"), pointeur_Etat("4"));
+            pointeur_Etat("14").affiche_etat("all");
+            fusion_transition(pointeur_Etat("14"));
+            pointeur_Etat("14").affiche_etat("all");
+
+            setMultipleEtat(pointeur_Etat("14"));
+
+            //mitose(pointeur_Etat("14"));
+
+
+        }
+        
     }
 
 }
