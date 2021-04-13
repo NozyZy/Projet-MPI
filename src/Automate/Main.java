@@ -8,7 +8,6 @@ public class Main {
 
         automate.afficherAutomate();
         //System.out.println("test\n");
-        //automate.lecture_automate_branche(automate.getEtats(0), "a");
         //System.out.println();
         //automate.standardisation("i");
         //automate.setLabel("Standardisé");

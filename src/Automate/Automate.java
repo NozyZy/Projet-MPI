@@ -545,12 +545,14 @@ public class Automate implements Cloneable {
         
         setEtats(a.nom + b.nom);
 
-        if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()){
-            pointeur_Etat(a.nom + b.nom).setEntree(true);
-        }
+        if (getNbEntrees() > 1) {
+            if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()) {
+                pointeur_Etat(a.nom + b.nom).setEntree(true);
+            }
 
-        if ((pointeur_Etat(a.nom).isSortie()) || pointeur_Etat(b.nom).isSortie()) {
-            pointeur_Etat(a.nom + b.nom).setSortie(true);
+            if ((pointeur_Etat(a.nom).isSortie()) || pointeur_Etat(b.nom).isSortie()) {
+                pointeur_Etat(a.nom + b.nom).setSortie(true);
+            }
         }
 
         for (int i = 0; i < pointeur_Etat(a.nom).getTabTransitions().size(); i++) {
@@ -561,8 +563,15 @@ public class Automate implements Cloneable {
             pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(b.nom).getCharTransitions(i),pointeur_Etat(b.nom).getTransitions(i));
         }
 
-        suppression_Etat(a);
-        suppression_Etat(b);
+        if (!(pointeur_Etat(a.nom).getTabTransitions().contains(a.nom))){
+            suppression_Etat(a);
+        }
+
+        if (!(pointeur_Etat(b.nom).getTabTransitions().contains(b.nom))) {
+            suppression_Etat(b);
+        }
+
+        
 
         /**System.out.println("--------------------------------");
 
@@ -662,15 +671,24 @@ public class Automate implements Cloneable {
 
     }
     
+    public void fusion_Complete(String etata, String etatb){
+        fusion_Etat(pointeur_Etat(etata), pointeur_Etat(etatb));
+        fusion_transition(pointeur_Etat(etata + etatb));
+        setMultipleEtat(pointeur_Etat(etata + etatb));
+    }
+    
     public void determinisation(){
+      fusion_transition(pointeur_Etat("0"));
+      fusion_Etat(pointeur_Etat("0"), pointeur_Etat("1"));
+      fusion_transition(pointeur_Etat("01"));
+      fusion_Etat(pointeur_Etat("0"), pointeur_Etat("2"));
+      fusion_transition(pointeur_Etat("02"));
+      fusion_Etat(pointeur_Etat("01"), pointeur_Etat("3"));
+      fusion_transition(pointeur_Etat("013"));
+      fusion_Etat(pointeur_Etat("01"), pointeur_Etat("4"));
+      
 
-        //fusion_Etat(pointeur_Etat("1"), pointeur_Etat("4"));
-        //fusion_transition(pointeur_Etat("14"));
-        //setMultipleEtat(pointeur_Etat("14"));
 
-        if (getNbEntrees() > 1) {
-            
-        }
 
     }
 
