@@ -791,7 +791,9 @@ public class Automate implements Cloneable {
         return Error;
     }
 
-
+    /**
+     * Fonction de determinisation
+     */
     public void determinisation(){
         
         if(getNbEntrees() <= 1 ) {
@@ -809,7 +811,6 @@ public class Automate implements Cloneable {
             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
 
             mitose(pointeur_Etat(a+b));
-
         }
         
     }
