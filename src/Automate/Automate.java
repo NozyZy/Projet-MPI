@@ -631,7 +631,7 @@ public class Automate implements Cloneable {
      */
     public void setMultipleEtat(Etat element){
         
-        element.affiche_etat("all");
+        //element.affiche_etat("all");
         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {
             String a, b , copy = "";
 
@@ -699,11 +699,15 @@ public class Automate implements Cloneable {
 
         //element.affiche_etat("all");
 
-        if (!element.getTabCharTransitions().isEmpty()){
-    
+        if (element.getTabCharTransitions().isEmpty()){
+            //System.out.println("IS EMPTY");
+            //element.affiche_etat("all");
+            //System.out.println("TEEEEEEST");
+            return Error;
         }
         else{
-
+            //System.out.println("CHEECK 2");
+            //element.affiche_etat("all");
             for (int i = 0; i < element.getTabTransitions().size(); i++) {
                 if (!doesEtatExist(element.getTransitions(i))) {
 
@@ -796,17 +800,15 @@ public class Automate implements Cloneable {
         }
 
         if (getNbEntrees() == 2) {
-            System.out.println("Checked");
+            String a, b = "";
+            a = getEtatEntree().getNom();
+            b = getEtatEntree(getEtatEntree().index + 1).getNom();
 
-            fusion_Etat(pointeur_Etat("1"), pointeur_Etat("4"));
-            pointeur_Etat("14").affiche_etat("all");
-            fusion_transition(pointeur_Etat("14"));
-            pointeur_Etat("14").affiche_etat("all");
+            //System.out.println("a+b "+a+b);
 
-            setMultipleEtat(pointeur_Etat("14"));
+            fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
 
-            //mitose(pointeur_Etat("14"));
-
+            mitose(pointeur_Etat(a+b));
 
         }
         
