@@ -75,7 +75,7 @@ public class Menu {
 
             if (jarvis.getChoix().equals("o")){
                 jarvis.clearConsole();
-                jarvis.closesaisie();
+                jarvis.closescanner();
                 menu0 = 0;
             }
         }

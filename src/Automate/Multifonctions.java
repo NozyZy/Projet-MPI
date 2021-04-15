@@ -1,8 +1,8 @@
 package Automate;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
-
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 /**
  * Objet à tout faire
@@ -10,7 +10,10 @@ import javax.swing.text.StyledEditorKit.BoldAction;
 public class Multifonctions {
 
     private String choix;
-    private Scanner saisie = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    private File docFile = new File("index");
+    private File[] index = docFile.listFiles();
+    
 
 
     public String getChoix() {
@@ -22,7 +25,7 @@ public class Multifonctions {
      */
     public void setChoix(){
         System.out.print("Tapez votre choix : ");
-        this.choix = saisie.next();
+        this.choix = scanner.next();
     }
 
     /**
@@ -34,7 +37,7 @@ public class Multifonctions {
 
         while (lecture) {
             System.out.print("Tapez votre choix : ");
-            this.choix = saisie.next();
+            this.choix = scanner.next();
 
             for (int i = 0; i < mot.length(); i++) {
                 if (getChoix().equals(mot.substring(i, i + 1))){
@@ -56,8 +59,22 @@ public class Multifonctions {
     /**
      * Fermet la saisie utilisateur
      */
-    public void closesaisie(){
-        saisie.close();
+    public void closescanner(){
+        scanner.close();
+    }
+
+    public String autoSelection(){
+        String path = "";
+
+        System.out.println(Arrays.toString(this.index));
+
+        for (int i = 0; i < index.length; i++) {
+
+            path = Arrays.toString(this.index);
+            System.out.println("Path = : "+ path);
+        }
+
+        return path;
     }
 
 }
