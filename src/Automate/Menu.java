@@ -8,31 +8,32 @@ public class Menu {
         int menu0 = 1;
         int menu1 = 1;
 
-        Multifonctions jarvis = new Multifonctions();
+        Multifonctions jarvis = new Multifonctions();//admin du menu
         Automate automate = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
         assert automate != null;
+        jarvis.clearConsole();
 
         while (menu0 == 1) {
 
             while (menu1 == 1) {
 
-                System.out.println("test copie defensive");
                 automate.afficherAutomate();
                 
                 System.out.println(
                 "\n------------------------Voici le menu : que voulez vous faire ?-----------------------------------\n\n" + 
-                "---------------------------> d : determinisation\n" +
-                "---------------------------> s : standardisation\n" +
+                "---------------------------> d : Déterminisation\n" +
+                "---------------------------> s : Standardisation\n" +
+                "---------------------------> c : Complétion \n" +
+                "---------------------------> m : Miniminisation \n" +
                 "---------------------------> e : exit\n");
 
-                jarvis.setChoix();
+                jarvis.setChoix("dscme");
 
-                
                 if (jarvis.getChoix().equals("e")){
                     jarvis.clearConsole();
                     menu1 = 0;
                 }
-
+                
 
                 if (jarvis.getChoix().equals("d")) {//Choix determinisation
                     Automate deter = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
@@ -50,11 +51,27 @@ public class Menu {
                     standard.afficherAutomate();
                 }
 
+                if (jarvis.getChoix().equals("c")) {// Choix determinisation
+                    Automate complet = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+                    jarvis.clearConsole();
+                    complet.standardisation("i");
+                    complet.setLabel("Standardisé");
+                    complet.afficherAutomate();
+                }
+
+                if (jarvis.getChoix().equals("m")) {// Choix determinisation
+                    Automate mini = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+                    jarvis.clearConsole();
+                    mini.standardisation("i");
+                    mini.setLabel("Standardisé");
+                    mini.afficherAutomate();
+                }
+
             }
             
             System.out.println("\n---------------------------> Voulez vous quittez ? tapez o");
             
-            jarvis.setChoix();
+            jarvis.setChoix("o");
 
             if (jarvis.getChoix().equals("o")){
                 jarvis.clearConsole();

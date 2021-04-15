@@ -2,6 +2,8 @@ package Automate;
 
 import java.util.Scanner;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 /**
  * Objet à tout faire
  */
@@ -16,15 +18,33 @@ public class Multifonctions {
     }
 
     /**
-     * Permet une saisie utilisateur
-     * @return retourne la saisie utilisateur
+     * Permet une saisie utilisateur simple
      */
     public void setChoix(){
         System.out.print("Tapez votre choix : ");
         this.choix = saisie.next();
     }
 
-    
+    /**
+     * Permet une saisie utilisateur securisé
+     * 
+     */
+    public void setChoix(String mot) {
+        boolean lecture = true;
+
+        while (lecture) {
+            System.out.print("Tapez votre choix : ");
+            this.choix = saisie.next();
+
+            for (int i = 0; i < mot.length(); i++) {
+                if (getChoix().equals(mot.substring(i, i + 1))){
+                    lecture = false;
+                }
+            }
+        }
+    }
+
+
     /**
      * Fonction qui clean la console
      */
