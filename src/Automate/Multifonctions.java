@@ -105,6 +105,19 @@ public class Multifonctions {
         scanner.close();
     }
 
+    public void laCarte(){
+        System.out.println(
+                "\n------------------------Voici le menu : que voulez vous faire ?-----------------------------------\n\n"
+                        + "---------------------------> d : Déterminisation\n"
+                        + "---------------------------> s : Standardisation\n"
+                        + "---------------------------> c : Complétion \n"
+                        + "---------------------------> m : Miniminisation \n"
+                        + "---------------------------> g : Changer d'automate\n"
+                        + "---------------------------> e : exit\n");
+
+        setChoix("dscmge");
+    }
+
     public void autoSelection(){
         int g = 0;
         String possi = "";

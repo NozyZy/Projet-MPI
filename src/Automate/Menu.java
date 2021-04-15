@@ -18,31 +18,37 @@ public class Menu {
         assert automate != null;
         jarvis.clearConsole();
 
+        automate.afficherAutomate();
+        
         while (menu0 == 1) {
 
             while (menu1 == 1) {
 
-                automate.afficherAutomate();
-                
-                System.out.println(
-                "\n------------------------Voici le menu : que voulez vous faire ?-----------------------------------\n\n" + 
-                "---------------------------> d : Déterminisation\n" +
-                "---------------------------> s : Standardisation\n" +
-                "---------------------------> c : Complétion \n" +
-                "---------------------------> m : Miniminisation \n" +
-                "---------------------------> e : exit\n");
-
-                jarvis.setChoix("dscme");
+                jarvis.laCarte();// affichage du menu + choix
 
                 if (jarvis.getChoix().equals("e")){
                     jarvis.clearConsole();
                     menu1 = 0;
+                }
+
+                if (jarvis.getChoix().equals("g")) {
+                    jarvis.clearConsole();
+                    jarvis.autoSelection();
+                    jarvis.clearConsole();
+                    
+                    Automate nintendo = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    assert nintendo != null;
+
+                    nintendo.afficherAutomate();
+                    jarvis.laCarte();//affichage du menu + choix
+
                 }
                 
 
                 if (jarvis.getChoix().equals("d")) {//Choix determinisation
                     Automate deter = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
+                    deter.afficherAutomate();
                     deter.determinisation();
                     deter.setLabel("Determinisé");
                     deter.afficherAutomate();
@@ -51,6 +57,7 @@ public class Menu {
                 if (jarvis.getChoix().equals("s")) {// Choix determinisation
                     Automate standard = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
+                    standard.afficherAutomate();
                     standard.standardisation("i");
                     standard.setLabel("Standardisé");
                     standard.afficherAutomate();
@@ -59,6 +66,7 @@ public class Menu {
                 if (jarvis.getChoix().equals("c")) {// Choix determinisation
                     Automate complet = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
+                    complet.afficherAutomate();
                     complet.standardisation("i");
                     complet.setLabel("Standardisé");
                     complet.afficherAutomate();
@@ -67,6 +75,7 @@ public class Menu {
                 if (jarvis.getChoix().equals("m")) {// Choix determinisation
                     Automate mini = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
+                    mini.afficherAutomate();
                     mini.standardisation("i");
                     mini.setLabel("Standardisé");
                     mini.afficherAutomate();
