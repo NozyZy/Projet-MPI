@@ -252,7 +252,7 @@ public class Automate implements Cloneable {
     }
 
     /**
-     * Fonction de clonage profonde ( je crois )
+     * Fonction de clonage profonde ( Pas utile au finale )
      */
     public Object clone() {
         try {
