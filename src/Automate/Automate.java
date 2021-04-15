@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 
 public class Automate implements Cloneable {
+
+    Multifonctions jarvis = new Multifonctions();//Majordome
     private static final Etat Error = null;
 
     public final char MOT_VIDE = '*';
@@ -228,39 +230,6 @@ public class Automate implements Cloneable {
         this.minimale = minimale;
     }
 
-    /**
-     * Une fonction to string qui convertie les int en string
-     * @param x
-     * @return
-     */
-    public String toString(int x) {
-        return String.valueOf(x);
-    }
-    
-    /**
-     * Fonction qui convertie un Char en String
-     * 
-     * @param x
-     * @return String
-     */
-    public String toString(char x) {
-        String chaine;
-
-        chaine = String.valueOf(x);
-
-        return chaine;
-    }
-
-    /**
-     * Fonction de clonage profonde ( Pas utile au finale )
-     */
-    public Object clone() {
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new InternalError();
-        }
-    }
 
     /**
      * Cherche l'etat dans l'automate (tableau d'objets etats) et renvoie l'etat demander par son nom lorsqu'il le trouve 
@@ -640,8 +609,8 @@ public class Automate implements Cloneable {
 
                     if (j+2 <= element.getTransitions(i).length()) {
 
-                        a = toString(element.getTransitions(i).charAt(j));
-                        b = toString(element.getTransitions(i).charAt(j+1));
+                        a = jarvis.toString(element.getTransitions(i).charAt(j));
+                        b = jarvis.toString(element.getTransitions(i).charAt(j+1));
                         copy += a;
                         
                         if (copy.length() > 1){
@@ -713,11 +682,11 @@ public class Automate implements Cloneable {
 
                     if (element.getTransitions(i).length() == 2) {
                         // System.out.println("Checked 1");
-                        fusion_Etat(pointeur_Etat(toString(element.getTransitions(i).charAt(0))),
-                                pointeur_Etat(toString(element.getTransitions(i).charAt(1))));
+                        fusion_Etat(pointeur_Etat(jarvis.toString(element.getTransitions(i).charAt(0))),
+                                pointeur_Etat(jarvis.toString(element.getTransitions(i).charAt(1))));
 
                         mitose(pointeur_Etat(
-                                toString(element.getTransitions(i).charAt(0)) + element.getTransitions(i).charAt(1)));
+                                jarvis.toString(element.getTransitions(i).charAt(0)) + element.getTransitions(i).charAt(1)));
                     }
 
                     else {
@@ -725,16 +694,16 @@ public class Automate implements Cloneable {
                         // System.out.println("Checked 2");
 
                         for (int j = 0; j < element.getTransitions(i).length() - 1; j++) {
-                            linked_transitions += toString(element.getTransitions(i).charAt(j));
+                            linked_transitions += jarvis.toString(element.getTransitions(i).charAt(j));
 
                         }
                         // System.out.println("-------------------------> " + linked_transitions);
 
                         fusion_Etat(pointeur_Etat(linked_transitions), pointeur_Etat(
-                                toString(element.getTransitions(i).charAt(element.getTransitions(i).length() - 1))));
+                                jarvis.toString(element.getTransitions(i).charAt(element.getTransitions(i).length() - 1))));
 
                         mitose(pointeur_Etat(linked_transitions
-                                + toString(element.getTransitions(i).charAt(element.getTransitions(i).length() - 1))));
+                                + jarvis.toString(element.getTransitions(i).charAt(element.getTransitions(i).length() - 1))));
                     }
                 }
             }

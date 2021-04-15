@@ -11,13 +11,45 @@ public class Multifonctions {
 
     private String choix;
     private Scanner scanner = new Scanner(System.in);
-    private File docFile = new File("index");
-    private File[] index = docFile.listFiles();
+    private File index = new File("index");
+    private File[] datos = index.listFiles();
     
 
 
     public String getChoix() {
         return this.choix;
+    }
+
+    public File[] getDatos(){
+        return this.datos;
+    }
+    
+    public File getDatos(int x) {
+        return this.datos[x];
+    }
+
+    /**
+     * Une fonction to string qui convertie les int en string
+     * 
+     * @param x
+     * @return
+     */
+    public String toString(int x) {
+        return String.valueOf(x);
+    }
+
+    /**
+     * Fonction qui convertie un Char en String
+     * 
+     * @param x
+     * @return String
+     */
+    public String toString(char x) {
+        String chaine;
+
+        chaine = String.valueOf(x);
+
+        return chaine;
     }
 
     /**
@@ -65,14 +97,16 @@ public class Multifonctions {
 
     public String autoSelection(){
         String path = "";
+        int g = 0;
+        String possi = "";
 
-        System.out.println(Arrays.toString(this.index));
-
-        for (int i = 0; i < index.length; i++) {
-
-            path = Arrays.toString(this.index);
-            System.out.println("Path = : "+ path);
+        for (int i = 0; i < getDatos().length; i++) {
+            g = i+1;
+            System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
+            possi += toString(g);
         }
+
+        System.out.println("Choisissez un automate dans la liste : ");
 
         return path;
     }

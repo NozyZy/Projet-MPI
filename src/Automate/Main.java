@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
         Multifonctions jarvis = new Multifonctions();
-
+        jarvis.clearConsole();
         jarvis.autoSelection();
 
         //Automate automate = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
