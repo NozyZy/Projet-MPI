@@ -2,6 +2,9 @@ package Automate;
 
 import java.util.Scanner;
 
+/**
+ * Menu du programme qui permet de selectionner les actions, on enverra a chaque fois un clone de l'automate initiale
+ */
 public class Menu {
     public static void main(String[] args) {
         int menu0 = 1;
@@ -25,23 +28,14 @@ public class Menu {
                    menu1 = 0;
                 }
 
-                if (choix.equals("d")) {
+
+                if (choix.equals("d")) {//Choix determinisation
                     Automate deter = (Automate) automate.clone();
                     deter.afficherAutomate();
+                    deter.determinisation();
                 }
 
             }
-            
-
-
-
-
-
-
-
-
-
-            
             
             System.out.println("Voulez vous quittez ? tapez o");
             choix = saisie.next();
