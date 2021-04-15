@@ -9,7 +9,12 @@ public class Menu {
         int menu1 = 1;
 
         Multifonctions jarvis = new Multifonctions();//admin du menu
-        Automate automate = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+
+        jarvis.clearConsole();
+        jarvis.autoSelection();
+
+        Automate automate = Readwrite.readAutomateFile(jarvis.getPathfinder());
+
         assert automate != null;
         jarvis.clearConsole();
 
@@ -36,7 +41,7 @@ public class Menu {
                 
 
                 if (jarvis.getChoix().equals("d")) {//Choix determinisation
-                    Automate deter = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+                    Automate deter = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     deter.determinisation();
                     deter.setLabel("Determinisé");
@@ -44,7 +49,7 @@ public class Menu {
                 }
 
                 if (jarvis.getChoix().equals("s")) {// Choix determinisation
-                    Automate standard = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+                    Automate standard = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     standard.standardisation("i");
                     standard.setLabel("Standardisé");
@@ -52,7 +57,7 @@ public class Menu {
                 }
 
                 if (jarvis.getChoix().equals("c")) {// Choix determinisation
-                    Automate complet = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+                    Automate complet = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     complet.standardisation("i");
                     complet.setLabel("Standardisé");
@@ -60,7 +65,7 @@ public class Menu {
                 }
 
                 if (jarvis.getChoix().equals("m")) {// Choix determinisation
-                    Automate mini = Readwrite.readAutomateFile("src/Automate/test_automate.txt");
+                    Automate mini = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     mini.standardisation("i");
                     mini.setLabel("Standardisé");

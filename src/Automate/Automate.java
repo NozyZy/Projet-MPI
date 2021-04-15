@@ -6,6 +6,13 @@ import java.util.Scanner;
 
 import java.util.ArrayList;
 
+/**
+ * Tienes aue respetar las indicationes por ejemplo en la playa no botes tus vasuras
+ * 
+ * trata des commpartir y apprender la cultura local como
+ * descourir nueva gastronomia
+ */
+
 
 public class Automate implements Cloneable {
 

@@ -1,7 +1,6 @@
 package Automate;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -10,6 +9,7 @@ import java.util.Scanner;
 public class Multifonctions {
 
     private String choix;
+    private String pathfinder;
     private Scanner scanner = new Scanner(System.in);
     private File index = new File("index");
     private File[] datos = index.listFiles();
@@ -27,6 +27,16 @@ public class Multifonctions {
     public File getDatos(int x) {
         return this.datos[x];
     }
+
+
+    public String getPathfinder() {
+        return this.pathfinder;
+    }
+
+    public void setPathfinder(String pathfinder) {
+        this.pathfinder = pathfinder;
+    }
+
 
     /**
      * Une fonction to string qui convertie les int en string
@@ -95,8 +105,7 @@ public class Multifonctions {
         scanner.close();
     }
 
-    public String autoSelection(){
-        String path = "";
+    public void autoSelection(){
         int g = 0;
         String possi = "";
 
@@ -107,8 +116,16 @@ public class Multifonctions {
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
+        setChoix(possi);
 
-        return path;
+        for (int i = 0; i < getDatos().length; i++) {
+            
+            if (this.choix.equals(toString(i+1))) {
+                System.out.println("\n"+"Voici le fichier : " + getDatos(i).getName());
+                System.out.println("Et son adresse : " + getDatos(i).getPath());
+                setPathfinder(getDatos(i).getPath());
+            }
+        }
     }
 
 }
