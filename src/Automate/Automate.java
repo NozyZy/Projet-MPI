@@ -386,7 +386,7 @@ public class Automate implements Cloneable {
             int x = pointeur_Etat(lecture.next()).getIndex();
 
             getEtats(x).setTotalTransitions(lecture.next(), lecture.next()); // on ajoute la transtion (a,b,c,d...), on ajoute l'élement pointer (etat 1, etat2...)
-            getEtats(x).nbTransitions++; //on augmente le nombre de transitions
+            //getEtats(x).nbTransitions++; //on augmente le nombre de transitions
         }
         lecture.close();// fermeture de la lecture du txt
     }
