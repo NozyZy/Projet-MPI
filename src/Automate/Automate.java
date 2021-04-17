@@ -523,7 +523,7 @@ public class Automate implements Cloneable {
         }
         System.out.print("---------------------------------------------> ");
         a.affiche_etat();**/
-        if (a == null){
+        if (a == null || b == null){
         }
         else{
             setEtats(a.nom + b.nom);
