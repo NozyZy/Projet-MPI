@@ -1,11 +1,12 @@
-package Automate;
+
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Etat {
-    int label;                          //nom de l'état
-    ArrayList<Integer> transitions;     //toutes les transitions
+    int index;                             //index de l'état dans le tableau automate
+    String nom;                          //nom de l'état
+    ArrayList<String> transitions;     //toutes les transitions
+    //ArrayList<Integer> transitions; // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
     int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
@@ -15,14 +16,36 @@ public class Etat {
     public final char MOT_VIDE = '*';
 
 
-    public Etat(int label){ this.label = label; }
+    /*public Etat(int label){ 
+      setLabel(label);
+    }*/
 
-    public int getLabel() {
-        return this.label;
+    /**
+     * Constructeur d'etat avec un nom et sa position dans l'automate
+     * @param nom
+     * @param index
+     */
+    public Etat(String nom, int index){
+        setNom(nom);
+        setIndex(index);
     }
 
-    public void setLabel(int label) {
-        this.label = label;
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public int getNbTransitions() {
@@ -72,5 +95,78 @@ public class Etat {
     public char getMOT_VIDE() {
         return this.MOT_VIDE;
     }
+
+
+    public String getTransitions(int x) {
+        return this.transitions.get(x);
+    }
+
+    public void setTransitions(String transitions) {
+        this.transitions.add(transitions);
+    }
+
+    public void setTransitions(int i, String transitions) {
+        getTabTransitions().remove(i);
+        this.transitions.add(i, transitions);
+    }
+
+    public String getCharTransitions(int x) {
+        return this.charTransitions.get(x);
+    }
+
+    public void setCharTransitions(String charTransitions) {
+        this.charTransitions.add(charTransitions);
+    }
+
+    public void setCharTransitions(int i, String charTransitions) {
+        getTabCharTransitions().remove(i);
+        this.charTransitions.add(i, charTransitions);
+    }
+
+    public void setTotalTransitions(String transition, String element){
+        setCharTransitions(transition);
+        setTransitions(element);
+    }
+
+    /**
+     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
+     */
+    public void setTabCharTransitions(){
+        this.charTransitions = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getTabCharTransitions(){
+        return charTransitions;
+    }
+
+    /**
+     * Cree un tableau dynamique en <String> pour le tableau des transitions
+     * (e0, e1, e2...)
+     */
+    public void setTabTransitions() {
+        this.transitions = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getTabTransitions() {
+        return transitions;
+    }
+
+
+    public void affiche_etat(){
+        System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
+    }
+
+    public void affiche_etat(String all) {
+        System.out.println("\n" + "Vous êtes à l'état : " + this.nom);
+
+        for (int j = 0; j < getTabCharTransitions().size(); j++) {
+            System.out.print("(" + getNom() + ")");
+            System.out.print("-" + getTabCharTransitions().get(j) + "->");
+            System.out.println("(" + getTabTransitions().get(j) + "), ");
+
+        }
+    }
+
+
 
 }
