@@ -1,4 +1,4 @@
-package Automate;
+
 
 import java.io.*;
 import java.util.Scanner;
@@ -30,9 +30,10 @@ public class Automate implements Cloneable {
     int nbTransitions;
     int initnbTransitions;
     boolean deterministe;
+    boolean standard;
+    
     boolean complet;
     boolean asynchrone;
-    boolean standard;
     boolean minimale;
 
 
@@ -527,10 +528,10 @@ public class Automate implements Cloneable {
             if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()) {
                 pointeur_Etat(a.nom + b.nom).setEntree(true);
             }
+        }
 
-            if ((pointeur_Etat(a.nom).isSortie()) || pointeur_Etat(b.nom).isSortie()) {
-                pointeur_Etat(a.nom + b.nom).setSortie(true);
-            }
+        if ((pointeur_Etat(a.nom).isSortie()) || pointeur_Etat(b.nom).isSortie()) {
+            pointeur_Etat(a.nom + b.nom).setSortie(true);
         }
 
         for (int i = 0; i < pointeur_Etat(a.nom).getTabTransitions().size(); i++) {
@@ -788,6 +789,7 @@ public class Automate implements Cloneable {
 
             mitose(pointeur_Etat(a+b));
         }
+
         
     }
 

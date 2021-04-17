@@ -1,4 +1,4 @@
-package Automate;
+
 
 /**
  * Menu du programme qui permet de selectionner les actions, on enverra a chaque fois un clone de l'automate initiale
@@ -20,7 +20,7 @@ public class Menu {
 
         automate.afficherAutomate();
         
-        while (menu0 == 1) {
+        while (menu0 == 1) {//Boucle du menu
 
             while (menu1 == 1) {
 
@@ -54,7 +54,7 @@ public class Menu {
                     deter.afficherAutomate();
                 }
 
-                if (jarvis.getChoix().equals("s")) {// Choix determinisation
+                if (jarvis.getChoix().equals("s")) {// Choix Standard
                     Automate standard = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     standard.afficherAutomate();
@@ -63,7 +63,7 @@ public class Menu {
                     standard.afficherAutomate();
                 }
 
-                if (jarvis.getChoix().equals("c")) {// Choix determinisation
+                if (jarvis.getChoix().equals("c")) {// Choix Complet
                     Automate complet = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     complet.afficherAutomate();
@@ -72,7 +72,7 @@ public class Menu {
                     complet.afficherAutomate();
                 }
 
-                if (jarvis.getChoix().equals("m")) {// Choix determinisation
+                if (jarvis.getChoix().equals("m")) {// Choix Mini
                     Automate mini = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     mini.afficherAutomate();
