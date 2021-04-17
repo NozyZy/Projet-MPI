@@ -1,120 +1,172 @@
 package Automate;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Etat {
-    String label;               //nom de l'état
-    Etat[] transitions;         //toutes les transitions
-    char[] charTransitions;     //tous les caractères de transition
-    int nbTransitions;          //le nombre de transistions sortantes
-    boolean entree;             //true si oui, false sinon
-    boolean sortie;             //true si oui, false sinon
-    boolean read;               //true si déjà lu, false sinon
+    int index;                             //index de l'état dans le tableau automate
+    String nom;                          //nom de l'état
+    ArrayList<String> transitions;     //toutes les transitions
+    //ArrayList<Integer> transitions; // toutes les transitions version int
+    ArrayList<String> charTransitions;  //tous les caractères de transition
+    int nbTransitions;                  //le nombre de transistions sortantes
+    boolean entree;                     //true si oui, false sinon
+    boolean sortie;                     //true si oui, false sinon
+    boolean read;                       //true si déjà lu, false sinon
+
     public final char MOT_VIDE = '*';
 
-    Etat(String label, Etat[] transitions, char[] charTransitions, int nbTransitions, boolean entree, boolean sortie){
-        this.label = label;
-        if (transitions == null) this.transitions = null;
-        else this.transitions = transitions.clone();
-        this.charTransitions = charTransitions;
+
+    /*public Etat(int label){ 
+      setLabel(label);
+    }*/
+
+    /**
+     * Constructeur d'etat avec un nom et sa position dans l'automate
+     * @param nom
+     * @param index
+     */
+    public Etat(String nom, int index){
+        setNom(nom);
+        setIndex(index);
+    }
+
+
+    public int getIndex() {
+        return this.index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public int getNbTransitions() {
+        return this.nbTransitions;
+    }
+
+    public void setNbTransitions(int nbTransitions) {
         this.nbTransitions = nbTransitions;
+    }
+
+    public boolean isEntree() {
+        return this.entree;
+    }
+
+    public boolean getEntree() {
+        return this.entree;
+    }
+
+    public void setEntree(boolean entree) {
         this.entree = entree;
+    }
+
+    public boolean isSortie() {
+        return this.sortie;
+    }
+
+    public boolean getSortie() {
+        return this.sortie;
+    }
+
+    public void setSortie(boolean sortie) {
         this.sortie = sortie;
-        read = false;
     }
 
-    @Override
-    public String toString() {
-        String text =  "\n(";
-        if (entree) text += ("->");
-        text += (label);
-        if (sortie) text += ("->");
-        text += (")");
-        if (nbTransitions > 0) {
-            for (int i = 0; i < nbTransitions; i++) {
-                text += (" /--") + charTransitions[i] + ("->");
-                text += ("(");
-                if (transitions[i].entree) text += ("->");
-                text += (transitions[i].label);
-                if (transitions[i].sortie) text += ("->");
-                text += (")");
-            }
+    public boolean isRead() {
+        return this.read;
+    }
+
+    public boolean getRead() {
+        return this.read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
+
+    public char getMOT_VIDE() {
+        return this.MOT_VIDE;
+    }
+
+
+    public String getTransitions(int x) {
+        return this.transitions.get(x);
+    }
+
+    public void setTransitions(String transitions) {
+        this.transitions.add(transitions);
+    }
+
+    public void setTransitions(int i, String transitions) {
+        getTabTransitions().remove(i);
+        this.transitions.add(i, transitions);
+    }
+
+    public String getCharTransitions(int x) {
+        return this.charTransitions.get(x);
+    }
+
+    public void setCharTransitions(String charTransitions) {
+        this.charTransitions.add(charTransitions);
+    }
+
+    public void setCharTransitions(int i, String charTransitions) {
+        getTabCharTransitions().remove(i);
+        this.charTransitions.add(i, charTransitions);
+    }
+
+    public void setTotalTransitions(String transition, String element){
+        setCharTransitions(transition);
+        setTransitions(element);
+    }
+
+    /**
+     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
+     */
+    public void setTabCharTransitions(){
+        this.charTransitions = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getTabCharTransitions(){
+        return charTransitions;
+    }
+
+    /**
+     * Cree un tableau dynamique en <String> pour le tableau des transitions
+     * (e0, e1, e2...)
+     */
+    public void setTabTransitions() {
+        this.transitions = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getTabTransitions() {
+        return transitions;
+    }
+
+
+    public void affiche_etat(){
+        System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
+    }
+
+    public void affiche_etat(String all) {
+        System.out.println("\n" + "Vous êtes à l'état : " + this.nom);
+
+        for (int j = 0; j < getTabCharTransitions().size(); j++) {
+            System.out.print("(" + getNom() + ")");
+            System.out.print("-" + getTabCharTransitions().get(j) + "->");
+            System.out.println("(" + getTabTransitions().get(j) + "), ");
+
         }
-        return text;
     }
 
-    void resetRead() {
-        read = false;
-        for (int i = 0; i < nbTransitions; i++){
-            if (transitions[i].read) transitions[i].resetRead();
-        }
-    }
 
-    void printEtat() {
-        System.out.print("\n(");
-        if (entree) System.out.print("->");
-        System.out.print(label);
-        if (sortie) System.out.print("->");
-        System.out.print(")");
-        if (nbTransitions > 0) {
-            for (int i = 0; i < nbTransitions; i++) {
-                System.out.print(" /--" + charTransitions[i] + "->");
-                System.out.print("(");
-                if (transitions[i].entree) System.out.print("->");
-                System.out.print(transitions[i].label);
-                if (transitions[i].sortie) System.out.print("->");
-                System.out.print(")");
-            }
-        }
-        read = true;
-    }
-
-    void printAllEtats() {
-         printEtat();
-         if (transitions != null) {
-             for (Etat etat : transitions) {
-                 if (!etat.read) etat.printAllEtats();
-             }
-         }
-    }
-
-    boolean contains(String string, int index) {
-        if (string == null) return false;
-        if (string.length() == index) {
-            if (sortie) return true;
-            int i = 0;
-            while(i < nbTransitions && charTransitions[i] != MOT_VIDE) {
-                i++;
-            }
-            if (i < nbTransitions && charTransitions[i] == MOT_VIDE) return transitions[i].contains(string, index);
-            else return false;
-        }
-        if (string.length() <= index) return false;
-        int i = 0;
-        while(i < nbTransitions && charTransitions[i] != string.charAt(index) && charTransitions[i] != MOT_VIDE) {
-            i++;
-        }
-        if (i == nbTransitions) return false;
-        if (charTransitions[i] != MOT_VIDE || string.charAt(index) == MOT_VIDE) index++;
-        return transitions[i].contains(string, index);
-    }
-
-    boolean contains(String string) {
-        return contains(string, 0);
-    }
-
-    boolean isAsynchrone() {
-        int i;
-        boolean state = false, next = false;
-        read = true;
-        for (i = 0; i < nbTransitions; i++){
-            if (!transitions[i].read) next = transitions[i].isAsynchrone();
-            if (charTransitions[i] == MOT_VIDE) {
-                state = true;
-            }
-            if (next && !state) state = true;
-        }
-        return state;
-    }
 
 }
