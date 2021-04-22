@@ -129,7 +129,9 @@ public class Multifonctions {
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
+        System.out.println("---------------------->" + possi);
         setChoix(possi);
+        
 
         for (int i = 0; i < getDatos().length; i++) {
             
