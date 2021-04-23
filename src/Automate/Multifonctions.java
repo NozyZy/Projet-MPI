@@ -126,6 +126,7 @@ public class Multifonctions {
             g = i+1;
             System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
             possi += toString(g);
+            System.out.println("---------------------->" + possi);
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
