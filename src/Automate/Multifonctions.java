@@ -85,6 +85,9 @@ public class Multifonctions {
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
                 }
+                if (i > 10 || getChoix().equals(mot.substring(i, i + 2))) {
+                    lecture = false;
+                }
             }
         }
     }
@@ -126,11 +129,10 @@ public class Multifonctions {
             g = i+1;
             System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
             possi += toString(g);
-            System.out.println("---------------------->" + possi);
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
-        System.out.println("---------------------->" + possi);
+
         setChoix(possi);
         
 
