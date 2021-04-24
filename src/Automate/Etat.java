@@ -96,6 +96,9 @@ public class Etat {
         return this.MOT_VIDE;
     }
 
+    public int nbTransitions() {
+        return getTabCharTransitions().size();
+    }
 
     public String getTransitions(int x) {
         return this.transitions.get(x);
@@ -129,7 +132,7 @@ public class Etat {
     }
 
     /**
-     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
+     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a, b, c...)
      */
     public void setTabCharTransitions(){
         this.charTransitions = new ArrayList<String>();
@@ -153,10 +156,10 @@ public class Etat {
 
 
     public void affiche_etat(){
-        System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
+        System.out.println("\n"+"Vous êtes à l'état : " + this.nom);
     }
 
-    public void affiche_etat(String all) {
+    public void affiche_etat_complet() {
         System.out.println("\n" + "Vous êtes à l'état : " + this.nom);
 
         for (int j = 0; j < getTabCharTransitions().size(); j++) {

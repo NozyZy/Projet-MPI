@@ -1,6 +1,7 @@
 package Automate;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class Automate implements Cloneable {
 
-    Multifonctions jarvis = new Multifonctions();//Majordome
+    Multifonctions jarvis = new Multifonctions(); //Majordome
     private static final Etat Error = null;
 
     public final char MOT_VIDE = '*';
@@ -36,10 +37,113 @@ public class Automate implements Cloneable {
     boolean asynchrone;
     boolean minimale;
 
+    Automate(String label) {
+        this.label = label;
+        setTabEtats();
+    }
+
+    Automate(String label, ArrayList<Etat> etats, int nbEntrees, int nbEtats){
+        this.label = label;
+        this.etats = etats;
+        this.nbEntrees = nbEntrees;
+        this.nbEtats = nbEtats;
+        deterministe = complet = asynchrone = standard = minimale = false;
+    }
+
+    /**
+     * Constructeur d'automate a partir d'un fichier txt
+     * @param fichier
+     */
+
+    /*public Automate(FileInputStream fichier){
+
+        Scanner lecture = new Scanner(fichier);//debut de lecture du fichier
+
+        setLabel(lecture.nextLine());
+
+        setNbEtats(lecture.nextInt());
+        this.etats = new Etat[this.nbEtats];//creation du nombre d'élement dans l'automate
+
+        for (int i = 0; i < this.nbEtats; i++) {
+            this.etats[i] = new Etat(i);
+            this.etats[i].transitions = new ArrayList<Integer>();
+            this.etats[i].charTransitions = new ArrayList<String>();
+        }
+        System.out.println("\n");
 
 
-    public char getMOT_VIDE() {
-        return this.MOT_VIDE;
+        this.setNbEntrees(lecture.nextInt());
+
+        for (int i = 0; i < this.nbEntrees; i++) {
+            this.etats[lecture.nextInt()].setEntree(true);
+        }
+
+        this.nbSorties = lecture.nextInt();
+        for (int i = 0; i < this.nbSorties; i++) {
+            this.etats[lecture.nextInt()].setSortie(true);
+        }
+
+        this.setNbTransitions(lecture.nextInt());
+
+        /**
+         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
+         */
+        /*for (int i = 0; i < this.nbTransitions; i++) {
+            int x = lecture.nextInt();                          //on copie le nom de l'element
+            this.etats[x].charTransitions.add(lecture.next());  //on ajoute la transtion (a,b,c,d...)
+            this.etats[x].transitions.add(lecture.nextInt());   //on ajoute l'élement pointer (etat 1, etat2...)
+            this.etats[x].nbTransitions++;
+        }
+
+        lecture.close();//fermeture de la lecture du txt
+        /
+    }*/
+
+
+    /**
+     * Constructeur d'automate a partir d'un fichier txt V2
+     *
+     * @param fichier
+     */
+    public Automate(FileInputStream fichier){
+
+        Scanner lecture = new Scanner(fichier);// debut de lecture du fichier
+
+        setLabel(lecture.nextLine());
+        setInitnbEtats(lecture.nextInt());//Nombre d'etat initiale donnée en txt
+        setTabEtats();// creation du tableau dynamique d'objet d'etat => l'automate
+
+
+
+        for (int i = 0; i < getInitnbEtats(); i++) {
+            setEtats(i,lecture.next());
+        }
+
+        setNbEntrees(lecture.nextInt());
+
+        for (int i = 0; i < getNbEntrees(); i++) {
+            pointeur_Etat(lecture.next()).setEntree(true);
+        }
+
+        setNbSorties(lecture.nextInt());
+
+        for (int i = 0; i < getNbSorties(); i++) {
+            pointeur_Etat(lecture.next()).setSortie(true);
+        }
+
+        setInitnbTransitions(lecture.nextInt());
+
+        /*
+         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
+         */
+        for (int i = 0; i < getInitnbTransitions(); i++) {
+            int x = pointeur_Etat(lecture.next()).getIndex();
+
+            getEtats(x).setTotalTransitions(lecture.next(), lecture.next()); // on ajoute la transtion (a,b,c,d...), on ajoute l'élement pointer (etat 1, etat2...)
+            getEtats(x).nbTransitions++; //on augmente le nombre de transitions
+        }
+        nbTransitions = getInitnbTransitions();
+        lecture.close();// fermeture de la lecture du txt
     }
 
 
@@ -50,7 +154,6 @@ public class Automate implements Cloneable {
     public void setInitnbTransitions(int initnbTransitions) {
         this.initnbTransitions = initnbTransitions;
     }
-
 
     public int getInitnbEtats() {
         return this.initnbEtats;
@@ -284,112 +387,6 @@ public class Automate implements Cloneable {
         return false;
     }
 
-
-
-    Automate(String label, Etat[] etats, int nbEntrees, int nbEtats){
-        this.label = label;
-        if (etats == null) this.etats = null;
-        //else this.etats = etats.clone();
-        this.nbEntrees = nbEntrees;
-        this.nbEtats = nbEtats;
-        deterministe = complet = asynchrone = standard = minimale = false;
-    }
-
-    /**
-     * Constructeur d'automate a partir d'un fichier txt
-     * @param fichier
-     */
-
-    /*public Automate(FileInputStream fichier){
-
-        Scanner lecture = new Scanner(fichier);//debut de lecture du fichier
-
-        setLabel(lecture.nextLine());
-
-        setNbEtats(lecture.nextInt());
-        this.etats = new Etat[this.nbEtats];//creation du nombre d'élement dans l'automate
-
-        for (int i = 0; i < this.nbEtats; i++) {
-            this.etats[i] = new Etat(i);
-            this.etats[i].transitions = new ArrayList<Integer>();
-            this.etats[i].charTransitions = new ArrayList<String>();
-        }
-        System.out.println("\n");
-
-        
-        this.setNbEntrees(lecture.nextInt());
-
-        for (int i = 0; i < this.nbEntrees; i++) {
-            this.etats[lecture.nextInt()].setEntree(true);
-        }
-
-        this.nbSorties = lecture.nextInt();
-        for (int i = 0; i < this.nbSorties; i++) {
-            this.etats[lecture.nextInt()].setSortie(true);
-        }
-
-        this.setNbTransitions(lecture.nextInt());
-
-        /**
-         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
-         */
-        /*for (int i = 0; i < this.nbTransitions; i++) {
-            int x = lecture.nextInt();                          //on copie le nom de l'element
-            this.etats[x].charTransitions.add(lecture.next());  //on ajoute la transtion (a,b,c,d...)
-            this.etats[x].transitions.add(lecture.nextInt());   //on ajoute l'élement pointer (etat 1, etat2...)
-            this.etats[x].nbTransitions++;
-        }
-
-        lecture.close();//fermeture de la lecture du txt
-        /
-    }*/
-
-
-    /**
-     * Constructeur d'automate a partir d'un fichier txt V2
-     * 
-     * @param fichier
-     */
-    public Automate(FileInputStream fichier){
-
-        Scanner lecture = new Scanner(fichier);// debut de lecture du fichier
-
-        setLabel(lecture.nextLine());
-        setInitnbEtats(lecture.nextInt());//Nombre d'etat initiale donnée en txt
-        setTabEtats();// creation du tableau dynamique d'objet d'etat => l'automate
-
-       
-
-        for (int i = 0; i < getInitnbEtats(); i++) {
-            setEtats(i,lecture.next());
-        }
-
-        setNbEntrees(lecture.nextInt());
-
-        for (int i = 0; i < getNbEntrees(); i++) {
-            pointeur_Etat(lecture.next()).setEntree(true);
-        }
-
-        setNbSorties(lecture.nextInt());
-
-        for (int i = 0; i < getNbSorties(); i++) {
-           pointeur_Etat(lecture.next()).setSortie(true);
-        }
-
-        setInitnbTransitions(lecture.nextInt());
-
-        /**
-         * Boucle qui permet l'enrengistrement de l'automate depuis un txt
-         */
-        for (int i = 0; i < getInitnbTransitions(); i++) {
-            int x = pointeur_Etat(lecture.next()).getIndex();
-
-            getEtats(x).setTotalTransitions(lecture.next(), lecture.next()); // on ajoute la transtion (a,b,c,d...), on ajoute l'élement pointer (etat 1, etat2...)
-            getEtats(x).nbTransitions++; //on augmente le nombre de transitions
-        }
-        lecture.close();// fermeture de la lecture du txt
-    }
-
     /**
      * Affiche l'automate en string
      */
@@ -413,7 +410,7 @@ public class Automate implements Cloneable {
             for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
                 System.out.print("(" + getEtats(i).getNom() + ")");
                 System.out.print("-" + getEtats(i).getTabCharTransitions().get(j) + "->");
-                System.out.println("("+getEtats(i).getTabTransitions().get(j)+"), ");
+                System.out.println("(" + getEtats(i).getTabTransitions().get(j)+"), ");
 
             }
             System.out.println();
@@ -522,36 +519,35 @@ public class Automate implements Cloneable {
         }
         System.out.print("---------------------------------------------> ");
         a.affiche_etat();**/
-        if (a == null || b == null){
-        }
-        else{
+
+        if (a != null && b != null){
             setEtats(a.nom + b.nom);
 
             if (getNbEntrees() > 1) {
-                if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()) {
+                if ((a.isEntree()) || b.isEntree()) {
                     pointeur_Etat(a.nom + b.nom).setEntree(true);
                 }
             }
 
-            if ((pointeur_Etat(a.nom).isSortie()) || pointeur_Etat(b.nom).isSortie()) {
+            if (a.isSortie() || b.isSortie()) {
                 pointeur_Etat(a.nom + b.nom).setSortie(true);
             }
 
-            for (int i = 0; i < pointeur_Etat(a.nom).getTabTransitions().size(); i++) {
-                pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(a.nom).getCharTransitions(i),
-                        pointeur_Etat(a.nom).getTransitions(i));
+            for (int i = 0; i < a.nbTransitions(); i++) {
+                pointeur_Etat(a.nom + b.nom).setTotalTransitions(a.getCharTransitions(i),
+                        a.getTransitions(i));
             }
 
-            for (int i = 0; i < pointeur_Etat(b.nom).getTabTransitions().size(); i++) {
-                pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(b.nom).getCharTransitions(i),
-                        pointeur_Etat(b.nom).getTransitions(i));
+            for (int i = 0; i < b.nbTransitions(); i++) {
+                pointeur_Etat(a.nom + b.nom).setTotalTransitions(b.getCharTransitions(i),
+                        b.getTransitions(i));
             }
 
-            if (!(pointeur_Etat(a.nom).getTabTransitions().contains(a.nom))) {
+            if (!a.getTabTransitions().contains(a.nom)) {
                 suppression_Etat(a);
             }
 
-            if (!(pointeur_Etat(b.nom).getTabTransitions().contains(b.nom))) {
+            if (!b.getTabTransitions().contains(b.nom)) {
                 suppression_Etat(b);
             }
         }
@@ -563,6 +559,68 @@ public class Automate implements Cloneable {
         }**/
 
     }
+
+    /**
+     * Fusionne les état a et b pour cree l'état ab et supprimer a et b. ab recupere les transtisions de a + b
+     * @param a
+     * @param names
+     */
+    public void fusion_Etat_asynchrone(Etat a, String[] names, Automate n){
+        /*System.out.println("--------------------------------");
+         for (int i = 0; i < getTabEtats().size(); i++) {
+         System.out.println("Index 1 : " + getEtats(i).nom);
+         }
+         System.out.print("---------------------------------------------> ");
+         a.affiche_etat();*/
+
+        if (names != null){
+
+            for (String name: names){
+                if (pointeur_Etat(name).isEntree())
+                    n.pointeur_Etat(a.nom).setEntree(true);
+                if (pointeur_Etat(name).isSortie())
+                    n.pointeur_Etat(a.nom).setSortie(true);
+            }
+
+            for (int i = 0; i < a.nbTransitions(); i++) {
+                if (a.getCharTransitions(i).charAt(0) != MOT_VIDE) {
+                    n.pointeur_Etat(a.nom).setTotalTransitions(a.getCharTransitions(i),
+                            a.getTransitions(i) + "'");
+                }
+            }
+
+            for(String name: names){
+                Etat b = pointeur_Etat(name);
+                for (int i = 0; i < b.nbTransitions(); i++) {
+                    if (b.getCharTransitions(i).charAt(0) != MOT_VIDE) {
+                        n.pointeur_Etat(a.nom).setTotalTransitions(b.getCharTransitions(i),
+                                b.getTransitions(i) + "'");
+                    }
+                }
+            }
+
+            /*if (!a.getTabTransitions().contains(a.nom)) {
+                suppression_Etat(a);
+            }
+
+            for(String name: names){
+                Etat b = pointeur_Etat(name);
+                if (!b.getTabTransitions().contains(b.nom)) {
+                    suppression_Etat(b);
+                }
+            }*/
+
+        }
+
+        /**System.out.println("--------------------------------");
+
+         for (int i = 0; i < getTabEtats().size(); i++) {
+         System.out.println("Index 2 : " + getEtats(i).nom);
+         }**/
+
+    }
+
+
 
     /**
      * Fusionne les transitions identique d'un element. Si element x a 2 transions de a ==> x a 1 transition a qui pointe vers un nouvel element consituer des transitions
@@ -632,7 +690,7 @@ public class Automate implements Cloneable {
                         }
                         else{
                             System.out.println("---------------------voici le couple a : " + a + " et b : " + b);
-                            pointeur_Etat(a).affiche_etat("all");
+                            pointeur_Etat(a).affiche_etat_complet();
                             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
                         }
                     }
@@ -817,7 +875,7 @@ public class Automate implements Cloneable {
 
                 for (i = 0; i < mot.length() + 1; i++) {
 
-                    for (j = 0; j < tmp.getTabCharTransitions().size(); j++) {
+                    for (j = 0; j < tmp.nbTransitions(); j++) {
 
                         if (i < mot.length()) {
                             if (tmp.charTransitions.get(j).charAt(0) == mot.charAt(i)){
@@ -840,7 +898,7 @@ public class Automate implements Cloneable {
                         }
 
                     }
-                    if (j == tmp.getTabCharTransitions().size()) i = mot.length();
+                    if (j == tmp.nbTransitions()) i = mot.length();
 
                 }
                 if (tmp.sortie) exists = true;
@@ -849,5 +907,75 @@ public class Automate implements Cloneable {
         }
         return exists;
     }
-}
 
+    public boolean verifAsynchrone() {
+        boolean isAsynchrone = false;
+        for(int i = 0; i < nbEtats; i++){
+            for(int j = 0; j < etats.get(i).nbTransitions(); j++){
+                if (etats.get(i).charTransitions.get(j).charAt(0) == MOT_VIDE){
+                    if (!isAsynchrone) {
+                        isAsynchrone = this.asynchrone = true;
+                        System.out.println("L'automate " + label + " est asynchrone, à cause des transitions suivantes : ");
+                    }
+                    System.out.println(etats.get(i).nom + " " + MOT_VIDE + " " + etats.get(i).transitions.get(j));
+                }
+            }
+        }
+        return isAsynchrone;
+    }
+
+    public Automate eliminationEpsilon() {
+        if (!asynchrone) asynchrone = verifAsynchrone();
+        if (asynchrone) { // a besoin de revérifier s'il est asynchrone
+            String[] clotures = new String[nbEtats];
+            for (int i = 0; i < nbEtats; i++) {
+                clotures[i] = etats.get(i).nom + findEpsilon(etats.get(i));
+                /*char[] tmp = clotures[i].toCharArray();
+                Arrays.sort(tmp);
+                clotures[i] = new String(tmp);*/
+            }
+            System.out.println(Arrays.toString(clotures));
+            Automate newAuto = new Automate(label+"-Async");
+            newAuto.setTabEtats();
+            int i = 0;
+            for (String clot: clotures) {
+                String[] names = clot.split("-");
+                newAuto.setEtats(i, names[0] + "'");
+                fusion_Etat_asynchrone(newAuto.etats.get(i), names, newAuto);
+                i++;
+            }
+            newAuto.afficherAutomate();
+            newAuto.determinisation();
+
+            return null;
+        }
+        return null;
+    }
+
+    public String findEpsilon(Etat etat) {
+        String epsilonLabels = "";
+        for (int i = 0; i < etat.nbTransitions; i++) {
+            if (etat.charTransitions.get(i).charAt(0) == MOT_VIDE) {
+                if (!etat.nom.equals(etat.transitions.get(i))) {
+                    epsilonLabels += "-" + etat.transitions.get(i) + findEpsilon(pointeur_Etat(etat.transitions.get(i)));
+                }
+            }
+        }
+        return epsilonLabels;
+    }
+
+    public char[] findAlphabet() {
+        if (nbEtats <= 0) return null;
+        char[] alphabet = new char[nbTransitions];
+        int k = 0;
+        for (int i = 0; i < nbEtats; i++) {
+            for (int j = 0; j < etats.get(i).nbTransitions(); j++) {
+                char val = etats.get(i).charTransitions.get(j).charAt(0);
+                if (!jarvis.isInArray(alphabet, val) && val != MOT_VIDE) {
+                    alphabet[k++] = val;
+                }
+            }
+        }
+        return alphabet;
+    }
+}

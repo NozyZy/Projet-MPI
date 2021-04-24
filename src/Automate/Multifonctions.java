@@ -141,4 +141,15 @@ public class Multifonctions {
         }
     }
 
+    public boolean isInArray(char[] array, char val) {
+        boolean found = false;
+        for(char c: array){
+            if (val == c){
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
 }
