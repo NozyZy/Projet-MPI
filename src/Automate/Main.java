@@ -7,7 +7,7 @@ public class Main {
         //jarvis.clearConsole();
         //jarvis.autoSelection();
 
-        Automate automate = Readwrite.readAutomateFile("index/B_automate.txt");
+        Automate automate = Readwrite.readAutomateFile("index/C_automate.txt");
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
         automate.afficherAutomate();
         //System.out.println("test\n");
@@ -16,7 +16,7 @@ public class Main {
         //automate.setLabel("Standardisé");
         automate.determinisation();
         automate.setLabel("Deterministe");
-        //automate.afficherAutomate();
+        automate.afficherAutomate();
         //System.out.println("-----------------------------------> "+automate.getEtatEntree(1).getNom());
         //System.out.println("-----------------------------------> "+automate.mitose(automate.getEtats(0)));
         //automate.afficherAutomate();
