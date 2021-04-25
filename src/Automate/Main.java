@@ -10,8 +10,9 @@ public class Main {
         Automate automate = Readwrite.readAutomateFile("index/D_automate.txt");
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
         automate.afficherAutomate();
-        System.out.println(automate.eliminationEpsilon());
-        //System.out.println(automate.contains("abaa"));
+        automate = automate.eliminationEpsilon();
+        automate.afficherAutomate();
+        System.out.println(automate.contains("ababababababbbbba"));
         //System.out.println("test\n");
         //System.out.println();
         //automate.standardisation("i");

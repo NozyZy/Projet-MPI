@@ -11,14 +11,8 @@ public class Etat {
     int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
-    boolean read;                       //true si déjà lu, false sinon
 
     public final char MOT_VIDE = '*';
-
-
-    /*public Etat(int label){ 
-      setLabel(label);
-    }*/
 
     /**
      * Constructeur d'etat avec un nom et sa position dans l'automate
@@ -38,7 +32,6 @@ public class Etat {
     public void setIndex(int index) {
         this.index = index;
     }
-
 
     public String getNom() {
         return this.nom;
@@ -80,18 +73,6 @@ public class Etat {
         this.sortie = sortie;
     }
 
-    public boolean isRead() {
-        return this.read;
-    }
-
-    public boolean getRead() {
-        return this.read;
-    }
-
-    public void setRead(boolean read) {
-        this.read = read;
-    }
-
     public char getMOT_VIDE() {
         return this.MOT_VIDE;
     }
@@ -111,6 +92,10 @@ public class Etat {
     public void setTransitions(int i, String transitions) {
         getTabTransitions().remove(i);
         this.transitions.add(i, transitions);
+    }
+
+    public ArrayList<String> getCharTransitions() {
+        return this.charTransitions;
     }
 
     public String getCharTransitions(int x) {
