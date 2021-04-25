@@ -839,34 +839,34 @@ public class Automate implements Cloneable {
         int i, j;
         int etatIndex = 0, etatNum = 0;
         boolean exists = false;
-        while(etatNum < this.nbEntrees && !exists) {
+        while(etatNum < getNbEntrees() && !exists) {
             if (etats.get(etatIndex).entree) {
                 etatNum++;
                 Etat tmp = etats.get(etatIndex);
 
                 for (i = 0; i < mot.length() + 1; i++) {
-
-                    for (j = 0; j < tmp.nbTransitions(); j++) {
+                    int len = tmp.nbTransitions();
+                    for (j = 0; j < len; j++) {
 
                         if (i < mot.length()) {
                             if (tmp.charTransitions.get(j).charAt(0) == mot.charAt(i)){
                                 tmp = pointeur_Etat(tmp.transitions.get(j));
+                                if (i == mot.length() - 1) i++;
                                 break;
                             }
                         }
-                        else {
-                            if (tmp.charTransitions.get(j).charAt(0) == MOT_VIDE){
-                                tmp = pointeur_Etat(tmp.transitions.get(j));
-                                i--;
-                                break;
-                            }
+
+                        if (tmp.charTransitions.get(j).charAt(0) == MOT_VIDE){
+                            tmp = pointeur_Etat(tmp.transitions.get(j));
+                            i--;
+                            break;
                         }
 
                     }
-                    if (j == tmp.nbTransitions()) i = mot.length();
+                    if (j == len) break;
 
                 }
-                if (tmp.sortie) exists = true;
+                if (tmp.sortie && i >= mot.length()) exists = true;
             }
             etatIndex++;
         }
