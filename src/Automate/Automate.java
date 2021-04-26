@@ -1,4 +1,4 @@
-package Automate;
+
 
 import java.io.*;
 import java.util.Scanner;
@@ -527,7 +527,7 @@ public class Automate implements Cloneable {
         else{
             setEtats(a.nom + b.nom);
 
-            if (getNbEntrees() > 1) {
+            if (getNbEntrees() > 1 || getNbEntrees() == 1) {
                 if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()) {
                     pointeur_Etat(a.nom + b.nom).setEntree(true);
                 }
