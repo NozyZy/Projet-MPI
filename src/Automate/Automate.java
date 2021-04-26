@@ -1,4 +1,4 @@
-
+package Automate;
 
 import java.io.*;
 import java.util.Scanner;
@@ -82,7 +82,7 @@ public class Automate implements Cloneable {
      * Supression des transitions depuis un état a un index donnée
      * 
      * @param element
-     * @param transition
+     * @param x
      */
     public void suppression_Transition(Etat element, int x) {
 
@@ -117,7 +117,6 @@ public class Automate implements Cloneable {
      * Permet de créer un etat dans l'automate à l'indice 0 et ses tableaux de
      * transitions sont egalement initialisés
      * 
-     * @param i   indice
      * @param nom le nom de l'etat en string
      */
     public void setEtats(String nom) {
@@ -800,9 +799,55 @@ public class Automate implements Cloneable {
 
             mitose(pointeur_Etat(a+b));
         }
-
-        
     }
 
+    /**
+     * Vérifie si un automate est capable de reconnaitre un mot
+     * @param mot chaine de caractères dont il faut vérifier l'existence
+     * @return boolean
+     */
+    public boolean contains(String mot) {
+        int i, j;
+        int etatIndex = 0, etatNum = 0;
+        boolean exists = false;
+        while(etatNum < this.nbEntrees && !exists) {
+            if (etats.get(etatIndex).entree) {
+                etatNum++;
+                Etat tmp = etats.get(etatIndex);
+
+                for (i = 0; i < mot.length() + 1; i++) {
+
+                    for (j = 0; j < tmp.getTabCharTransitions().size(); j++) {
+
+                        if (i < mot.length()) {
+                            if (tmp.charTransitions.get(j).charAt(0) == mot.charAt(i)){
+                                tmp = pointeur_Etat(tmp.transitions.get(j));
+                                break;
+                            }
+
+                            else if (tmp.charTransitions.get(j).charAt(0) == MOT_VIDE){
+                                tmp = pointeur_Etat(tmp.transitions.get(j));
+                                i--;
+                                break;
+                            }
+                        }
+                        else {
+                            if (tmp.charTransitions.get(j).charAt(0) == MOT_VIDE){
+                                tmp = pointeur_Etat(tmp.transitions.get(j));
+                                i--;
+                                break;
+                            }
+                        }
+
+                    }
+                    if (j == tmp.getTabCharTransitions().size()) i = mot.length();
+
+                }
+                if (tmp.sortie) exists = true;
+            }
+            etatIndex++;
+        }
+        return exists;
+    }
 }
 

@@ -1,12 +1,12 @@
-
+package Automate;
 
 import java.util.ArrayList;
 
 public class Etat {
-    int index;                             //index de l'état dans le tableau automate
-    String nom;                          //nom de l'état
-    ArrayList<String> transitions;     //toutes les transitions
-    //ArrayList<Integer> transitions; // toutes les transitions version int
+    int index;                          //index de l'état dans le tableau automate
+    String nom;                         //nom de l'état
+    ArrayList<String> transitions;      //toutes les transitions
+    //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
     //int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
