@@ -141,7 +141,7 @@ public class Automate implements Cloneable {
             int x = pointeur_Etat(lecture.next()).getIndex();
 
             getEtats(x).setTotalTransitions(lecture.next(), lecture.next()); // on ajoute la transtion (a,b,c,d...), on ajoute l'élement pointer (etat 1, etat2...)
-            getEtats(x).nbTransitions++; //on augmente le nombre de transitions
+            //getEtats(x).nbTransitions++; //on augmente le nombre de transitions
         }
         nbTransitions = getInitnbTransitions();
         lecture.close();// fermeture de la lecture du txt
@@ -259,6 +259,13 @@ public class Automate implements Cloneable {
 
     public int getNbEntrees() {
         return this.nbEntrees;
+    }
+
+    public void setNbEntrees() {
+        this.nbEntrees = 0;
+        for (int i = 0; i < nbEtats; i++) {
+            if (etats.get(i).isEntree()) this.nbEntrees++;
+        }
     }
 
     public void setNbEntrees(int nbEntrees) {
@@ -816,18 +823,31 @@ public class Automate implements Cloneable {
             mitose(getEtatEntree());
         }
 
-        if (getNbEntrees() == 2) {
-            String a, b = "";
+        if (getNbEntrees() >= 2) {
+            String a, b;
+            int len = getEtatEntree().index + 1;
             a = getEtatEntree().getNom();
-            b = getEtatEntree(getEtatEntree().index + 1).getNom();
+            b = getEtatEntree(len).getNom();
 
             //System.out.println("a+b "+a+b);
             //System.out.println("checked 2 ");
 
             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
 
-            mitose(pointeur_Etat(a+b));
+            if (getNbEntrees() == 2) mitose(pointeur_Etat(a+b));
+            else {
+                int i = 2;
+                while (i < getNbEntrees()){
+                    a = a + b;
+                    b = getEtatEntree(len).getNom();
+                    fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
+                    mitose(pointeur_Etat(a+b));
+                    i++;
+                }
+            }
         }
+        setNbEntrees();
+        setDeterministe(true);
     }
 
     /**
@@ -836,10 +856,14 @@ public class Automate implements Cloneable {
      * @return boolean
      */
     public boolean contains(String mot) {
+        if (!isDeterministe())
+            System.out.println("L'automate n'est pas déterministe, le résultat peut donc être erroné. Vous devriez déterminiser avant.");
+        if (mot == null) mot = "";
         int i, j;
         int etatIndex = 0, etatNum = 0;
         boolean exists = false;
         while(etatNum < getNbEntrees() && !exists) {
+            //System.out.println(etats.get(etatIndex).nom + " " + etatIndex + " " + etats.get(etatIndex).entree);
             if (etats.get(etatIndex).entree) {
                 etatNum++;
                 Etat tmp = etats.get(etatIndex);
@@ -964,7 +988,7 @@ public class Automate implements Cloneable {
 
     public String findEpsilon(Etat etat) {
         String epsilonLabels = "";
-        for (int i = 0; i < etat.nbTransitions; i++) {
+        for (int i = 0; i < etat.nbTransitions(); i++) {
             if (etat.charTransitions.get(i).charAt(0) == MOT_VIDE) {
                 if (!etat.nom.equals(etat.transitions.get(i))) {
                     epsilonLabels += "-" + etat.transitions.get(i) + findEpsilon(pointeur_Etat(etat.transitions.get(i)));
