@@ -810,10 +810,11 @@ public class Automate implements Cloneable {
         int i, j;
         int etatIndex = 0, etatNum = 0;
         boolean exists = false;
+        
         while(etatNum < this.nbEntrees && !exists) {
-            if (etats.get(etatIndex).entree) {
+            if (getEtats(etatIndex).entree) {
                 etatNum++;
-                Etat tmp = etats.get(etatIndex);
+                Etat tmp = getEtats(etatIndex);
 
                 for (i = 0; i < mot.length() + 1; i++) {
 
