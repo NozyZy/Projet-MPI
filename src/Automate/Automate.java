@@ -849,24 +849,31 @@ public class Automate implements Cloneable {
         }
         return exists;
     }
+
     public void minimisation(Automate automate){
-        if (automate.isAsynchrone()){
-            System.out.printf("\nL'automate n'est pas synchrone ...");
 
-            if (!automate.isDeterministe()){
-                System.out.printf("\nL'automate n'est pas determinisate ...\n--> Determinisation");
-                automate.determinisation();
-                
-                if (!automate.isComplet()){
-                    System.out.printf("\nL'automate n'est pas complet ...\n--> Completion...");
-                    //automate.completion();
-
+        if (!automate.isAsynchrone()){
+            if (automate.isDeterministe()){
+                if (automate.isComplet()){
+                    
                 }
+                else{
+                    System.out.printf("\nL'automate n'est pas complet ...");
+                }
+
+            }
+            else{
+                System.out.printf("\nL'automate n'est pas determinisate ...");
             }
         }
+        else{
+            System.out.printf("\nL'automate n'est pas synchrone ...");
+        }
+
         automate.laMinimalisation();
         automate.afficherAutomate();
     }
+
     public void laMinimalisation(){
         
     }    
