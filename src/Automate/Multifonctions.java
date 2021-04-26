@@ -85,6 +85,9 @@ public class Multifonctions {
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
                 }
+                if (i > 10 || getChoix().equals(mot.substring(i, i + 2))) {
+                    lecture = false;
+                }
             }
         }
     }
@@ -115,7 +118,7 @@ public class Multifonctions {
                         + "---------------------------> g : Changer d'automate\n"
                         + "---------------------------> e : exit\n");
 
-        setChoix("dscmge");
+        setChoix();
     }
 
     public void autoSelection(){
@@ -129,7 +132,9 @@ public class Multifonctions {
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
-        setChoix(possi);
+
+        setChoix();
+        
 
         for (int i = 0; i < getDatos().length; i++) {
             

@@ -7,7 +7,7 @@ public class Main {
         //jarvis.clearConsole();
         //jarvis.autoSelection();
 
-        Automate automate = Readwrite.readAutomateFile("index/B_automate.txt");
+        Automate automate = Readwrite.readAutomateFile("index/C_automate.txt");
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
         automate.afficherAutomate();
         System.out.println(automate.contains("abaa"));
