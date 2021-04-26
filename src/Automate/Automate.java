@@ -524,7 +524,7 @@ public class Automate implements Cloneable {
         if (a != null && b != null){
             setEtats(a.nom + b.nom);
 
-            if (getNbEntrees() > 1) {
+            if (getNbEntrees() > 1 || getNbEntrees() == 1) {
                 if ((a.isEntree()) || b.isEntree()) {
                     pointeur_Etat(a.nom + b.nom).setEntree(true);
                 }
