@@ -141,7 +141,7 @@ public class Automate implements Cloneable {
             int x = pointeur_Etat(lecture.next()).getIndex();
 
             getEtats(x).setTotalTransitions(lecture.next(), lecture.next()); // on ajoute la transtion (a,b,c,d...), on ajoute l'élement pointer (etat 1, etat2...)
-            //getEtats(x).nbTransitions++; //on augmente le nombre de transitions
+            getEtats(x).nbTransitions++; //on augmente le nombre de transitions
         }
         nbTransitions = getInitnbTransitions();
         lecture.close();// fermeture de la lecture du txt
@@ -964,7 +964,7 @@ public class Automate implements Cloneable {
 
     public String findEpsilon(Etat etat) {
         String epsilonLabels = "";
-        for (int i = 0; i < getNbTransitions(); i++) { // check le pull
+        for (int i = 0; i < etat.nbTransitions; i++) {
             if (etat.charTransitions.get(i).charAt(0) == MOT_VIDE) {
                 if (!etat.nom.equals(etat.transitions.get(i))) {
                     epsilonLabels += "-" + etat.transitions.get(i) + findEpsilon(pointeur_Etat(etat.transitions.get(i)));
