@@ -8,7 +8,7 @@ public class Etat {
     ArrayList<String> transitions;      //toutes les transitions
     //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
-    int nbTransitions;                  //le nombre de transistions sortantes
+    //int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
 
@@ -41,13 +41,13 @@ public class Etat {
         this.nom = nom;
     }
 
-    public int getNbTransitions() {
+    /**public int getNbTransitions() {
         return this.nbTransitions;
     }
 
     public void setNbTransitions(int nbTransitions) {
         this.nbTransitions = nbTransitions;
-    }
+    }**/
 
     public boolean isEntree() {
         return this.entree;
