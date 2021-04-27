@@ -3,34 +3,21 @@
 public class Main {
     public static void main(String[] args) {
 
-        //Multifonctions jarvis = new Multifonctions();
-        //jarvis.clearConsole();
+        Multifonctions jarvis = new Multifonctions();
+        jarvis.clearConsole();
         //jarvis.autoSelection();
 
-        Automate automate = Readwrite.readAutomateFile("index/#07.txt");
+        Automate automate = Readwrite.readAutomateFile("index/C_automate.txt");
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
-        automate.afficherAutomate();
-        if (automate.pointeur_Etat("1").isEntree()) {
-            System.out.println("yaaaaaaaaa");
-        } else {
-            System.out.println("chui spiderman fdp");
-        }
         //System.out.println(automate.contains("abaa"));
         //System.out.println("test\n");
         //System.out.println();
         //automate.standardisation("i");
         //automate.setLabel("Standardisé");
-        automate.determinisation();
-        automate.setLabel("Deterministe");
+        //automate.determinisation();
+        //automate.setLabel("Deterministe");
         automate.afficherAutomate();
-
-        if (automate.pointeur_Etat("01").isEntree()) {
-            System.out.println("yaaaaaaaaa");
-        }
-        else{
-            System.out.println("chui spiderman fdp");
-        }
-        
+        automate.fusion_multiple(4).affiche_etat("all");
         //System.out.println(automate.contains("abaa"));
         //automate.afficherAutomate();
         //System.out.println("-----------------------------------> "+automate.getEtatEntree(1).getNom());

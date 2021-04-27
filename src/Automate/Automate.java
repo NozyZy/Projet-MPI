@@ -2,8 +2,6 @@
 
 import java.io.*;
 import java.util.Scanner;
-
-
 import java.util.ArrayList;
 
 /**
@@ -85,10 +83,8 @@ public class Automate implements Cloneable {
      * @param x
      */
     public void suppression_Transition(Etat element, int x) {
-
         element.getTabCharTransitions().remove(x);
         element.getTabTransitions().remove(x);
-
     }
 
     /**
@@ -507,7 +503,7 @@ public class Automate implements Cloneable {
         }
 
         pointeur_Etat(nom).setEntree(true);//on le met en entrée
-        setStandard(true);
+        
     }
 
     /**
@@ -777,6 +773,35 @@ public class Automate implements Cloneable {
         return Error;
     }
 
+    public Etat fusion_multiple(int x){
+        ArrayList<String> entrees;
+
+        entrees = new ArrayList<String>();
+        String tmp = "";
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            if (getEtatEntree(i) != Error) {
+                entrees.add(getEtatEntree(i).nom);
+            }
+            
+        }
+
+        for (int i = 0; i < entrees.size(); i++) {
+            System.out.println("voici les entrée : "+ entrees.get(i));
+        }
+
+        fusion_Etat(pointeur_Etat(entrees.get(0)), pointeur_Etat(entrees.get(1)));//on fusionne les deux premiere entrées
+        tmp += entrees.get(0);//on set le nouveau nom de l'état initiale
+        tmp += entrees.get(1);
+
+        for (int i = 2; i < x; i++) {
+            fusion_Etat(pointeur_Etat(tmp), pointeur_Etat(entrees.get(i)));
+            tmp += entrees.get(i);
+        }
+
+        return pointeur_Etat(tmp);
+    }
+
     /**
      * Fonction de determinisation
      */
@@ -787,7 +812,7 @@ public class Automate implements Cloneable {
             mitose(getEtatEntree());
         }
 
-        if (getNbEntrees() == 2) {
+        /**if (getNbEntrees() == 2) {
             String a, b = "";
             a = getEtatEntree().getNom();
             b = getEtatEntree(getEtatEntree().index + 1).getNom();
@@ -798,6 +823,10 @@ public class Automate implements Cloneable {
             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
 
             mitose(pointeur_Etat(a+b));
+        }**/
+
+        if (getNbEntrees() > 1) {
+            mitose(fusion_multiple(getNbEntrees()));
         }
     }
 
@@ -810,7 +839,7 @@ public class Automate implements Cloneable {
         int i, j;
         int etatIndex = 0, etatNum = 0;
         boolean exists = false;
-        
+
         while(etatNum < this.nbEntrees && !exists) {
             if (getEtats(etatIndex).entree) {
                 etatNum++;
