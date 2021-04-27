@@ -6,6 +6,7 @@ public class Etat {
     ArrayList<String> transitions;      //toutes les transitions
     //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
+    ArrayList<String> groupeMinimisation;
     int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
@@ -126,6 +127,19 @@ public class Etat {
         setTransitions(element);
     }
 
+
+    public void setGroupeMinimisation(int i, String groupeMinimisation) {
+        getTabTransitions().remove(i);
+        this.groupeMinimisation.add(i, groupeMinimisation);
+    }
+    public String getGroupeMinimisation(int i) {
+        return this.groupeMinimisation.get(i);
+    }
+
+    public void setGroupeMinimisation(String groupeMinimisation) {
+        this.groupeMinimisation.add(groupeMinimisation);
+    }
+
     /**
      * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
      */
@@ -149,6 +163,13 @@ public class Etat {
         return transitions;
     }
 
+    public void setGroupeMinimisation(){
+        this.groupeMinimisation = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getGroupeMinimisation(){
+        return groupeMinimisation;
+    }
 
     public void affiche_etat(){
         System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
