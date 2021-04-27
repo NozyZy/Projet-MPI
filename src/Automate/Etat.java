@@ -126,6 +126,10 @@ public class Etat {
         return transitions;
     }
 
+    public void afficher_transition(int index) {
+        System.out.print(" " + nom + getCharTransitions(index) + getTransitions(index) + " ");
+    }
+
     public void affiche_etat(){
         System.out.println("\n"+"Vous êtes à l'état : " + this.nom);
     }
