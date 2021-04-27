@@ -122,7 +122,7 @@ public class Multifonctions {
     }
 
     public void autoSelection(){
-        int g = 0;
+        int g;
         String possi = "";
 
         for (int i = 0; i < getDatos().length; i++) {

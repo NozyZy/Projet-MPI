@@ -6,11 +6,10 @@ public class Etat {
     int index;                          //index de l'état dans le tableau automate
     String nom;                         //nom de l'état
     ArrayList<String> transitions;      //toutes les transitions
-    //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
-    //int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
+    boolean read;
 
     public final char MOT_VIDE = '*';
 
@@ -41,14 +40,6 @@ public class Etat {
         this.nom = nom;
     }
 
-    /**public int getNbTransitions() {
-        return this.nbTransitions;
-    }
-
-    public void setNbTransitions(int nbTransitions) {
-        this.nbTransitions = nbTransitions;
-    }**/
-
     public boolean isEntree() {
         return this.entree;
     }
@@ -71,10 +62,6 @@ public class Etat {
 
     public void setSortie(boolean sortie) {
         this.sortie = sortie;
-    }
-
-    public char getMOT_VIDE() {
-        return this.MOT_VIDE;
     }
 
     public int nbTransitions() {
@@ -139,7 +126,6 @@ public class Etat {
         return transitions;
     }
 
-
     public void affiche_etat(){
         System.out.println("\n"+"Vous êtes à l'état : " + this.nom);
     }
@@ -154,7 +140,4 @@ public class Etat {
 
         }
     }
-
-
-
 }
