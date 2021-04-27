@@ -1,5 +1,3 @@
-package Automate;
-
 import java.io.*;
 
 public class Readwrite {

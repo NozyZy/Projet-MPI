@@ -1,5 +1,3 @@
-package Automate;
-
 import java.util.ArrayList;
 
 public class Etat {

@@ -1,5 +1,3 @@
-package Automate;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -850,32 +848,83 @@ public class Automate implements Cloneable {
         return exists;
     }
 
-    public void minimisation(Automate automate){
-
-        if (!automate.isAsynchrone()){
-            if (automate.isDeterministe()){
-                if (automate.isComplet()){
-                    
+    public void minimisation(){
+        if (!isMinimale()){
+            if (!isAsynchrone()){
+                if (isDeterministe()){
+                    if (isComplet()){
+                        laMinimalisation();
+                    }
+                    else{
+                        System.out.printf("\nL'automate n'est pas complet ...");
+                    }
+    
                 }
                 else{
-                    System.out.printf("\nL'automate n'est pas complet ...");
+                    System.out.printf("\nL'automate n'est pas determinisate ...");
                 }
-
+    
             }
             else{
-                System.out.printf("\nL'automate n'est pas determinisate ...");
-            }
+                System.out.printf("\nL'automate n'est pas synchrone ...");
+            } 
+    
         }
         else{
-            System.out.printf("\nL'automate n'est pas synchrone ...");
+            System.out.printf("\nL'automate est deja minimale ...");
         }
 
-        automate.laMinimalisation();
-        automate.afficherAutomate();
     }
 
     public void laMinimalisation(){
-        
-    }    
+        //int conditionDeFin = 0;
+        //int nbrMaxEtat =  (int) Math.pow(2.0, getNbEtats() ) ;
+
+        Boolean automateModifier = false;
+
+        ArrayList transitions = getEtatEntree().getTabCharTransitions();
+        //System.out.println("charTransitions : "+ charTransitions);
+        int nbrEtat =  getNbEtats();
+        int nbTransitions = transitions.size();     //nombre de caractere de l'alpahbet
+
+        String entree = getEtatEntree().getNom();
+        String sortie = getEtatSortie().getNom();
+
+        System.out.println("Max d'etat : "+ nbrEtat);
+        System.out.println("Nbr transition : "+ nbTransitions);
+        System.out.println("entree : "+ entree);
+        System.out.println("sortie : "+ sortie);
+
+        String [][] tableauEtats = new String [nbrEtat][nbTransitions + 2];
+        System.out.println("tableau taille : "+ tableauEtats.length);
+
+        for (int i = 0; i < tableauEtats.length; i++){
+            
+            for (int j = 0; j < tableauEtats[i].length; j++){
+                if (j==0){
+                    tableauEtats[i][j] = getEtats(i).nom;
+                    System.out.printf("%5s :", tableauEtats[i][j]);
+                }
+                else{
+                    if (tableauEtats[i][j-1] == sortie){
+                        tableauEtats[i][j] = "s";
+                    }
+                    else{
+                        if (getEtats(i).charTransitions ==  transitions)
+                        tableauEtats[i][j] = "a";
+                    }
+
+                    System.out.printf("%2s |", tableauEtats[i][j]);
+                }
+            }
+            System.out.printf("\n");
+            
+        }
+
+        if (automateModifier){
+            System.out.println("L'automate a ete minimiser : il etait deja minimal... ");
+        }
+        setMinimale(minimale);
+    }
 }
 
