@@ -926,17 +926,25 @@ public class Automate implements Cloneable {
         return epsilonLabels;
     }
 
-    public char[] findAlphabet() {
-        if (nbEtats <= 0) return null;
-        char[] alphabet = new char[nbTransitions];
-        int k = 0;
-        for (int i = 0; i < nbEtats; i++) {
-            for (int j = 0; j < etats.get(i).nbTransitions(); j++) {
-                char val = etats.get(i).charTransitions.get(j).charAt(0);
-                if (!jarvis.isInArray(alphabet, val) && val != MOT_VIDE) {
-                    alphabet[k++] = val;
+    public void completion() {
+        if (!this.complet) {
+            addEtats("P");
+            int j;
+            for (Character alpha: alphabet) {
+                for (int i = 0; i < getNbEtats(); i++) {
+                    Etat a = getEtats(i);
+                    for (j = 0; j < a.nbTransitions(); j++) {
+                        if (a.getCharTransitions(j).charAt(0) == alpha) {
+                            j = a.nbTransitions() + 1;
+                            break;
+                        }
+                    }
+                    if (j <= a.nbTransitions()) {
+                        a.setTotalTransitions("P", Character.toString(alpha));
+                    }
                 }
             }
+            setComplet(true);
         }
     }
 }
