@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
 
+import javax.lang.model.element.Element;
 
 import java.util.ArrayList;
 
@@ -108,6 +109,7 @@ public class Automate implements Cloneable {
         this.etats.add(i, new Etat(nom,i));
         getEtats(i).setTabTransitions();
         getEtats(i).setTabCharTransitions();
+        getEtats(i).setGroupeMinimisation();
         this.nbEtats++;
     }
 
@@ -948,46 +950,74 @@ public class Automate implements Cloneable {
         minimisationFusion();*/
     }
 
-    private boolean minimisationAnalyse() {
+    private void minimisationAnalyse() {
         Boolean ok = true;
-        String a = "T";
-        int b = 1;
+        Boolean interupteur = true;
+        String a = "C";
+        int b = 0;
+        while (ok == true){
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
+                    
+                    if (getEtats(i).isSortie()) {
+                        getEtats(i).setGroupeEtatMinimisation(a);
+                    }
+                    else {
+                        getEtats(i).setGroupeEtatMinimisation(a+b);
+                    }
 
-        for (int i = 0; i < getTabEtats().size(); i++) {
-            for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
-                
-                if (getEtats(i).isSortie()) {
-                    getEtats(i).setGroupeMinimisation(a);
-                    minimisationSuivant(getEtats(i).getNom(), a );
+                    if (interupteur) {
+                        ok = minimisationSuivant(getEtats(i).getNom(), a, a+b);
+                        interupteur = false;
+                        ok = true;
+                    }
+                    else{
+                        ok = minimisationEnsuite(getEtats(i).getGroupeMinimisation(), a, a+b);
+                        interupteur = true;
+                    }
+
+                    System.out.printf("%s", getEtats(i).getGroupeEtatMinimisation());
+                    System.out.printf("(%3s)", getEtats(i).getNom());
+                    System.out.printf("-%3s->", getEtats(i).getTabCharTransitions().get(j));
+                    System.out.printf("(%3s) :", getEtats(i).getTabTransitions().get(j));
+                    System.out.printf("%s\n", getEtats(i).getGroupeMinimisation().get(j));
                 }
-                else {
-                    getEtats(i).setGroupeMinimisation(a+b);
-                    minimisationSuivant(getEtats(i).getNom(), a );
-                }
-
-                System.out.printf("(%3s)", getEtats(i).getNom());
-                System.out.printf("-%3s->", getEtats(i).getTabCharTransitions().get(j));
-                System.out.printf("(%3s) :", getEtats(i).getTabTransitions().get(j));
-                System.out.printf("%s\n", getEtats(i).getGroupeMinimisation(j));
-
+                System.out.println();
             }
-            System.out.println();
+            b=b+1;
+        }
+        setMinimale(true);
+    }
+
+    private boolean minimisationSuivant(String nom, String string, String string2) {
+        boolean ok = true;
+        for (int i=0; i < getTabEtats().size(); i++) {
+            for (int j=0; j < getEtats(i).getTabCharTransitions().size(); j++) {
+                //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), nom);
+                if ( nom.intern() == getEtats(i).getTabTransitions().get(j).intern()){
+                    //System.out.printf("trouver\n");
+                    getEtats(i).setGroupeMinimisation(string);
+                    ok = false;
+                }
+                else{
+                    getEtats(i).setGroupeMinimisation(string2);
+                }
+            }
         }
         return ok;
     }
 
-    private void minimisationSuivant(String nom, String string) {
-        for (int i = 0; i < getTabEtats().size(); i++) {
-            for (int j = 0; j < getEtats(i).getTabCharTransitions().size(); j++) {
-                //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), nom);
-                if ( nom == getEtats(i).getTabTransitions().get(j)){
-                    System.out.printf("trouver\n");
-                    getEtats(i).setGroupeMinimisation(string);
+    private boolean minimisationEnsuite(ArrayList<String> codeCouleur, String string, String string2) {
+        boolean ok = true;
+        for (int i=0; i < getTabEtats().size(); i++) {
+            for (int j=0; j < getEtats(i).getTabCharTransitions().size(); j++) {
+                if ( codeCouleur == getEtats(i).getGroupeMinimisation()){
+                    getEtats(i).setGroupeEtatMinimisation(string2);
+                    ok = false;
                 }
-                
             }
-            
         }
+        return ok;
     }
 
 

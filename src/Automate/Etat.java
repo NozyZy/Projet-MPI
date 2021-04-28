@@ -7,6 +7,7 @@ public class Etat {
     //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
     ArrayList<String> groupeMinimisation;
+    String groupeEtatMinimisation;
     int nbTransitions;                  //le nombre de transistions sortantes
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
@@ -27,6 +28,7 @@ public class Etat {
     public Etat(String nom, int index){
         setNom(nom);
         setIndex(index);
+        setGroupeEtatMinimisation("-");
     }
 
 
@@ -46,7 +48,7 @@ public class Etat {
     public void setNom(String nom) {
         this.nom = nom;
     }
-
+    
     public int getNbTransitions() {
         return this.nbTransitions;
     }
@@ -126,19 +128,30 @@ public class Etat {
         setCharTransitions(transition);
         setTransitions(element);
     }
+    
 
 
-    public void setGroupeMinimisation(int i, String groupeMinimisation) {
-        getTabTransitions().remove(i);
-        this.groupeMinimisation.add(i, groupeMinimisation);
+    public String getGroupeEtatMinimisation() {
+        return this.groupeEtatMinimisation;
     }
-    public String getGroupeMinimisation(int i) {
-        return this.groupeMinimisation.get(i);
+
+    public void setGroupeEtatMinimisation(String groupeEtatMinimisation) {
+        this.groupeEtatMinimisation = groupeEtatMinimisation;
+    }
+
+    public String getGroupeMinimisation(int x) {
+        return this.groupeMinimisation.get(x);
     }
 
     public void setGroupeMinimisation(String groupeMinimisation) {
         this.groupeMinimisation.add(groupeMinimisation);
     }
+
+    public void setGroupeMinimisation(int i, String groupeMinimisation) {
+        getGroupeMinimisation().remove(i);
+        this.groupeMinimisation.add(i, groupeMinimisation);
+    }
+
 
     /**
      * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
