@@ -8,6 +8,13 @@ public class Main {
         //jarvis.autoSelection();
 
         Automate automate = Readwrite.readAutomateFile("index/C_automate.txt");
+        automate.afficherAutomate();
+        /*if (automate.isPointer(automate.pointeur_Etat("3"))) {
+            System.out.println("Yeah je suis pointer");
+        }
+        else{
+            System.out.println("Eh frero je suis pas pointer");
+        }*/
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
         //System.out.println(automate.contains("abaa"));
         //System.out.println("test\n");
@@ -16,9 +23,15 @@ public class Main {
         //automate.setLabel("Standardisé");
         //automate.determinisation();
         //automate.setLabel("Deterministe");
-        automate.afficherAutomate();
-        automate.fusion_multiple(4).affiche_etat("all");
+        //automate.nettoyage_determinisation();
+        //automate.afficherAutomate();
+        //System.out.println(automate.nbEtats);
+        //automate.fusion_multiple(automate.getNbEntrees()).affiche_etat("all");
+        //automate.setLabel("Deterministe");
+        //automate.determinisation();
+        //automate.mitose(automate.getEtatEntree());
         //System.out.println(automate.contains("abaa"));
+        //System.out.println();
         //automate.afficherAutomate();
         //System.out.println("-----------------------------------> "+automate.getEtatEntree(1).getNom());
         //System.out.println("-----------------------------------> "+automate.mitose(automate.getEtats(0)));

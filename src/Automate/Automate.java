@@ -518,6 +518,7 @@ public class Automate implements Cloneable {
         }
         System.out.print("---------------------------------------------> ");
         a.affiche_etat();**/
+
         if (a == null || b == null){
         }
         else{
@@ -537,7 +538,7 @@ public class Automate implements Cloneable {
                 pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(a.nom).getCharTransitions(i),
                         pointeur_Etat(a.nom).getTransitions(i));
             }
-
+ 
             for (int i = 0; i < pointeur_Etat(b.nom).getTabTransitions().size(); i++) {
                 pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(b.nom).getCharTransitions(i),
                         pointeur_Etat(b.nom).getTransitions(i));
@@ -558,6 +559,20 @@ public class Automate implements Cloneable {
             System.out.println("Index 2 : " + getEtats(i).nom);
         }**/
 
+    }
+
+    public boolean isPointer(Etat element){
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
+                if (getEtats(i).getTransitions(j).equals(element.nom)) {
+                    //getEtats(i).affiche_etat("all");
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -670,7 +685,7 @@ public class Automate implements Cloneable {
      */
     public Etat mitose(Etat element){
 
-        //element.affiche_etat("all");
+        element.affiche_etat("all");
 
         if (element == null) {
             return Error;
@@ -786,9 +801,9 @@ public class Automate implements Cloneable {
             
         }
 
-        for (int i = 0; i < entrees.size(); i++) {
+        /**for (int i = 0; i < entrees.size(); i++) {
             System.out.println("voici les entrée : "+ entrees.get(i));
-        }
+        }**/
 
         fusion_Etat(pointeur_Etat(entrees.get(0)), pointeur_Etat(entrees.get(1)));//on fusionne les deux premiere entrées
         tmp += entrees.get(0);//on set le nouveau nom de l'état initiale
@@ -798,6 +813,8 @@ public class Automate implements Cloneable {
             fusion_Etat(pointeur_Etat(tmp), pointeur_Etat(entrees.get(i)));
             tmp += entrees.get(i);
         }
+
+        fusion_transition(pointeur_Etat(tmp));
 
         return pointeur_Etat(tmp);
     }
@@ -812,7 +829,7 @@ public class Automate implements Cloneable {
             mitose(getEtatEntree());
         }
 
-        /**if (getNbEntrees() == 2) {
+        if (getNbEntrees() == 2) {
             String a, b = "";
             a = getEtatEntree().getNom();
             b = getEtatEntree(getEtatEntree().index + 1).getNom();
@@ -823,11 +840,11 @@ public class Automate implements Cloneable {
             fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
 
             mitose(pointeur_Etat(a+b));
-        }**/
-
-        if (getNbEntrees() > 1) {
-            mitose(fusion_multiple(getNbEntrees()));
         }
+
+        /*if (getNbEntrees() > 2) {
+            mitose(fusion_multiple(getNbEntrees()));
+        }*/
     }
 
     /**
