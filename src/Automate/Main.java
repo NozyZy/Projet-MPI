@@ -21,10 +21,10 @@ public class Main {
         //System.out.println();
         //automate.standardisation("i");
         //automate.setLabel("Standardisé");
-        //automate.determinisation();
-        //automate.setLabel("Deterministe");
+        automate.determinisation();
+        automate.setLabel("Deterministe");
         //automate.nettoyage_determinisation();
-        //automate.afficherAutomate();
+        automate.afficherAutomate();
         //System.out.println(automate.nbEtats);
         //automate.fusion_multiple(automate.getNbEntrees()).affiche_etat("all");
         //automate.setLabel("Deterministe");

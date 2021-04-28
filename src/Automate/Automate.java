@@ -519,44 +519,47 @@ public class Automate implements Cloneable {
         System.out.print("---------------------------------------------> ");
         a.affiche_etat();**/
 
-        if (a == null || b == null){
+        if ((a == null || b == null) || (doesEtatExist(b.getNom()+a.getNom()))){
         }
         else{
-            setEtats(a.nom + b.nom);
+            setEtats(a.getNom() + b.getNom());
 
-            if (getNbEntrees() > 1 || getNbEntrees() == 1) {
-                if ((pointeur_Etat(a.nom).isEntree()) || pointeur_Etat(b.nom).isEntree()) {
-                    pointeur_Etat(a.nom + b.nom).setEntree(true);
+            if (getNbEntrees() == 1) {
+                if ((pointeur_Etat(a.getNom()).isEntree()) || pointeur_Etat(b.getNom()).isEntree()) {
+                    pointeur_Etat(a.getNom() + b.getNom()).setEntree(true);
                 }
             }
 
-            if ((pointeur_Etat(a.nom).isSortie()) || pointeur_Etat(b.nom).isSortie()) {
-                pointeur_Etat(a.nom + b.nom).setSortie(true);
+            if ((pointeur_Etat(a.getNom()).isSortie()) || pointeur_Etat(b.getNom()).isSortie()) {
+                pointeur_Etat(a.getNom() + b.getNom()).setSortie(true);
             }
 
-            for (int i = 0; i < pointeur_Etat(a.nom).getTabTransitions().size(); i++) {
-                pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(a.nom).getCharTransitions(i),
-                        pointeur_Etat(a.nom).getTransitions(i));
+            for (int i = 0; i < pointeur_Etat(a.getNom()).getTabTransitions().size(); i++) {
+                pointeur_Etat(a.getNom() + b.getNom()).setTotalTransitions(pointeur_Etat(a.getNom()).getCharTransitions(i),
+                        pointeur_Etat(a.getNom()).getTransitions(i));
             }
  
-            for (int i = 0; i < pointeur_Etat(b.nom).getTabTransitions().size(); i++) {
-                pointeur_Etat(a.nom + b.nom).setTotalTransitions(pointeur_Etat(b.nom).getCharTransitions(i),
-                        pointeur_Etat(b.nom).getTransitions(i));
+            for (int i = 0; i < pointeur_Etat(b.getNom()).getTabTransitions().size(); i++) {
+                pointeur_Etat(a.getNom() + b.getNom()).setTotalTransitions(pointeur_Etat(b.getNom()).getCharTransitions(i),
+                        pointeur_Etat(b.getNom()).getTransitions(i));
             }
 
-            if (!(pointeur_Etat(a.nom).getTabTransitions().contains(a.nom))) {
+    
+            /**if (!(pointeur_Etat(a.getNom()).getTabTransitions().contains(a.getNom()))) {
                 suppression_Etat(a);
             }
 
-            if (!(pointeur_Etat(b.nom).getTabTransitions().contains(b.nom))) {
+            if (!(pointeur_Etat(b.getNom()).getTabTransitions().contains(b.getNom()))) {
                 suppression_Etat(b);
-            }
+            }**/
+   
+            
         }
         
         /**System.out.println("--------------------------------");
 
         for (int i = 0; i < getTabEtats().size(); i++) {
-            System.out.println("Index 2 : " + getEtats(i).nom);
+            System.out.println("Index 2 : " + getEtats(i).getNom());
         }**/
 
     }
@@ -565,7 +568,7 @@ public class Automate implements Cloneable {
 
         for (int i = 0; i < getTabEtats().size(); i++) {
             for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
-                if (getEtats(i).getTransitions(j).equals(element.nom)) {
+                if (getEtats(i).getTransitions(j).equals(element.getNom())) {
                     //getEtats(i).affiche_etat("all");
                     return true;
                 }
@@ -685,7 +688,7 @@ public class Automate implements Cloneable {
      */
     public Etat mitose(Etat element){
 
-        element.affiche_etat("all");
+        //element.affiche_etat("all");
 
         if (element == null) {
             return Error;

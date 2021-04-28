@@ -123,12 +123,12 @@ public class Multifonctions {
 
     public void autoSelection(){
         int g = 0;
-        String possi = "";
+        //String possi = "";
 
         for (int i = 0; i < getDatos().length; i++) {
             g = i+1;
             System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
-            possi += toString(g);
+            //possi += toString(g);
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
