@@ -152,6 +152,13 @@ public class Etat {
         this.groupeMinimisation.add(i, groupeMinimisation);
     }
 
+    public void setGroupeMinimisation(){
+        this.groupeMinimisation = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getGroupeMinimisation(){
+        return groupeMinimisation;
+    }
 
     /**
      * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
@@ -176,14 +183,6 @@ public class Etat {
         return transitions;
     }
 
-    public void setGroupeMinimisation(){
-        this.groupeMinimisation = new ArrayList<String>();
-    }
-
-    public ArrayList<String> getGroupeMinimisation(){
-        return groupeMinimisation;
-    }
-
     public void affiche_etat(){
         System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
     }
@@ -198,7 +197,4 @@ public class Etat {
 
         }
     }
-
-
-
 }
