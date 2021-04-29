@@ -48,8 +48,7 @@ public class Automate implements Cloneable {
         this.etats = etats;
         this.nbEntrees = nbEntrees;
         this.nbEtats = nbEtats;
-        deterministe = complet = asynchrone = standard = minimale = false;
-        allVerifs();
+        allVerifs(true);
     }
 
     /**
@@ -91,10 +90,10 @@ public class Automate implements Cloneable {
         }
         lecture.close();// fermeture de la lecture du txt
         nbTransitions = getInitnbTransitions();
-        allVerifs();
+        allVerifs(true);
     }
 
-    public void verifAsynchrone() {
+    public void verifAsynchrone(boolean doesPrint) {
         boolean isAsynchrone = false;
         int count = 0;
         for(int i = 0; i < nbEtats; i++){
@@ -102,21 +101,21 @@ public class Automate implements Cloneable {
                 if (getEtats(i).getCharTransitions(j).charAt(0) == MOT_VIDE){
                     if (!isAsynchrone) {
                         isAsynchrone = true;
-                        System.out.println("L'automate " + label + " est asynchrone, à cause des transitions suivantes : ");
+                        if (doesPrint) System.out.println("L'automate " + label + " est asynchrone, à cause des transitions suivantes : ");
                     }
-                    getEtats(i).afficher_transition(j);
+                    if (doesPrint) getEtats(i).afficher_transition(j);
                     count++;
-                    if (count > 0 && count%10 == 0) System.out.println();
+                    if (count > 0 && count%10 == 0 && doesPrint) System.out.println();
                 }
             }
         }
-        if (isAsynchrone) System.out.println();
+        if (isAsynchrone && doesPrint) System.out.println();
         setAsynchrone(isAsynchrone);
     }
 
-    public void verifStandard() {
+    public void verifStandard(boolean doesPrint) {
         if (getNbEntrees() != 1){
-            System.out.println("L'automate " + label + " n'est pas standard, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + label + " n'est pas standard, car il possède " + getNbEntrees() + " entrees.");
             setStandard(false);
         }
         else {
@@ -128,21 +127,21 @@ public class Automate implements Cloneable {
                     if (getEtats(i).getTransitions(j).equals(a)) {
                         if(isStandard){
                             isStandard = false;
-                            System.out.println("L'automate " + label + " n'est pas standard, à cause de transitions suivantes : ");
+                            if (doesPrint) System.out.println("L'automate " + label + " n'est pas standard, à cause des transitions suivantes : ");
                         }
-                        getEtats(i).afficher_transition(j);
+                        if (doesPrint) getEtats(i).afficher_transition(j);
                         count++;
-                        if (count > 0 && count%10 == 0) System.out.println();
+                        if (count > 0 && count%10 == 0 && doesPrint) System.out.println();
                     }
                 }
 
             }
-            if (!isStandard) System.out.println();
+            if (!isStandard && doesPrint) System.out.println();
             setStandard(isStandard);
         }
     }
 
-    public void verifComplet() {
+    public void verifComplet(boolean doesPrint) {
         boolean isComplet = true;
         setAlphabet();
         int j;
@@ -160,25 +159,62 @@ public class Automate implements Cloneable {
 
                     if (isComplet) {
                         isComplet = false;
-                        System.out.println("L'automate " + label + " n'est pas complet, à cause de transitions manquantes : ");
+                        if (doesPrint) System.out.println("L'automate " + label + " n'est pas complet, à cause des transitions manquantes : ");
                     }
                     if (!thisOne) {
                         thisOne = true;
-                        System.out.print(" " + alpha + " -> ");
+                        if (doesPrint) System.out.print(" " + alpha + " -> ");
                     }
-                    System.out.print(" " + a.nom + alpha + ". ");
+                    if (doesPrint) System.out.print(" " + a.nom + alpha + ". ");
                 }
             }
-            if(thisOne) System.out.println();
+            if(thisOne && doesPrint) System.out.println();
         }
-        if (!isComplet) System.out.println();
+        if (!isComplet && doesPrint) System.out.println();
         setComplet(isComplet);
     }
 
-    public void allVerifs() {
-        verifStandard();
-        verifAsynchrone();
-        verifComplet();
+    public void verifDeterministe(boolean doesPrint) {
+        if (getNbEntrees() != 1) {
+            if (doesPrint) System.out.println("L'automate " + label + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
+            setDeterministe(false);
+        } else {
+            boolean isDeterministe = true;
+            for(Character alpha: alphabet) {
+                boolean thisOne = false;
+                for (int i = 0; i < getNbEtats(); i++) {
+                    Etat a = getEtats(i);
+                    ArrayList<Integer> theseTransitions = new ArrayList<>();
+                    for (int j = 0; j < a.nbTransitions(); j++) {
+                        if (a.getCharTransitions(j).charAt(0) == alpha) {
+                            theseTransitions.add(j);
+                        }
+                    }
+                    if(theseTransitions.size() > 1) {
+                        if (isDeterministe) {
+                            isDeterministe = false;
+                            if (doesPrint) System.out.println("L'automate " + label + " n'est pas deterministe, à cause des transitions suivantes : ");
+                        }
+                        if (doesPrint) {
+                            for (Integer index: theseTransitions) {
+                                a.afficher_transition(index);
+                            }
+                        }
+                        thisOne = true;
+                    }
+                }
+                if (thisOne && doesPrint) System.out.println();
+            }
+            if (!isDeterministe && doesPrint) System.out.println();
+            setDeterministe(isDeterministe);
+        }
+    }
+
+    public void allVerifs(boolean doesPrint) {
+        verifStandard(doesPrint);
+        verifAsynchrone(doesPrint);
+        verifComplet(doesPrint);
+        verifDeterministe(doesPrint);
     }
 
     public int getInitnbTransitions() {
@@ -506,22 +542,79 @@ public class Automate implements Cloneable {
      * Standardisation de l'automate
      */
     public void standardisation(String nom){
-        setEtats(nom); //creation de l'état initiale
-        for (int i = 0; i < getTabEtats().size(); i++) {
-            if (getEtats(i).isEntree()){
-                if (getEtats(i).isSortie()) {
-                    pointeur_Etat(nom).setSortie(true);//si une entrée est une sortie l'état i en est aussi
-                }
+        if (isStandard()) {
+            System.out.println("L'automate est déjà standard !");
+        } else {
+            setEtats(nom); //creation de l'état initiale
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                if (getEtats(i).isEntree()){
+                    if (getEtats(i).isSortie()) {
+                        pointeur_Etat(nom).setSortie(true);//si une entrée est une sortie l'état i en est aussi
+                    }
 
-                for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
-                    pointeur_Etat(nom).setTotalTransitions(getEtats(i).getCharTransitions(j), getEtats(i).getTransitions(j));
+                    for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
+                        pointeur_Etat(nom).setTotalTransitions(getEtats(i).getCharTransitions(j), getEtats(i).getTransitions(j));
+                    }
+                    getEtats(i).setEntree(false);// on supprime les entrée
                 }
-                getEtats(i).setEntree(false);// on supprime les entrée
             }
-        }
 
-        pointeur_Etat(nom).setEntree(true);//on le met en entrée
-        setStandard(true);
+            pointeur_Etat(nom).setEntree(true);//on le met en entrée
+            allVerifs(false);
+        }
+    }
+
+    public void completion() {
+        if (isComplet()) {
+            System.out.println("L'automate " + label + " est déjà complet !");
+        } else {
+            addEtats("P");
+            int j;
+            for (Character alpha: alphabet) {
+                for (int i = 0; i < getNbEtats(); i++) {
+                    Etat a = getEtats(i);
+                    for (j = 0; j < a.nbTransitions(); j++) {
+                        if (a.getCharTransitions(j).charAt(0) == alpha) {
+                            j = a.nbTransitions() + 1;
+                            break;
+                        }
+                    }
+                    if (j <= a.nbTransitions()) {
+                        a.setTotalTransitions(Character.toString(alpha), "P");
+                    }
+                }
+            }
+            allVerifs(false);
+        }
+    }
+
+    public void determinisation_completion_synchrone() {
+        if (isAsynchrone()) {
+            System.out.println("L'automate " + label + " est asynchrone !");
+        } else {
+            determinisation();
+            completion();
+        }
+    }
+
+    public Automate determinisation_completion_asynchrone() {
+        if (!isAsynchrone()) {
+            System.out.println("L'automate " + label + " n'est pas asynchrone !");
+            return this;
+        } else {
+            Automate newAuto = eliminationEpsilon();
+            newAuto.determinisation();
+            newAuto.completion();
+            return newAuto;
+        }
+    }
+
+    public void langage_complementaire() {
+        if (!isDeterministe()) determinisation();
+        if (!isComplet()) completion();
+        for (int i = 0; i < getNbEtats(); i++) {
+            getEtats(i).setSortie(!getEtats(i).isSortie());
+        }
     }
 
     /**
@@ -795,22 +888,28 @@ public class Automate implements Cloneable {
      * Fonction de determinisation
      */
     public void determinisation(){
-        
-        if (getNbEntrees() <= 1 ) {
-            mitose(getEtatEntree());
+
+        if (isDeterministe()) {
+            System.out.println("L'automate " + label + " est déjà déterministe !");
+        } else {
+            if (getNbEntrees() <= 1 ) {
+                mitose(getEtatEntree());
+            }
+
+            if (getNbEntrees() == 2) {
+                String a, b;
+                a = getEtatEntree().getNom();
+                b = getEtatEntree(getEtatEntree().index + 1).getNom();
+
+
+                fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
+
+                mitose(pointeur_Etat(a+b));
+            }
+            setNbEntrees(1);
+            allVerifs(false);
         }
 
-        if (getNbEntrees() == 2) {
-            String a, b;
-            a = getEtatEntree().getNom();
-            b = getEtatEntree(getEtatEntree().index + 1).getNom();
-
-
-            fusion_Etat(pointeur_Etat(a), pointeur_Etat(b));
-
-            mitose(pointeur_Etat(a+b));
-        }
-        setDeterministe(true);
     }
 
     /**
@@ -857,7 +956,7 @@ public class Automate implements Cloneable {
     }
 
     public Automate eliminationEpsilon() {
-        if (!asynchrone) verifAsynchrone();
+        if (!asynchrone) verifAsynchrone(false);
         if (asynchrone) { // a besoin de revérifier s'il est asynchrone
             String[] clotures = new String[nbEtats];
             for (int i = 0; i < nbEtats; i++) {
@@ -908,7 +1007,7 @@ public class Automate implements Cloneable {
                 if (i-1 > allNewStates.length) allNewStates = (String[])jarvis.resizeArray(allNewStates, i+1);
             }
             newAuto.determinisation();
-            newAuto.allVerifs();
+            newAuto.allVerifs(false);
             return newAuto;
         }
         return this;
@@ -924,27 +1023,5 @@ public class Automate implements Cloneable {
             }
         }
         return epsilonLabels;
-    }
-
-    public void completion() {
-        if (!this.complet) {
-            addEtats("P");
-            int j;
-            for (Character alpha: alphabet) {
-                for (int i = 0; i < getNbEtats(); i++) {
-                    Etat a = getEtats(i);
-                    for (j = 0; j < a.nbTransitions(); j++) {
-                        if (a.getCharTransitions(j).charAt(0) == alpha) {
-                            j = a.nbTransitions() + 1;
-                            break;
-                        }
-                    }
-                    if (j <= a.nbTransitions()) {
-                        a.setTotalTransitions("P", Character.toString(alpha));
-                    }
-                }
-            }
-            setComplet(true);
-        }
     }
 }

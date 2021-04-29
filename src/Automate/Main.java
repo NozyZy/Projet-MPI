@@ -7,16 +7,10 @@ public class Main {
         //jarvis.clearConsole();
         //jarvis.autoSelection();
 
-        Automate automate = Readwrite.readAutomateFile("index/E1-5.txt");
+        Automate automate = Readwrite.readAutomateFile("index/E1-14.txt");
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
         automate.afficherAutomate();
-        System.out.println(automate.isStandard());
-        System.out.println(automate.isComplet());
-        System.out.println(automate.isAsynchrone());
-        automate.completion();
-        //automate.determinisation();
-        automate.afficherAutomate();
-        automate.standardisation("i");
+        automate.langage_complementaire();
         automate.afficherAutomate();
         //System.out.println(automate.contains(""));
         //System.out.println(automate.contains("d"));
