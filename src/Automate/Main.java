@@ -6,6 +6,10 @@ public class Main {
         Multifonctions jarvis = new Multifonctions();
         jarvis.clearConsole();
         //jarvis.autoSelection();
+        //String mot = "32";
+
+        //mot = jarvis.sorted(mot);
+        //System.out.println(mot);
 
         Automate automate = Readwrite.readAutomateFile("index/C_automate.txt");
         automate.afficherAutomate();
@@ -23,7 +27,8 @@ public class Main {
         //automate.setLabel("Standardisé");
         automate.determinisation();
         automate.setLabel("Deterministe");
-        //automate.nettoyage_determinisation();
+        //automate.nettoyage();
+        //automate.fusion_Entrees();
         automate.afficherAutomate();
         //System.out.println(automate.nbEtats);
         //automate.fusion_multiple(automate.getNbEntrees()).affiche_etat("all");

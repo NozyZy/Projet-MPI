@@ -8,12 +8,14 @@ public class Etat {
     ArrayList<String> transitions;      //toutes les transitions
     //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
-    //int nbTransitions;                  //le nombre de transistions sortantes
+    int polymerisation;                  //le nombre de fusion de l'état
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
     boolean read;                       //true si déjà lu, false sinon
 
     public final char MOT_VIDE = '*';
+
+
 
 
     /*public Etat(int label){ 
@@ -29,6 +31,16 @@ public class Etat {
         setNom(nom);
         setIndex(index);
     }
+
+
+    public int getPolymerisation() {
+        return this.polymerisation;
+    }
+
+    public void setPolymerisation() {
+        this.polymerisation++;
+    }
+
 
 
     public int getIndex() {

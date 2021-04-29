@@ -523,7 +523,10 @@ public class Automate implements Cloneable {
             //System.out.println("hey je existe déja ---------------------------------------- > : "+ a.getNom() + b.getNom());
         }
         else{
+           
             setEtats(a.getNom() + b.getNom());
+            pointeur_Etat(a.getNom()).setPolymerisation();
+            pointeur_Etat(b.getNom()).setPolymerisation();
 
             /**if (getNbEntrees() > 1) {
                 if ((pointeur_Etat(a.getNom()).isEntree()) && pointeur_Etat(b.getNom()).isEntree()) {
@@ -546,13 +549,13 @@ public class Automate implements Cloneable {
             }
 
     
-            if (!(pointeur_Etat(a.getNom()).getTabTransitions().contains(a.getNom()))) {
+            /**if (!(pointeur_Etat(a.getNom()).getTabTransitions().contains(a.getNom()))) {
                 suppression_Etat(a);
             }
 
             if (!(pointeur_Etat(b.getNom()).getTabTransitions().contains(b.getNom()))) {
                 suppression_Etat(b);
-            }
+            }**/
    
             
         }
@@ -576,6 +579,25 @@ public class Automate implements Cloneable {
             }
         }
 
+        return false;
+    }
+
+    public boolean isPointer(Etat element, int x) {
+        
+
+        for (int i = 0; i < getTabEtats().size()-x; i++) {
+            //System.out.print("v");
+            //getEtats(i).affiche_etat();
+            for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
+                //System.out.print("î");
+                //getEtats(j).affiche_etat();
+                if (getEtats(i).getTransitions(j).equals(element.getNom())) {
+                    //System.out.println("l'état :" +getEtats(j).nom+" point vers "+getEtats(i).nom);
+                    return true;
+                }
+            }
+        }
+        
         return false;
     }
 
@@ -684,16 +706,28 @@ public class Automate implements Cloneable {
     }
 
     public void nettoyage(){
-        
+        int fusion = 0;
+
         for (int i = 0; i < getTabEtats().size(); i++) {
-            //fusion_transition(getEtats(i));
-            if (getEtats(i).nom.length() == 1 && getEtats(i).nom != getEtatEntree(0).nom){
-                //System.out.println("Voici l'entréé --> " + getEtatEntree(0).nom);
-                //System.out.println(getEtats(i).nom);
-                suppression_Etat(getEtats(i));
-                i = 0;
+           if (getEtats(i).getPolymerisation() > 0){
+               //getEtats(i).affiche_etat();
+               fusion += 1;
+           }
+        }
+
+        //System.out.println("--------------------> nb fusion "+fusion);
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            if (getEtats(i).getPolymerisation() > 0) {
+               if (!isPointer(getEtats(i), fusion)) {
+                   //getEtats(i).affiche_etat();
+                   suppression_Etat(getEtats(i));
+               }
             }
         }
+
+
+
     }
 
     /**
@@ -702,7 +736,7 @@ public class Automate implements Cloneable {
      */
     public Etat mitose(Etat element){
 
-        //element.affiche_etat();
+        //element.affiche_etat("all");
 
         if (element == null) {
             return Error;
@@ -711,7 +745,7 @@ public class Automate implements Cloneable {
             fusion_transition(element);
         }
 
-        element.affiche_etat("all");
+        //element.affiche_etat("all");
 
         if (element.getTabCharTransitions().isEmpty()){
             //System.out.println("IS EMPTY");
@@ -788,6 +822,8 @@ public class Automate implements Cloneable {
 
         return Error;
     }
+
+    
     
 
     /**
@@ -835,9 +871,25 @@ public class Automate implements Cloneable {
         fusion_transition(pointeur_Etat(tmp));
         pointeur_Etat(tmp).setEntree(true);
 
-        afficherAutomate();
+        //afficherAutomate();
 
         return pointeur_Etat(tmp);
+    }
+
+    public Etat fusion_Entrees(){
+        String combo = "";
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+           if (getEtats(i).isEntree()) {
+               combo += getEtats(i).getNom();
+           }
+        }
+
+        standardisation(combo);
+
+        //afficherAutomate();
+        return pointeur_Etat(combo);
+
     }
 
     /**
@@ -864,7 +916,7 @@ public class Automate implements Cloneable {
         }**/
 
         if (getNbEntrees() > 1) {
-            mitose(fusion_multiple(getNbEntrees()));
+            mitose(fusion_Entrees());
         }
 
         nettoyage();

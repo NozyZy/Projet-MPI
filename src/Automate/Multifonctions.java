@@ -1,6 +1,8 @@
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 /**
@@ -144,6 +146,21 @@ public class Multifonctions {
                 setPathfinder(getDatos(i).getPath());
             }
         }
+    }
+
+    public String sorted(String a, String b) {
+        String nom = a + b;
+        String reverse = b + a;
+
+        int x = a.hashCode();
+        int y = b.hashCode();
+
+        if (x > y) {
+            //System.out.println("-------------------------> reverse "+ nom +" = "+ reverse );
+            return reverse;
+        }
+        return nom;
+
     }
 
 }
