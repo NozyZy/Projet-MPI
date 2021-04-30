@@ -497,12 +497,12 @@ public class Automate implements Cloneable {
      */
     public void afficherAutomate() {
         System.out.println("\n<=========( Voici l'automate : "+ getLabel() +" )==========>\n");
-        System.out.println(" Standard -----------> " + isStandard());
+        /**System.out.println(" Standard -----------> " + isStandard());
         System.out.println(" Complet ------------> " + isComplet());
         System.out.println(" Deterministe -------> " + isDeterministe());
         System.out.println(" Asynchrone ---------> " + isAsynchrone());
         System.out.println(" Minimal ------------> " + isMinimale());
-        System.out.println();
+        System.out.println();**/
         System.out.println(" # d'états ----------> " + getNbEtats());
         System.out.println(" # de transitions ---> " + findNbTransitions());
         System.out.println(" Etats --------------> " + getEtats());
@@ -544,6 +544,13 @@ public class Automate implements Cloneable {
             System.out.println("L'automate est déjà standard !");
         } else {
             setEtats(nom); //creation de l'état initiale
+
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                if (getEtats(i).isEntree()) {
+                    getEtats(i).setPolymerisation();
+                }
+            }
+
             for (int i = 0; i < getTabEtats().size(); i++) {
                 if (getEtats(i).isEntree()){
                     if (getEtats(i).isSortie()) {
@@ -750,6 +757,7 @@ public class Automate implements Cloneable {
         for (int i = 0; i < getTabEtats().size()-x; i++) {
             //System.out.print("v");
             //getEtats(i).affiche_etat();
+            System.out.println("Voici les etat a partir de l'entrée : " + getEtats(i).nom);
             for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
                 //System.out.print("î");
                 //getEtats(j).affiche_etat();
@@ -862,21 +870,24 @@ public class Automate implements Cloneable {
 
     public void nettoyage(){
         int fusion = 0;
-
+        
         for (int i = 0; i < getTabEtats().size(); i++) {
            if (getEtats(i).getPolymerisation() > 0){
                //getEtats(i).affiche_etat();
                fusion += 1;
            }
         }
-
+        //System.out.println("------------------> nb fusion etat 4 : " + pointeur_Etat("4").getPolymerisation());
         //System.out.println("--------------------> nb fusion "+fusion);
 
         for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).getPolymerisation() > 0) {
+                System.out.println("----------------------------->2");
+                getEtats(i).affiche_etat();
                if (!isPointer(getEtats(i), fusion)) {
-                   //getEtats(i).affiche_etat();
+                    System.out.println("Je supprime ----------> "+getEtats(i).nom);
                    suppression_Etat(getEtats(i));
+                   i = 0;
                }
             }
         }

@@ -68,6 +68,7 @@ public class Multifonctions {
     public void setChoix(){
         System.out.print("Tapez votre choix : ");
         this.choix = scanner.next();
+        clearConsole();
     }
 
     /**
@@ -90,6 +91,7 @@ public class Multifonctions {
                 }
             }
         }
+        clearConsole();
     }
 
 
@@ -133,13 +135,12 @@ public class Multifonctions {
         System.out.println("Choisissez un automate dans la liste : ");
 
         setChoix();
-        
 
         for (int i = 0; i < getDatos().length; i++) {
-            
+
             if (this.choix.equals(toString(i+1))) {
-                System.out.println("\n"+"Voici le fichier : " + getDatos(i).getName());
-                System.out.println("Et son adresse : " + getDatos(i).getPath());
+                //System.out.println("\n"+"Voici le fichier : " + getDatos(i).getName());
+                //System.out.println("Et son adresse : " + getDatos(i).getPath());
                 setPathfinder(getDatos(i).getPath());
             }
         }
