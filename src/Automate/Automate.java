@@ -1110,7 +1110,7 @@ public class Automate implements Cloneable {
             for (int i = 0; i < nbEtats; i++) {
                 clotures[i] = etats.get(i).nom + findEpsilon(etats.get(i));
             }
-            Automate newAuto = new Automate(label+"-Async");
+            Automate newAuto = new Automate(label);
             newAuto.setTabEtats();
             int i = 0;
             Stack<String> stackEtat = new Stack<>();
