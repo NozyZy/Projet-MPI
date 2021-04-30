@@ -125,7 +125,6 @@ public class Multifonctions {
 
     public void autoSelection(){
         int g = 0;
-        //String possi = "";
 
         for (int i = 0; i < getDatos().length; i++) {
             g = i+1;
@@ -161,6 +160,36 @@ public class Multifonctions {
         }
         return nom;
 
+    public boolean isInArray(char[] array, char val) {
+        boolean found = false;
+        for(char c: array){
+            if (val == c){
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public boolean isInArray(String[] array, String val) {
+        boolean found = false;
+        for(String c: array){
+            if (val.equals(c)){
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public Object resizeArray (Object oldArray, int newSize) {
+        int oldSize = java.lang.reflect.Array.getLength(oldArray);
+        Class<?> elementType = oldArray.getClass().getComponentType();
+        Object newArray = java.lang.reflect.Array.newInstance(elementType, newSize);
+        int preserveLength = Math.min(oldSize, newSize);
+        if (preserveLength > 0)
+            System.arraycopy(oldArray, 0, newArray, 0, preserveLength);
+        return newArray;
     }
 
 }
