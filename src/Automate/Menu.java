@@ -38,7 +38,8 @@ public class Menu {
                     
                     Automate nintendo = Readwrite.readAutomateFile(jarvis.getPathfinder());//Nintendo car nintendo "switch" et switch ne peut pas etre un nom
                     assert nintendo != null;
-
+                    
+                    jarvis.clearConsole();
                     nintendo.afficherAutomate();
                     jarvis.laCarte();//affichage du menu + choix
 

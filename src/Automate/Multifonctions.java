@@ -82,11 +82,13 @@ public class Multifonctions {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
 
-            for (int i = 0; i < mot.length(); i++) {
+            for (int i = 0; i < mot.length()-1; i++) {
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
                 }
-                if (i > 10 || getChoix().equals(mot.substring(i, i + 2))) {
+                if (i >= 10  && getChoix().equals(mot.substring(i, i + 2))) {
+                    System.out.println("----------> saisie = "+getChoix());
+                    System.out.println("----------> dur =  " + mot.substring(i, i + 2));
                     lecture = false;
                 }
             }
@@ -124,17 +126,18 @@ public class Multifonctions {
     }
 
     public void autoSelection(){
+        String possi = "";
         int g = 0;
 
         for (int i = 0; i < getDatos().length; i++) {
             g = i+1;
             System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
-            //possi += toString(g);
+            possi += toString(g);
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
 
-        setChoix();
+        setChoix(possi);
 
         for (int i = 0; i < getDatos().length; i++) {
 
