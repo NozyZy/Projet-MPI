@@ -11,7 +11,7 @@ public class Main {
         //mot = jarvis.sorted(mot);
         //System.out.println(mot);
 
-        Automate automate = Readwrite.readAutomateFile("index/C_automate.txt");
+        Automate automate = Readwrite.readAutomateFile("index/A_automate.txt");
         automate.afficherAutomate();
         /*if (automate.isPointer(automate.pointeur_Etat("3"))) {
             System.out.println("Yeah je suis pointer");
@@ -21,11 +21,11 @@ public class Main {
         }*/
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
         //System.out.println(automate.contains("abaa"));
-        Automate automate = Readwrite.readAutomateFile("index/E1-14.txt");
+        //Automate automate = Readwrite.readAutomateFile("index/E1-14.txt");
         //assert automate != null;// Verification que l'automate à bien été remplie (Il me semble que dans readwrite la fonction try permet la meme chose a voir)
-        automate.afficherAutomate();
-        automate.langage_complementaire();
-        automate.afficherAutomate();
+        //automate.afficherAutomate();
+        //automate.langage_complementaire();
+        //automate.afficherAutomate();
         //System.out.println(automate.contains(""));
         //System.out.println(automate.contains("d"));
         //System.out.println(automate.contains("aaaaad"));

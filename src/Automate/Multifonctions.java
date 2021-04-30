@@ -1,8 +1,6 @@
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 /**
@@ -70,6 +68,7 @@ public class Multifonctions {
     public void setChoix(){
         System.out.print("Tapez votre choix : ");
         this.choix = scanner.next();
+        clearConsole();
     }
 
     /**
@@ -83,15 +82,18 @@ public class Multifonctions {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
 
-            for (int i = 0; i < mot.length(); i++) {
+            for (int i = 0; i < mot.length()-1; i++) {
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
                 }
-                if (i > 10 || getChoix().equals(mot.substring(i, i + 2))) {
+                if (i >= 10  && getChoix().equals(mot.substring(i, i + 2))) {
+                    System.out.println("----------> saisie = "+getChoix());
+                    System.out.println("----------> dur =  " + mot.substring(i, i + 2));
                     lecture = false;
                 }
             }
         }
+        clearConsole();
     }
 
 
@@ -124,24 +126,24 @@ public class Multifonctions {
     }
 
     public void autoSelection(){
+        String possi = "";
         int g = 0;
 
         for (int i = 0; i < getDatos().length; i++) {
             g = i+1;
             System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
-            //possi += toString(g);
+            possi += toString(g);
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
 
-        setChoix();
-        
+        setChoix(possi);
 
         for (int i = 0; i < getDatos().length; i++) {
-            
+
             if (this.choix.equals(toString(i+1))) {
-                System.out.println("\n"+"Voici le fichier : " + getDatos(i).getName());
-                System.out.println("Et son adresse : " + getDatos(i).getPath());
+                //System.out.println("\n"+"Voici le fichier : " + getDatos(i).getName());
+                //System.out.println("Et son adresse : " + getDatos(i).getPath());
                 setPathfinder(getDatos(i).getPath());
             }
         }
