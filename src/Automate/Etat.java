@@ -1,4 +1,4 @@
-package Automate;
+
 
 import java.util.ArrayList;
 
@@ -7,9 +7,9 @@ public class Etat {
     String nom;                         //nom de l'état
     ArrayList<String> transitions;      //toutes les transitions
     ArrayList<String> charTransitions;  //tous les caractères de transition
+    int polymerisation;                  //le nombre de fusion de l'état
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
-    boolean read;
 
     public final char MOT_VIDE = '*';
 
@@ -22,6 +22,16 @@ public class Etat {
         setNom(nom);
         setIndex(index);
     }
+
+
+    public int getPolymerisation() {
+        return this.polymerisation;
+    }
+
+    public void setPolymerisation() {
+        this.polymerisation++;
+    }
+
 
 
     public int getIndex() {

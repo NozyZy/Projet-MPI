@@ -1,6 +1,8 @@
-package Automate;
+
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 /**
@@ -122,13 +124,12 @@ public class Multifonctions {
     }
 
     public void autoSelection(){
-        int g;
-        String possi = "";
+        int g = 0;
 
         for (int i = 0; i < getDatos().length; i++) {
             g = i+1;
             System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
-            possi += toString(g);
+            //possi += toString(g);
         }
 
         System.out.println("Choisissez un automate dans la liste : ");
@@ -145,6 +146,19 @@ public class Multifonctions {
             }
         }
     }
+
+    public String sorted(String a, String b) {
+        String nom = a + b;
+        String reverse = b + a;
+
+        int x = a.hashCode();
+        int y = b.hashCode();
+
+        if (x > y) {
+            //System.out.println("-------------------------> reverse "+ nom +" = "+ reverse );
+            return reverse;
+        }
+        return nom;
 
     public boolean isInArray(char[] array, char val) {
         boolean found = false;
