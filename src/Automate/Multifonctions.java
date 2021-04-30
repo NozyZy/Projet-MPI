@@ -83,24 +83,31 @@ public class Multifonctions {
             taille--;
         }
 
-
         while (lecture) {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
+            //System.out.println(getChoix());
 
             for (int i = 0; i < taille; i++) {
 
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
                 }
-                if (i >= 10  && getChoix().equals(mot.substring(i, i + 2))) {
-                    System.out.println("----------> saisie = "+getChoix());
-                    System.out.println("----------> dur =  " + mot.substring(i, i + 2));
+
+                if (i == 10 && getChoix().equals("10")){
+                    lecture = false;
+                    //System.out.println("----------> saisie = "+getChoix());
+                    //System.out.println("----------> dur = " + mot.substring(i, i + 2));
+                }
+
+                if (i > 10 && getChoix().equals(mot.substring(i, i + 2))) {
+                    //System.out.println("----------> saisie = "+getChoix());
+                    //System.out.println("----------> dur =  " + mot.substring(i, i + 2));
                     lecture = false;
                 }
             }
         }
-        clearConsole();
+        //clearConsole();
     }
 
 
@@ -124,12 +131,14 @@ public class Multifonctions {
                 "\n------------------------Voici le menu : que voulez vous faire ?-----------------------------------\n\n"
                         + "---------------------------> d : Déterminisation\n"
                         + "---------------------------> s : Standardisation\n"
+                        + "---------------------------> a : Déterminisation complétion asynchrone\n"
+                        + "---------------------------> k : Déterminisation complétion synchrone\n"
                         + "---------------------------> c : Complétion \n"
                         + "---------------------------> m : Miniminisation \n"
                         + "---------------------------> g : Changer d'automate\n"
                         + "---------------------------> e : exit\n");
 
-        setChoix();
+        setChoix("dsakcmge");
     }
 
     public void autoSelection(){

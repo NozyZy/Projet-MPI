@@ -1105,29 +1105,40 @@ public class Automate implements Cloneable {
 
     public Automate eliminationEpsilon() {
         if (!asynchrone) verifAsynchrone(false);
+
         if (asynchrone) { // a besoin de revérifier s'il est asynchrone
             String[] clotures = new String[nbEtats];
+
             for (int i = 0; i < nbEtats; i++) {
                 clotures[i] = etats.get(i).nom + findEpsilon(etats.get(i));
             }
+
             Automate newAuto = new Automate(label+"-Async");
             newAuto.setTabEtats();
+
             int i = 0;
             Stack<String> stackEtat = new Stack<>();
             stackEtat.push(clotures[0].charAt(0) + "'");
+
             String[] allNewStates = new String[clotures.length];
+
             while (!stackEtat.isEmpty()) {
+
                 String current = stackEtat.pop();                   //0' puis 2' puis 3'5'
                 newAuto.setEtats(i, current);
                 allNewStates[i] = current;
                 String[] stateNames = current.split("'");     // séparation des int
+
                 for (char alpha: this.alphabet) {
                     String newTransition = "";
+
                     for (String stateName: stateNames){
                         String[] names = clotures[Integer.parseInt(stateName)].split("-");
+
                         for (String name: names) {
                             Etat a = newAuto.pointeur_Etat(current);
                             Etat b = pointeur_Etat(name);
+
                             for (int j = 0; j < b.nbTransitions(); j++){
                                 if (b.charTransitions.get(j).charAt(0) == alpha) {
                                     newTransition += b.transitions.get(j) + "'";
@@ -1145,6 +1156,7 @@ public class Automate implements Cloneable {
                     }
                     if (!newTransition.equals("")){
                         newAuto.pointeur_Etat(current).setTotalTransitions(String.valueOf(alpha), newTransition);
+
                         if (!jarvis.isInArray(allNewStates, newTransition) && !stackEtat.contains(newTransition)){
                             stackEtat.push(newTransition);
                         }
@@ -1152,8 +1164,10 @@ public class Automate implements Cloneable {
 
                 }
                 i++;
+
                 if (i-1 > allNewStates.length) allNewStates = (String[])jarvis.resizeArray(allNewStates, i+1);
             }
+            
             newAuto.determinisation();
             newAuto.allVerifs(false);
             return newAuto;
