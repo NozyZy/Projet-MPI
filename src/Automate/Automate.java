@@ -968,16 +968,17 @@ public class Automate implements Cloneable {
                 else {
                     //getEtats(i).setGroupeEtatMinimisation(getEtats(i).getGroupeEtatMinimisation() + b);
                 }
+                minimisationSuivant(getEtats(i).getNom(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getGroupeMinimisation(), b);
 
+                /*
                 if (interupteur) {
                     //System.out.printf("Etape 1 ; ");
                     minimisationSuivant(getEtats(i).getNom(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getGroupeEtatMinimisation()+b);
                 }
                 else{
                     //System.out.printf("Etape 2 ; ");
-                    minimisationSuivant(getEtats(i).getNom(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getGroupeEtatMinimisation()+b);
                     //ok = minimisationEnsuite(getEtats(i).getGroupeMinimisation(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getNom());
-                }                    
+                }                    */
                 System.out.printf("%s", getEtats(i).getGroupeEtatMinimisation());
                 System.out.printf("(%3s)", getEtats(i).getNom());
                 System.out.printf("-%3s->", getEtats(i).getTabCharTransitions());
@@ -985,48 +986,50 @@ public class Automate implements Cloneable {
                 System.out.printf("%s\n", getEtats(i).getGroupeMinimisation());
                 System.out.println();
             }
-
+/*
             if (interupteur) {
                 interupteur = false;
             }
             else{
                 interupteur = true;
-            }
+            }*/
             
             b=b+1;
         }
         setMinimale(true);
     }
 
-    private void minimisationSuivant(String nom, String string, String string2) {
+    private void minimisationSuivant(String Etat, String string, ArrayList<String> codeCouleur, int dif) {
         for (int i=0; i < getTabEtats().size(); i++) {
             for (int j=0; j < getEtats(i).getTabCharTransitions().size(); j++) {
                 //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), nom);
-                if ( nom.intern() == getEtats(i).getTabTransitions().get(j).intern()){
+                if (getEtats(i).getGroupeEtatMinimisation().intern() == string.intern() && getEtats(i).getGroupeMinimisation() != codeCouleur) {
+                    getEtats(i).setGroupeEtatMinimisation((String) string + dif);
+                }
+                else if ( Etat.intern() == getEtats(i).getTabTransitions().get(j).intern()){
                     //System.out.printf("trouver\n");
                     if (getEtats(i).getGroupeMinimisation().size() == getEtats(i).getTabCharTransitions().size() ){
-                        
-                        if (getEtats(i).getNom() != nom.intern() && string.intern() == getEtats(i).getGroupeMinimisation().get(j)){
+                        if (string.intern() == getEtats(i).getGroupeMinimisation().get(j)){
                             //System.out.printf("-%s- et -%s-\n", getEtats(i).getGroupeMinimisation(),  getEtats(i).getTabTransitions().get(j) );
                             //System.out.printf("On change de couleur d'etat\n");
-                            getEtats(i).setGroupeEtatMinimisation(string2);
+                            getEtats(i).setGroupeEtatMinimisation((String) string + dif);
                         }
                         getEtats(i).setGroupeMinimisation(j, string);
-                        
                     }
                     else{
                         //System.out.printf("=2=\n");
                         getEtats(i).setGroupeMinimisation(string);
                     }
-                    
                 }
+
                 else {
                     if (getEtats(i).getGroupeMinimisation().size() == getEtats(i).getTabCharTransitions().size()){
                         //System.out.printf("=!!!=\n");
                         //getEtats(i).setGroupeMinimisation(j, string2);
+                        
                     }
                     else{ 
-                        getEtats(i).setGroupeMinimisation(string2);
+                        getEtats(i).setGroupeMinimisation((String) string + dif);
                     }
                 }
             }
