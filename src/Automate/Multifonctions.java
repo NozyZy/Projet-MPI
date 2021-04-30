@@ -159,6 +159,7 @@ public class Multifonctions {
             return reverse;
         }
         return nom;
+    }
 
     public boolean isInArray(char[] array, char val) {
         boolean found = false;
