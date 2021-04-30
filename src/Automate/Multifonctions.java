@@ -1,8 +1,6 @@
 
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Scanner;
 
 /**
@@ -159,6 +157,7 @@ public class Multifonctions {
             return reverse;
         }
         return nom;
+    }
 
     public boolean isInArray(char[] array, char val) {
         boolean found = false;
