@@ -757,7 +757,7 @@ public class Automate implements Cloneable {
         for (int i = 0; i < getTabEtats().size()-x; i++) {
             //System.out.print("v");
             //getEtats(i).affiche_etat();
-            System.out.println("Voici les etat a partir de l'entrée : " + getEtats(i).nom);
+            //System.out.println("Voici les etat a partir de l'entrée : " + getEtats(i).nom);
             for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
                 //System.out.print("î");
                 //getEtats(j).affiche_etat();
@@ -882,10 +882,10 @@ public class Automate implements Cloneable {
 
         for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).getPolymerisation() > 0) {
-                System.out.println("----------------------------->2");
-                getEtats(i).affiche_etat();
+                //System.out.println("----------------------------->2");
+                //getEtats(i).affiche_etat();
                if (!isPointer(getEtats(i), fusion)) {
-                    System.out.println("Je supprime ----------> "+getEtats(i).nom);
+                //System.out.println("Je supprime ----------> "+getEtats(i).nom);
                    suppression_Etat(getEtats(i));
                    i = 0;
                }

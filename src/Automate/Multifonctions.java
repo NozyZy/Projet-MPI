@@ -77,12 +77,19 @@ public class Multifonctions {
      */
     public void setChoix(String mot) {
         boolean lecture = true;
+        int taille = mot.length();
+
+        if (mot.length() != 1) {
+            taille--;
+        }
+
 
         while (lecture) {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
 
-            for (int i = 0; i < mot.length()-1; i++) {
+            for (int i = 0; i < taille; i++) {
+
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
                 }
