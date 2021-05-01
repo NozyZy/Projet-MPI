@@ -55,6 +55,34 @@ public class Menu {
                     deter.afficherAutomate();
                 }
 
+                if (jarvis.getChoix().equals("a")) {// Choix determinisation+complétion synchrone
+                    Automate komba = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    jarvis.clearConsole();
+                    komba.afficherAutomate();
+                    Automate newkomba = komba.determinisation_completion_asynchrone();
+                    newkomba.afficherAutomate();
+                }
+
+                if (jarvis.getChoix().equals("k")) {// Choix determinisation+complétion synchrone
+                    Automate kombo = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    if (kombo.isAsynchrone()) {
+                        if (kombo.isAsynchrone()) {
+                            System.out.println("L'automate " + kombo.label + " est asynchrone !");
+                        }
+                        
+                    }
+                    else{
+                        jarvis.clearConsole();
+                        kombo.afficherAutomate();
+                        kombo.determinisation();
+                        kombo.completion();
+                        kombo.setLabel("Deterministe complet synchrone");
+                        kombo.afficherAutomate();
+                    }
+                }
+
+                
+
                 if (jarvis.getChoix().equals("s")) {// Choix Standard
                     Automate standard = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
@@ -68,8 +96,8 @@ public class Menu {
                     Automate complet = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     complet.afficherAutomate();
-                    complet.standardisation("i");
-                    complet.setLabel("Standardisé");
+                    complet.completion();
+                    complet.setLabel("Complet");
                     complet.afficherAutomate();
                 }
 

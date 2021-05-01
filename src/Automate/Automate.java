@@ -174,17 +174,23 @@ public class Automate implements Cloneable {
         setComplet(isComplet);
     }
 
-    public void verifDeterministe(boolean doesPrint) {
+    public boolean verifDeterministe(boolean doesPrint) {
         if (getNbEntrees() != 1) {
-            if (doesPrint) System.out.println("L'automate " + label + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + getLabel() + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
             setDeterministe(false);
-        } else {
+            return false;
+        }
+
+        else{
             boolean isDeterministe = true;
-            for(Character alpha: alphabet) {
+
+            for(Character alpha: alphabet){
                 boolean thisOne = false;
+
                 for (int i = 0; i < getNbEtats(); i++) {
                     Etat a = getEtats(i);
                     ArrayList<Integer> theseTransitions = new ArrayList<>();
+
                     for (int j = 0; j < a.nbTransitions(); j++) {
                         if (a.getCharTransitions(j).charAt(0) == alpha) {
                             theseTransitions.add(j);
@@ -207,6 +213,7 @@ public class Automate implements Cloneable {
             }
             if (!isDeterministe && doesPrint) System.out.println();
             setDeterministe(isDeterministe);
+            return true;
         }
     }
 
@@ -757,7 +764,7 @@ public class Automate implements Cloneable {
         for (int i = 0; i < getTabEtats().size()-x; i++) {
             //System.out.print("v");
             //getEtats(i).affiche_etat();
-            System.out.println("Voici les etat a partir de l'entrée : " + getEtats(i).nom);
+            //System.out.println("Voici les etat a partir de l'entrée : " + getEtats(i).nom);
             for (int j = 0; j < getEtats(i).getTabTransitions().size(); j++) {
                 //System.out.print("î");
                 //getEtats(j).affiche_etat();
@@ -882,10 +889,10 @@ public class Automate implements Cloneable {
 
         for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).getPolymerisation() > 0) {
-                System.out.println("----------------------------->2");
-                getEtats(i).affiche_etat();
+                //System.out.println("----------------------------->2");
+                //getEtats(i).affiche_etat();
                if (!isPointer(getEtats(i), fusion)) {
-                    System.out.println("Je supprime ----------> "+getEtats(i).nom);
+                //System.out.println("Je supprime ----------> "+getEtats(i).nom);
                    suppression_Etat(getEtats(i));
                    i = 0;
                }
@@ -1046,16 +1053,19 @@ public class Automate implements Cloneable {
      */
     public void determinisation(){
 
-        if(getNbEntrees() <= 1 ) {
-            //System.out.println("checked");
-            mitose(getEtatEntree());
-        }
+        if (!verifDeterministe(false)) {
+            if (getNbEntrees() <= 1) {
+                // System.out.println("checked");
+                mitose(getEtatEntree());
+            }
 
-        else {
-            mitose(fusion_Entrees());
-        }
+            else {
+                mitose(fusion_Entrees());
+            }
 
-        nettoyage();
+            nettoyage();   
+        }
+                
     }
 
     /**
@@ -1105,29 +1115,40 @@ public class Automate implements Cloneable {
 
     public Automate eliminationEpsilon() {
         if (!asynchrone) verifAsynchrone(false);
+
         if (asynchrone) { // a besoin de revérifier s'il est asynchrone
             String[] clotures = new String[nbEtats];
+
             for (int i = 0; i < nbEtats; i++) {
                 clotures[i] = etats.get(i).nom + findEpsilon(etats.get(i));
             }
+
             Automate newAuto = new Automate(label);
             newAuto.setTabEtats();
+
             int i = 0;
             Stack<String> stackEtat = new Stack<>();
             stackEtat.push(clotures[0].charAt(0) + "'");
+
             String[] allNewStates = new String[clotures.length];
+
             while (!stackEtat.isEmpty()) {
+
                 String current = stackEtat.pop();                   //0' puis 2' puis 3'5'
                 newAuto.setEtats(i, current);
                 allNewStates[i] = current;
                 String[] stateNames = current.split("'");     // séparation des int
+
                 for (char alpha: this.alphabet) {
                     String newTransition = "";
+
                     for (String stateName: stateNames){
                         String[] names = clotures[Integer.parseInt(stateName)].split("-");
+
                         for (String name: names) {
                             Etat a = newAuto.pointeur_Etat(current);
                             Etat b = pointeur_Etat(name);
+
                             for (int j = 0; j < b.nbTransitions(); j++){
                                 if (b.charTransitions.get(j).charAt(0) == alpha) {
                                     newTransition += b.transitions.get(j) + "'";
@@ -1145,6 +1166,7 @@ public class Automate implements Cloneable {
                     }
                     if (!newTransition.equals("")){
                         newAuto.pointeur_Etat(current).setTotalTransitions(String.valueOf(alpha), newTransition);
+
                         if (!jarvis.isInArray(allNewStates, newTransition) && !stackEtat.contains(newTransition)){
                             stackEtat.push(newTransition);
                         }
@@ -1152,8 +1174,10 @@ public class Automate implements Cloneable {
 
                 }
                 i++;
+
                 if (i-1 > allNewStates.length) allNewStates = (String[])jarvis.resizeArray(allNewStates, i+1);
             }
+            
             newAuto.determinisation();
             newAuto.allVerifs(false);
             return newAuto;
