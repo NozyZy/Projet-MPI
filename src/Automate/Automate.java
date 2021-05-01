@@ -174,17 +174,23 @@ public class Automate implements Cloneable {
         setComplet(isComplet);
     }
 
-    public void verifDeterministe(boolean doesPrint) {
+    public boolean verifDeterministe(boolean doesPrint) {
         if (getNbEntrees() != 1) {
-            if (doesPrint) System.out.println("L'automate " + label + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + getLabel() + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
             setDeterministe(false);
-        } else {
+            return false;
+        }
+
+        else{
             boolean isDeterministe = true;
-            for(Character alpha: alphabet) {
+
+            for(Character alpha: alphabet){
                 boolean thisOne = false;
+
                 for (int i = 0; i < getNbEtats(); i++) {
                     Etat a = getEtats(i);
                     ArrayList<Integer> theseTransitions = new ArrayList<>();
+
                     for (int j = 0; j < a.nbTransitions(); j++) {
                         if (a.getCharTransitions(j).charAt(0) == alpha) {
                             theseTransitions.add(j);
@@ -207,6 +213,7 @@ public class Automate implements Cloneable {
             }
             if (!isDeterministe && doesPrint) System.out.println();
             setDeterministe(isDeterministe);
+            return true;
         }
     }
 
@@ -1046,16 +1053,19 @@ public class Automate implements Cloneable {
      */
     public void determinisation(){
 
-        if(getNbEntrees() <= 1 ) {
-            //System.out.println("checked");
-            mitose(getEtatEntree());
-        }
+        if (!verifDeterministe(true)) {
+            if (getNbEntrees() <= 1) {
+                // System.out.println("checked");
+                mitose(getEtatEntree());
+            }
 
-        else {
-            mitose(fusion_Entrees());
-        }
+            else {
+                mitose(fusion_Entrees());
+            }
 
-        nettoyage();
+            nettoyage();   
+        }
+                
     }
 
     /**

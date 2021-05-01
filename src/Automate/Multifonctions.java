@@ -79,14 +79,13 @@ public class Multifonctions {
         boolean lecture = true;
         int taille = mot.length();
 
-        if (mot.length() != 1) {
-            taille--;
-        }
-
         while (lecture) {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
-            //System.out.println(getChoix());
+
+            if (getChoix().length() > 1) {
+                taille--;
+            }
 
             for (int i = 0; i < taille; i++) {
 
@@ -107,7 +106,7 @@ public class Multifonctions {
                 }
             }
         }
-        //clearConsole();
+        clearConsole();
     }
 
 
