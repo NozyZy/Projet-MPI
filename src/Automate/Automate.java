@@ -1053,7 +1053,7 @@ public class Automate implements Cloneable {
      */
     public void determinisation(){
 
-        if (!verifDeterministe(true)) {
+        if (!verifDeterministe(false)) {
             if (getNbEntrees() <= 1) {
                 // System.out.println("checked");
                 mitose(getEtatEntree());
