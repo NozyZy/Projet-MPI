@@ -83,7 +83,7 @@ public class Multifonctions {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
 
-            if (getChoix().length() > 1) {
+            if (mot.length() > 9) {
                 taille--;
             }
 
