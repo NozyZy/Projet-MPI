@@ -83,11 +83,11 @@ public class Multifonctions {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
 
-            if (getChoix().length() > 1) {
+            /*if (getChoix().length() > 1) {
                 taille--;
-            }
+            }*/
 
-            for (int i = 0; i < taille; i++) {
+            for (int i = 0; i < taille-1; i++) {
 
                 if (getChoix().equals(mot.substring(i, i + 1))){
                     lecture = false;
