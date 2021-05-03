@@ -32,17 +32,27 @@ public class Menu {
                 }
 
                 if (jarvis.getChoix().equals("g")) {
-                    jarvis.clearConsole();
-                    jarvis.autoSelection();
-                    jarvis.clearConsole();
-                    
-                    Automate nintendo = Readwrite.readAutomateFile(jarvis.getPathfinder());//Nintendo car nintendo "switch" et switch ne peut pas etre un nom
-                    assert nintendo != null;
-                    
-                    jarvis.clearConsole();
-                    nintendo.afficherAutomate();
-                    jarvis.laCarte();//affichage du menu + choix
+                    boolean mario = true;
 
+                    while (mario) {
+                        jarvis.clearConsole();
+                        jarvis.autoSelection();
+
+                        Automate nintendo = Readwrite.readAutomateFile(jarvis.getPathfinder());// Nintendo car nintendo
+                                                                                               // "switch" et switch ne
+                                                                                               // peut pas etre un nom
+                        assert nintendo != null;
+
+                        jarvis.clearConsole();
+                        nintendo.afficherAutomate();
+                        jarvis.laCarte();// affichage du menu + choix
+                        if (!jarvis.getChoix().equals("g")) {
+                            mario = false;
+                        }
+                        else{
+                            jarvis.clearConsole();
+                        }
+                    }
                 }
                 
 
