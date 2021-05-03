@@ -1123,7 +1123,7 @@ public class Automate implements Cloneable {
                 clotures[i] = etats.get(i).nom + findEpsilon(etats.get(i));
             }
 
-            Automate newAuto = new Automate(label+"-Async");
+            Automate newAuto = new Automate(label);
             newAuto.setTabEtats();
 
             int i = 0;
