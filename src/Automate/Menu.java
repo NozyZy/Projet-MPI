@@ -21,20 +21,15 @@ public class Menu {
         automate.afficherAutomate();
         
         while (menu0 == 1) {//Boucle du menu
+           
 
             while (menu1 == 1) {
-
                 jarvis.laCarte();// affichage du menu + choix
-
-                if (jarvis.getChoix().equals("e")){
-                    jarvis.clearConsole();
-                    menu1 = 0;
-                }
-
+                
                 if (jarvis.getChoix().equals("g")) {
-                    boolean mario = true;
+                    //boolean mario = true;
 
-                    while (mario) {
+                    //while (mario) {
                         jarvis.clearConsole();
                         jarvis.autoSelection();
 
@@ -45,16 +40,19 @@ public class Menu {
 
                         jarvis.clearConsole();
                         nintendo.afficherAutomate();
-                        jarvis.laCarte();// affichage du menu + choix
-                        if (!jarvis.getChoix().equals("g")) {
-                            mario = false;
-                        }
-                        else{
-                            jarvis.clearConsole();
-                        }
-                    }
+                        //jarvis.laCarte();// affichage du menu + choix
+                        //if (!jarvis.getChoix().equals("g")) {
+                            //mario = false;
+                        //} else {
+                            //jarvis.clearConsole();
+                        //}
+                    
                 }
-                
+
+                if (jarvis.getChoix().equals("e")){
+                    jarvis.clearConsole();
+                    menu1 = 0;
+                }
 
                 if (jarvis.getChoix().equals("d")) {//Choix determinisation
                     Automate deter = Readwrite.readAutomateFile(jarvis.getPathfinder());
