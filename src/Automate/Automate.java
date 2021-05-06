@@ -801,6 +801,8 @@ public class Automate implements Cloneable {
 
             mitose(pointeur_Etat(a+b));
         }
+        //setDeterministe(true);
+        //setComplet(true);
     }
 
     /**
@@ -857,7 +859,12 @@ public class Automate implements Cloneable {
             if (!isAsynchrone()){
                 if (isDeterministe()){
                     if (isComplet()){
-                        laMinimalisation();
+                        //laMinimalisation();
+                        System.out.printf("\n>>>    L'automate est en cours d'analyse ...");
+                        minimisationAnalyse();
+                        System.out.printf("\n>>>    L'automate est en cours de fusion ...");
+                        minimisationFusion();
+                        System.out.printf("\n>>>    L'automate MINIMAL est termine !!!");
                     }
                     else{
                         System.out.printf("\nL'automate n'est pas complet ...");
@@ -865,21 +872,21 @@ public class Automate implements Cloneable {
     
                 }
                 else{
-                    System.out.printf("\nL'automate n'est pas determinisate ...");
+                    System.out.printf("\n>>>    L'automate n'est pas determinisate ...");
                 }
     
             }
             else{
-                System.out.printf("\nL'automate n'est pas synchrone ...");
+                System.out.printf("\n>>>    L'automate n'est pas synchrone ...");
             } 
     
         }
         else{
-            System.out.printf("\nL'automate est deja minimale ...");
+            System.out.printf("\n>>>    L'automate est deja minimale ...");
         }
 
     }
-
+/*
     public void laMinimalisation(){
         /*
         //int conditionDeFin = 0;
@@ -939,25 +946,25 @@ public class Automate implements Cloneable {
         if (automateModifier){
             System.out.println("L'automate a ete minimiser : il etait deja minimal... ");
         }
-        setMinimale(minimale);*/
-        minimisationAnalyse();/*
+        setMinimale(minimale);
+        minimisationAnalyse();
         if (minimisationAnalyse()){
             System.out.println("L'automate a ete minimiser : il etait deja minimal... ");
         }
 
         while(!minimisationAnalyse()){
 
-        }*/
+        }
         minimisationFusion();
     }
-
+*/
     private void minimisationAnalyse() {
         Boolean ok = true;
         Boolean interupteur = true;
         String a = "C";
         int b = 0;
         while (ok != false){
-            System.out.printf("__________________________________\n");
+            System.out.printf("\n_________________________________________\n");
             for (int i = 0; i < getTabEtats().size(); i++) {                    
                 if (getEtats(i).isSortie() && b==0) {
                     getEtats(i).setGroupeEtatMinimisation(a);
@@ -968,52 +975,54 @@ public class Automate implements Cloneable {
                 else {
                     //getEtats(i).setGroupeEtatMinimisation(getEtats(i).getGroupeEtatMinimisation() + b);
                 }
-                minimisationSuivant(getEtats(i).getNom(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getGroupeMinimisation(), b);
-
-                /*
+                                
                 if (interupteur) {
                     //System.out.printf("Etape 1 ; ");
-                    minimisationSuivant(getEtats(i).getNom(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getGroupeEtatMinimisation()+b);
+                    minimisationSuivant(getEtats(i), b);
                 }
                 else{
+                    minimisationSuivant(getEtats(i), b);
+                    //coloration(getEtats(i), b);
                     //System.out.printf("Etape 2 ; ");
                     //ok = minimisationEnsuite(getEtats(i).getGroupeMinimisation(), getEtats(i).getGroupeEtatMinimisation(), getEtats(i).getNom());
-                }                    */
-                System.out.printf("%s", getEtats(i).getGroupeEtatMinimisation());
+                } 
+                System.out.printf(">>>    %s", getEtats(i).getGroupeEtatMinimisation());
                 System.out.printf("(%3s)", getEtats(i).getNom());
                 System.out.printf("-%3s->", getEtats(i).getTabCharTransitions());
                 System.out.printf("(%3s) :", getEtats(i).getTabTransitions());
-                System.out.printf("%s\n", getEtats(i).getGroupeMinimisation());
+                System.out.printf("%s", getEtats(i).getGroupeMinimisation());
                 System.out.println();
             }
-/*
+
             if (interupteur) {
                 interupteur = false;
             }
             else{
                 interupteur = true;
-            }*/
+            }
             
             b=b+1;
         }
         setMinimale(true);
     }
 
-    private void minimisationSuivant(String Etat, String string, ArrayList<String> codeCouleur, int dif) {
+    private void minimisationSuivant(Etat monEtat, int dif) {
+        String Etat = monEtat.getNom();
+        String string = monEtat.getGroupeEtatMinimisation();
+        //ArrayList<String> codeCouleur = monEtat.getGroupeMinimisation();
+        //ArrayList<String> codeTransition = monEtat.getTabCharTransitions();
+        
         for (int i=0; i < getTabEtats().size(); i++) {
             for (int j=0; j < getEtats(i).getTabCharTransitions().size(); j++) {
                 //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), nom);
-                if (getEtats(i).getGroupeEtatMinimisation().intern() == string.intern() && getEtats(i).getGroupeMinimisation() != codeCouleur) {
-                    getEtats(i).setGroupeEtatMinimisation((String) string + dif);
-                }
-                else if ( Etat.intern() == getEtats(i).getTabTransitions().get(j).intern()){
+                if (Etat.intern() == getEtats(i).getTabTransitions().get(j).intern()){
                     //System.out.printf("trouver\n");
                     if (getEtats(i).getGroupeMinimisation().size() == getEtats(i).getTabCharTransitions().size() ){
-                        if (string.intern() == getEtats(i).getGroupeMinimisation().get(j)){
+                        /*if (string.intern() == getEtats(i).getGroupeMinimisation().get(j)){
                             //System.out.printf("-%s- et -%s-\n", getEtats(i).getGroupeMinimisation(),  getEtats(i).getTabTransitions().get(j) );
                             //System.out.printf("On change de couleur d'etat\n");
                             getEtats(i).setGroupeEtatMinimisation((String) string + dif);
-                        }
+                        }*/
                         getEtats(i).setGroupeMinimisation(j, string);
                     }
                     else{
@@ -1021,12 +1030,9 @@ public class Automate implements Cloneable {
                         getEtats(i).setGroupeMinimisation(string);
                     }
                 }
-
                 else {
                     if (getEtats(i).getGroupeMinimisation().size() == getEtats(i).getTabCharTransitions().size()){
                         //System.out.printf("=!!!=\n");
-                        //getEtats(i).setGroupeMinimisation(j, string2);
-                        
                     }
                     else{ 
                         getEtats(i).setGroupeMinimisation((String) string + dif);
@@ -1034,8 +1040,16 @@ public class Automate implements Cloneable {
                 }
             }
         }
+        /*
+        System.out.printf(">>>    %s", monEtat.getGroupeEtatMinimisation());
+        System.out.printf("(%3s)", monEtat.getNom());
+        System.out.printf("-%3s->", monEtat.getTabCharTransitions());
+        System.out.printf("(%3s) :", monEtat.getTabTransitions());
+        System.out.printf("%s", monEtat.getGroupeMinimisation());
+        System.out.println();*/
+        coloration(monEtat, dif);
     }
-
+/*
     private boolean minimisationEnsuite(ArrayList<String> codeCouleur, String string, String nom) {
         boolean ok = true;
         for (int i=0; i < getTabEtats().size(); i++) {
@@ -1049,11 +1063,34 @@ public class Automate implements Cloneable {
             //}
         }
         return ok;
-    }
+    }*/
 
+    private void coloration(Etat monEtat, int dif){
+        String string = monEtat.getGroupeEtatMinimisation();
+
+        for (int i=0; i < getTabEtats().size(); i++) {
+            for (int j=0; j < getTabEtats().size(); j++) {
+                if (getEtats(i).getGroupeEtatMinimisation().intern() == getEtats(j).getGroupeEtatMinimisation().intern()){
+                    if (getEtats(i).getGroupeMinimisation() != getEtats(j).getGroupeMinimisation()) {
+                        getEtats(j).setGroupeEtatMinimisation((String) string + dif);
+                    }
+                }
+            }
+        }
+    }
 
     private void minimisationFusion() {
-
+        for (int i=0; i < getTabEtats().size(); i++) {
+            for (int j=0; j < getTabEtats().size(); j++) {
+                if (getEtats(i).getNom().intern() !=  getEtats(j).getNom().intern()){
+                    if (getEtats(i).getGroupeEtatMinimisation().intern() == getEtats(j).getGroupeEtatMinimisation().intern()){
+                        fusion_Etat(getEtats(i), getEtats(j));
+                    }
+                }
+            }
+        }
     }
+
+
 }
 

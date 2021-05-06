@@ -20,7 +20,7 @@ public class Main {
         automate.afficherAutomate();
         System.out.println(automate.contains("abaa"));
 
-        automate.laMinimalisation();
+        automate.minimisation();
         //automate.afficherAutomate();
         //System.out.println("-----------------------------------> "+automate.getEtatEntree(1).getNom());
         //System.out.println("-----------------------------------> "+automate.mitose(automate.getEtats(0)));
