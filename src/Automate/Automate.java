@@ -801,8 +801,8 @@ public class Automate implements Cloneable {
 
             mitose(pointeur_Etat(a+b));
         }
-        setDeterministe(true);
-        setComplet(true);
+        //setDeterministe(true);
+        //setComplet(true);
     }
 
     /**
@@ -867,7 +867,7 @@ public class Automate implements Cloneable {
                         System.out.printf("\n>>>    L'automate MINIMAL est termine !!!");
                         afficherAutomate();
                     }
-                    else{System.out.printf("\nL'automate n'est pas complet ...");}
+                    else{System.out.printf("\n>>>    L'automate n'est pas complet ...");}
                 }
                 else{System.out.printf("\n>>>    L'automate n'est pas determinisate ...");}
             }
@@ -881,7 +881,7 @@ public class Automate implements Cloneable {
         String a = "C";
         int b = 0;
         while (ok != false){
-            System.out.printf("\n_________________________________________\n");
+            System.out.printf("\n______________________________________________\n");
             for (int i = 0; i < getTabEtats().size(); i++) {
                 if (getEtats(i).isSortie() && b==0) {
                     getEtats(i).setGroupeEtatMinimisation(a);
@@ -945,14 +945,19 @@ public class Automate implements Cloneable {
     }
 
     private void minimisationFusion() {
+        boolean modifier = false;
         for (int i=0; i < getTabEtats().size(); i++) {
             for (int j=0; j < getTabEtats().size(); j++) {
                 if (getEtats(i).getNom().intern() !=  getEtats(j).getNom().intern()){
                     if (getEtats(i).getGroupeEtatMinimisation().intern() == getEtats(j).getGroupeEtatMinimisation().intern()){
                         fusion_Etat(getEtats(i), getEtats(j));
+                        modifier = true;
                     }
                 }
             }
+        }
+        if (modifier == false){
+            System.out.printf("\n>>>    L'automate est inchanger ...");
         }
     }
 
