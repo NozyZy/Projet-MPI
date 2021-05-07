@@ -123,19 +123,39 @@ public class Multifonctions {
         scanner.close();
     }
 
-    public void laCarte(){
+    public void laCarte(Automate automate){
+        System.out.println("\n------------------------Voici le menu : que voulez vous faire ?-----------------------------------\n\n");
+
+        if (automate.isDeterministe()) System.out.println("---------------------------> L'automate est déterministe");
+        else System.out.println("---------------------------> d : Déterminisation");
+
+        if (automate.isStandard()) System.out.println("---------------------------> L'automate est standard");
+        else System.out.println("---------------------------> s : Standardisation");
+
+        if (automate.isComplet()) System.out.println("---------------------------> L'automate est complet");
+        else System.out.println("---------------------------> c : Complétion");
+
+        if (!automate.isAsynchrone()) System.out.println("---------------------------> L'automate est fini");
+        else System.out.println("---------------------------> b : Eliminer les transitions epsilon");
+
+        if (!automate.isDeterministe() || !automate.isComplet()) System.out.println("---------------------------> a : Déterminisation complétion synchrone/asynchrone");
+
         System.out.println(
+                "---------------------------> m : Miniminisation \n"
+                + "---------------------------> g : Changer d'automate\n"
+                + "---------------------------> e : exit\n");
+
+        /*System.out.println(
                 "\n------------------------Voici le menu : que voulez vous faire ?-----------------------------------\n\n"
                         + "---------------------------> d : Déterminisation\n"
                         + "---------------------------> s : Standardisation\n"
-                        + "---------------------------> a : Déterminisation complétion asynchrone\n"
-                        + "---------------------------> k : Déterminisation complétion synchrone\n"
+                        + "---------------------------> a : Déterminisation complétion synchrone/asynchrone\n"
                         + "---------------------------> c : Complétion \n"
                         + "---------------------------> m : Miniminisation \n"
                         + "---------------------------> g : Changer d'automate\n"
-                        + "---------------------------> e : exit\n");
+                        + "---------------------------> e : exit\n");*/
 
-        setChoix("dsakcmge");
+        setChoix("dscbamge");
     }
 
     public void autoSelection(){

@@ -34,7 +34,6 @@ public class Automate implements Cloneable {
     int initnbTransitions;
     boolean deterministe;
     boolean standard;
-    
     boolean complet;
     boolean asynchrone;
     boolean minimale;
@@ -49,6 +48,7 @@ public class Automate implements Cloneable {
         this.etats = etats;
         this.nbEntrees = nbEntrees;
         this.nbEtats = nbEtats;
+        setAlphabet();
         allVerifs(true);
     }
 
@@ -91,7 +91,8 @@ public class Automate implements Cloneable {
         }
         lecture.close();// fermeture de la lecture du txt
         nbTransitions = getInitnbTransitions();
-        allVerifs(true);
+        setAlphabet();
+        allVerifs(false);
     }
 
     public void verifAsynchrone(boolean doesPrint) {
@@ -144,7 +145,6 @@ public class Automate implements Cloneable {
 
     public void verifComplet(boolean doesPrint) {
         boolean isComplet = true;
-        setAlphabet();
         int j;
         for (Character alpha: alphabet) {
             boolean thisOne = false;
@@ -184,8 +184,7 @@ public class Automate implements Cloneable {
 
         else{
             boolean isDeterministe = true;
-
-            for(Character alpha: alphabet){
+            for(Character alpha: this.alphabet){
                 boolean thisOne = false;
 
                 for (int i = 0; i < getNbEtats(); i++) {
@@ -256,7 +255,7 @@ public class Automate implements Cloneable {
                 }
             }
         }
-        Collections.sort(alphabet);
+        Collections.sort(this.alphabet);
     }
 
     /**
@@ -507,13 +506,13 @@ public class Automate implements Cloneable {
      * Affiche l'automate en string
      */
     public void afficherAutomate() {
-        System.out.println("\n<=========( Voici l'automate : "+ getLabel() +" )==========>\n");
         /**System.out.println(" Standard -----------> " + isStandard());
         System.out.println(" Complet ------------> " + isComplet());
         System.out.println(" Deterministe -------> " + isDeterministe());
         System.out.println(" Asynchrone ---------> " + isAsynchrone());
         System.out.println(" Minimal ------------> " + isMinimale());
         System.out.println();**/
+        System.out.println("<===================( Automate : " + label + " )======================>\n");
         System.out.println(" # d'états ----------> " + getNbEtats());
         System.out.println(" # de transitions ---> " + findNbTransitions());
         System.out.println(" Etats --------------> " + getEtats());
@@ -552,7 +551,7 @@ public class Automate implements Cloneable {
      */
     public void standardisation(String nom){
         if (isStandard()) {
-            System.out.println("L'automate est déjà standard !");
+            System.out.println("déjà standard !");
         } else {
             setEtats(nom); //creation de l'état initiale
 
@@ -1056,7 +1055,6 @@ public class Automate implements Cloneable {
      * Fonction de determinisation
      */
     public void determinisation(){
-
         if (!verifDeterministe(false)) {
             if (getNbEntrees() <= 1) {
                 // System.out.println("checked");
@@ -1162,7 +1160,7 @@ public class Automate implements Cloneable {
                 System.out.printf("%s", getEtats(i).getGroupeMinimisation());
                 System.out.println();
             }
-            b=b+1;
+            b++;
         }
         setMinimale(true);
     }
@@ -1171,8 +1169,8 @@ public class Automate implements Cloneable {
         String Etat = monEtat.getNom();
         String string = monEtat.getGroupeEtatMinimisation();
         
-        for (int i=0; i < getTabEtats().size(); i++) {
-            for (int j=0; j < getEtats(i).nbTransitions(); j++) {
+        for (int i = 0; i < getNbEtats(); i++) {
+            for (int j = 0; j < getEtats(i).nbTransitions(); j++) {
                 //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), Etat);
                 if (Etat.intern() == getEtats(i).getTransitions(j).intern()){
                     //System.out.printf("trouver\n");
@@ -1288,7 +1286,7 @@ public class Automate implements Cloneable {
 
                 if (i-1 > allNewStates.length) allNewStates = (String[])jarvis.resizeArray(allNewStates, i+1);
             }
-            
+            newAuto.setAlphabet();
             newAuto.determinisation();
             newAuto.allVerifs(false);
             return newAuto;

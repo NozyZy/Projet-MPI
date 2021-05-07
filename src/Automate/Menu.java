@@ -1,5 +1,7 @@
 package Automate;
 
+import java.util.Objects;
+
 /**
  * Menu du programme qui permet de selectionner les actions, on enverra a chaque fois un clone de l'automate initiale
  */
@@ -21,10 +23,9 @@ public class Menu {
         automate.afficherAutomate();
         
         while (menu0 == 1) {//Boucle du menu
-           
 
             while (menu1 == 1) {
-                jarvis.laCarte();// affichage du menu + choix
+                jarvis.laCarte(Objects.requireNonNull(Readwrite.readAutomateFile(jarvis.getPathfinder())));// affichage du menu + choix
                 
                 if (jarvis.getChoix().equals("g")) {
                     //boolean mario = true;
@@ -63,15 +64,21 @@ public class Menu {
                     deter.afficherAutomate();
                 }
 
-                if (jarvis.getChoix().equals("a")) {// Choix determinisation+complétion synchrone
+                if (jarvis.getChoix().equals("a")) {// Choix determinisation+complétion synchrone/asynchrone
                     Automate komba = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     komba.afficherAutomate();
-                    Automate newkomba = komba.determinisation_completion_asynchrone();
-                    newkomba.afficherAutomate();
+                    if (komba.isAsynchrone()) {
+                        Automate newkomba = komba.determinisation_completion_asynchrone();
+                        newkomba.afficherAutomate();
+                    } else {
+                        komba.determinisation_completion_synchrone();
+                        komba.afficherAutomate();
+                    }
+
                 }
 
-                if (jarvis.getChoix().equals("k")) {// Choix determinisation+complétion synchrone
+                /*if (jarvis.getChoix().equals("k")) {// Choix determinisation+complétion synchrone
                     Automate kombo = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     if (kombo.isAsynchrone()) {
                         if (kombo.isAsynchrone()) {
@@ -87,9 +94,7 @@ public class Menu {
                         kombo.setLabel("Deterministe complet synchrone");
                         kombo.afficherAutomate();
                     }
-                }
-
-                
+                }*/
 
                 if (jarvis.getChoix().equals("s")) {// Choix Standard
                     Automate standard = Readwrite.readAutomateFile(jarvis.getPathfinder());
@@ -113,9 +118,18 @@ public class Menu {
                     Automate mini = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
                     mini.afficherAutomate();
-                    mini.standardisation("i");
-                    mini.setLabel("Standardisé");
+                    mini.minimisation();
+                    mini.setLabel("Minimisé");
                     mini.afficherAutomate();
+                }
+
+                if (jarvis.getChoix().equals("b")) {//Choix elimination epsilon
+                    Automate async = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    jarvis.clearConsole();
+                    async.afficherAutomate();
+                    Automate sync = async.eliminationEpsilon();
+                    sync.setLabel("Automate fini");
+                    sync.afficherAutomate();
                 }
 
             }
