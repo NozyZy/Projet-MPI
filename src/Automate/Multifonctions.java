@@ -138,7 +138,8 @@ public class Multifonctions {
         if (!automate.isAsynchrone()) System.out.println("---------------------------> L'automate est fini");
         else System.out.println("---------------------------> b : Eliminer les transitions epsilon");
 
-        if (!automate.isDeterministe() || !automate.isComplet()) System.out.println("---------------------------> a : Déterminisation complétion synchrone/asynchrone");
+        if (!automate.isDeterministe() || !automate.isComplet())
+            System.out.println("---------------------------> a : Déterminisation complétion synchrone/asynchrone");
 
         System.out.println(
                 "---------------------------> m : Miniminisation \n"
