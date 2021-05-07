@@ -1,5 +1,4 @@
 
-
 /**
  * Menu du programme qui permet de selectionner les actions, on enverra a chaque fois un clone de l'automate initiale
  */

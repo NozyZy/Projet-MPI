@@ -39,6 +39,9 @@ public class Main {
         //automate.nettoyage();
         //automate.fusion_Entrees();
         automate.afficherAutomate();
+        System.out.println(automate.contains("abaa"));
+
+        automate.minimisation();
         //System.out.println(automate.nbEtats);
         //automate.fusion_multiple(automate.getNbEntrees()).affiche_etat("all");
         //automate.setLabel("Deterministe");

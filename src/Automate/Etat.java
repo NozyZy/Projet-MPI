@@ -1,5 +1,4 @@
 
-
 import java.util.ArrayList;
 
 public class Etat {
@@ -7,6 +6,9 @@ public class Etat {
     String nom;                         //nom de l'état
     ArrayList<String> transitions;      //toutes les transitions
     ArrayList<String> charTransitions;  //tous les caractères de transition
+    ArrayList<String> groupeMinimisation;
+    String groupeEtatMinimisation;
+    int nbTransitions;                  //le nombre de transistions sortantes
     int polymerisation;                  //le nombre de fusion de l'état
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
@@ -21,6 +23,7 @@ public class Etat {
     public Etat(String nom, int index){
         setNom(nom);
         setIndex(index);
+        setGroupeEtatMinimisation("-");
     }
 
 
@@ -49,6 +52,15 @@ public class Etat {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    
+    public int getNbTransitions() {
+        return this.nbTransitions;
+    }
+
+    public void setNbTransitions(int nbTransitions) {
+        this.nbTransitions = nbTransitions;
+    }
+
 
     public boolean isEntree() {
         return this.entree;
@@ -113,6 +125,35 @@ public class Etat {
         setTransitions(element);
     }
 
+    public String getGroupeEtatMinimisation() {
+        return this.groupeEtatMinimisation;
+    }
+
+    public void setGroupeEtatMinimisation(String groupeEtatMinimisation) {
+        this.groupeEtatMinimisation = groupeEtatMinimisation;
+    }
+
+    public String getGroupeMinimisation(int x) {
+        return this.groupeMinimisation.get(x);
+    }
+
+    public void setGroupeMinimisation(String groupeMinimisation) {
+        this.groupeMinimisation.add(groupeMinimisation);
+    }
+
+    public void setGroupeMinimisation(int i, String groupeMinimisation) {
+        getGroupeMinimisation().remove(i);
+        this.groupeMinimisation.add(i, groupeMinimisation);
+    }
+
+    public void setGroupeMinimisation(){
+        this.groupeMinimisation = new ArrayList<String>();
+    }
+
+    public ArrayList<String> getGroupeMinimisation(){
+        return groupeMinimisation;
+    }
+
     /**
      * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a, b, c...)
      */
@@ -135,6 +176,7 @@ public class Etat {
     public ArrayList<String> getTabTransitions() {
         return transitions;
     }
+
 
     public void afficher_transition(int index) {
         System.out.print(" " + nom + getCharTransitions(index) + getTransitions(index) + " ");
