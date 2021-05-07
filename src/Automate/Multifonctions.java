@@ -225,4 +225,12 @@ public class Multifonctions {
         return newArray;
     }
 
+    public boolean isStringEqual(String s1, String s2){
+        if (!s1.equals(s2)) {
+            return false;
+        }
+        return true;
+    }
+    
+
 }
