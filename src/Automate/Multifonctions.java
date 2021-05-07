@@ -63,7 +63,7 @@ public class Multifonctions {
     /**
      * Permet une saisie utilisateur simple
      */
-    public void setChoix(){
+    public void setChoix() {
         System.out.print("Tapez votre choix : ");
         this.choix = scanner.next();
         clearConsole();
@@ -142,6 +142,7 @@ public class Multifonctions {
 
         System.out.println(
                 "---------------------------> m : Miniminisation \n"
+                + "---------------------------> v : Verifier la reconnaissance d'un mot\n"
                 + "---------------------------> g : Changer d'automate\n"
                 + "---------------------------> e : exit\n");
 
@@ -155,7 +156,7 @@ public class Multifonctions {
                         + "---------------------------> g : Changer d'automate\n"
                         + "---------------------------> e : exit\n");*/
 
-        setChoix("dscbamge");
+        setChoix("dscbamvge");
     }
 
     public void autoSelection(){
@@ -226,11 +227,12 @@ public class Multifonctions {
     }
 
     public boolean isStringEqual(String s1, String s2){
-        if (!s1.equals(s2)) {
-            return false;
-        }
-        return true;
+        return s1.equals(s2);
     }
-    
+
+
+    public void error() {
+        System.out.println(" -- ERREUR - L'automate n'existe pas --");
+    }
 
 }

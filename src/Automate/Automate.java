@@ -117,7 +117,7 @@ public class Automate implements Cloneable {
 
     public void verifStandard(boolean doesPrint) {
         if (getNbEntrees() != 1){
-            if (doesPrint) System.out.println("L'automate " + label + " n'est pas standard, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + label + " n'est pas standard, car il possède " + getNbEntrees() + " entrees.\n");
             setStandard(false);
         }
         else {
@@ -177,7 +177,7 @@ public class Automate implements Cloneable {
 
     public boolean verifDeterministe(boolean doesPrint) {
         if (getNbEntrees() != 1) {
-            if (doesPrint) System.out.println("L'automate " + getLabel() + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + getLabel() + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.\n");
             setDeterministe(false);
             return false;
         }
@@ -1078,7 +1078,7 @@ public class Automate implements Cloneable {
         int i, j;
         int etatIndex = 0, etatNum = 0;
         boolean exists = false;
-
+        if (!isDeterministe()) System.out.println("L'automate n'est pas déterministe, le résultat peut donc être erroné !");
         while(etatNum < this.getNbEntrees() && !exists) {
             if (getEtats(etatIndex).isEntree()) {
 
@@ -1304,5 +1304,21 @@ public class Automate implements Cloneable {
             }
         }
         return epsilonLabels;
+    }
+
+    /**
+     * Permet de lire l'alphabet et verifier son existence
+     */
+
+    public void lire_mot() {
+        jarvis.setChoix();
+
+        if (contains(jarvis.getChoix())) {
+            System.out.print(" [" + jarvis.getChoix()+"] ==> existe ");
+        }
+        else {
+            System.out.print(" [" + jarvis.getChoix()+"] ==> n'existe pas ");
+        }
+        System.out.print(getLabel());
     }
 }
