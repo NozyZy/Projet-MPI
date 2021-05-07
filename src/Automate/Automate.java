@@ -1196,8 +1196,8 @@ public class Automate implements Cloneable {
 
         for (int i=0; i < getTabEtats().size(); i++) {
             for (int j=0; j < getTabEtats().size(); j++) {
-                if (getEtats(i).getGroupeEtatMinimisation().intern() == getEtats(j).getGroupeEtatMinimisation().intern()){
-                    if (getEtats(i).getGroupeMinimisation() != getEtats(j).getGroupeMinimisation()) {
+                if (getEtats(i).getGroupeEtatMinimisation().intern().equals(getEtats(j).getGroupeEtatMinimisation().intern())){
+                    if (!getEtats(i).getGroupeMinimisation().equals(getEtats(j).getGroupeMinimisation())) {
                         getEtats(j).setGroupeEtatMinimisation((String) string + dif);
                         return true;
                     }
