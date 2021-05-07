@@ -1,3 +1,4 @@
+package Automate;
 
 import java.io.File;
 import java.util.Scanner;
@@ -12,8 +13,6 @@ public class Multifonctions {
     private Scanner scanner = new Scanner(System.in);
     private File index = new File("index");
     private File[] datos = index.listFiles();
-    
-
 
     public String getChoix() {
         return this.choix;
@@ -141,15 +140,12 @@ public class Multifonctions {
 
     public void autoSelection(){
         String possi = "";
-        int g = 0;
+        System.out.println("\n=======> Choisissez un automate dans la liste suivante : \n");
 
         for (int i = 0; i < getDatos().length; i++) {
-            g = i+1;
-            System.out.println("Voici le fichier numéro "+g+": "+getDatos(i).getName()+"\n");
-            possi += toString(g);
+            System.out.println(" N° "+ (i+1) +" ---> "+getDatos(i).getName()+"\n");
+            possi += toString(i+1);
         }
-
-        System.out.println("Choisissez un automate dans la liste : ");
 
         setChoix(possi);
 

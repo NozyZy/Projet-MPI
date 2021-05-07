@@ -1,3 +1,4 @@
+package Automate;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ public class Etat {
     ArrayList<String> groupeMinimisation;
     String groupeEtatMinimisation;
     int nbTransitions;                  //le nombre de transistions sortantes
-    int polymerisation;                  //le nombre de fusion de l'état
+    int polymerisation;                 //le nombre de fusion de l'état
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
 
@@ -26,7 +27,6 @@ public class Etat {
         setGroupeEtatMinimisation("-");
     }
 
-
     public int getPolymerisation() {
         return this.polymerisation;
     }
@@ -34,8 +34,6 @@ public class Etat {
     public void setPolymerisation() {
         this.polymerisation++;
     }
-
-
 
     public int getIndex() {
         return this.index;

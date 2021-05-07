@@ -1,4 +1,4 @@
-
+package Automate;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,8 +11,7 @@ public class Main {
         //mot = jarvis.sorted(mot);
         //System.out.println(mot);
 
-        Automate automate = Readwrite.readAutomateFile("index/A_automate.txt");
-        automate.afficherAutomate();
+        Automate automate = Readwrite.readAutomateFile("index/testMinimisation.txt");
         /*if (automate.isPointer(automate.pointeur_Etat("3"))) {
             System.out.println("Yeah je suis pointer");
         }
@@ -34,14 +33,10 @@ public class Main {
         //System.out.println();
         //automate.standardisation("i");
         //automate.setLabel("Standardisé");
-        automate.determinisation();
-        automate.setLabel("Deterministe");
-        //automate.nettoyage();
-        //automate.fusion_Entrees();
         automate.afficherAutomate();
-        System.out.println(automate.contains("abaa"));
-
+        automate.completion();
         automate.minimisation();
+        automate.afficherAutomate();
         //System.out.println(automate.nbEtats);
         //automate.fusion_multiple(automate.getNbEntrees()).affiche_etat("all");
         //automate.setLabel("Deterministe");
