@@ -1,24 +1,19 @@
+
 import java.util.ArrayList;
 
 public class Etat {
     int index;                          //index de l'état dans le tableau automate
     String nom;                         //nom de l'état
     ArrayList<String> transitions;      //toutes les transitions
-    //ArrayList<Integer> transitions;   // toutes les transitions version int
     ArrayList<String> charTransitions;  //tous les caractères de transition
     ArrayList<String> groupeMinimisation;
     String groupeEtatMinimisation;
     int nbTransitions;                  //le nombre de transistions sortantes
+    int polymerisation;                  //le nombre de fusion de l'état
     boolean entree;                     //true si oui, false sinon
     boolean sortie;                     //true si oui, false sinon
-    boolean read;                       //true si déjà lu, false sinon
 
     public final char MOT_VIDE = '*';
-
-
-    /*public Etat(int label){ 
-      setLabel(label);
-    }*/
 
     /**
      * Constructeur d'etat avec un nom et sa position dans l'automate
@@ -32,6 +27,16 @@ public class Etat {
     }
 
 
+    public int getPolymerisation() {
+        return this.polymerisation;
+    }
+
+    public void setPolymerisation() {
+        this.polymerisation++;
+    }
+
+
+
     public int getIndex() {
         return this.index;
     }
@@ -39,7 +44,6 @@ public class Etat {
     public void setIndex(int index) {
         this.index = index;
     }
-
 
     public String getNom() {
         return this.nom;
@@ -56,6 +60,7 @@ public class Etat {
     public void setNbTransitions(int nbTransitions) {
         this.nbTransitions = nbTransitions;
     }
+
 
     public boolean isEntree() {
         return this.entree;
@@ -81,22 +86,9 @@ public class Etat {
         this.sortie = sortie;
     }
 
-    public boolean isRead() {
-        return this.read;
+    public int nbTransitions() {
+        return getTabCharTransitions().size();
     }
-
-    public boolean getRead() {
-        return this.read;
-    }
-
-    public void setRead(boolean read) {
-        this.read = read;
-    }
-
-    public char getMOT_VIDE() {
-        return this.MOT_VIDE;
-    }
-
 
     public String getTransitions(int x) {
         return this.transitions.get(x);
@@ -109,6 +101,10 @@ public class Etat {
     public void setTransitions(int i, String transitions) {
         getTabTransitions().remove(i);
         this.transitions.add(i, transitions);
+    }
+
+    public ArrayList<String> getCharTransitions() {
+        return this.charTransitions;
     }
 
     public String getCharTransitions(int x) {
@@ -128,8 +124,6 @@ public class Etat {
         setCharTransitions(transition);
         setTransitions(element);
     }
-    
-
 
     public String getGroupeEtatMinimisation() {
         return this.groupeEtatMinimisation;
@@ -161,7 +155,7 @@ public class Etat {
     }
 
     /**
-     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a ,b ,c...)
+     * Cree un tableau dynamique en <String> pour le tableau des nom de transitions (a, b, c...)
      */
     public void setTabCharTransitions(){
         this.charTransitions = new ArrayList<String>();
@@ -183,11 +177,16 @@ public class Etat {
         return transitions;
     }
 
-    public void affiche_etat(){
-        System.out.println("\n"+"Vous êtes à l'état : "+this.nom);
+
+    public void afficher_transition(int index) {
+        System.out.print(" " + nom + getCharTransitions(index) + getTransitions(index) + " ");
     }
 
-    public void affiche_etat(String all) {
+    public void affiche_etat(){
+        System.out.println("\n"+"Vous êtes à l'état : " + this.nom);
+    }
+
+    public void affiche_etat_complet() {
         System.out.println("\n" + "Vous êtes à l'état : " + this.nom);
 
         for (int j = 0; j < getTabCharTransitions().size(); j++) {
