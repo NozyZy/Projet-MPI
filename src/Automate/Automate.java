@@ -1,6 +1,7 @@
 package Automate;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.security.cert.TrustAnchor;
 import java.util.Collections;
 import java.util.Scanner;
@@ -1301,15 +1302,14 @@ public class Automate implements Cloneable {
             }
 
             b = b + 1;
-
-            for (int i = 0; i < getTabEtats().size(); i++) {
-                System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
-                System.out.printf("(%3s)", getEtats(i).getNom());
-                System.out.printf("-%3s->", getEtats(i).getTabCharTransitions());
-                System.out.printf("(%3s) :", getEtats(i).getTabTransitions());
-                System.out.printf("%3s", getEtats(i).getGroupeMinimisation());
-                System.out.println();
-            }
+            /*
+             * for (int i = 0; i < getTabEtats().size(); i++) {
+             * System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
+             * System.out.printf("(%3s)", getEtats(i).getNom()); System.out.printf("-%3s->",
+             * getEtats(i).getTabCharTransitions()); System.out.printf("(%3s) :",
+             * getEtats(i).getTabTransitions()); System.out.printf("%3s",
+             * getEtats(i).getGroupeMinimisation()); System.out.println(); }
+             */
         }
         // System.out.printf("\n>>> Fin analyse");
     }
