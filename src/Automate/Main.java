@@ -1,4 +1,4 @@
-package Automate;
+//package Automate;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Main {
         //mot = jarvis.sorted(mot);
         //System.out.println(mot);
 
-        Automate automate = Readwrite.readAutomateFile("index/testMinimisation.txt");
+        Automate automate = Readwrite.readAutomateFile("index/test.txt");
         /*if (automate.isPointer(automate.pointeur_Etat("3"))) {
             System.out.println("Yeah je suis pointer");
         }
@@ -34,6 +34,7 @@ public class Main {
         //automate.standardisation("i");
         //automate.setLabel("Standardisé");
         automate.afficherAutomate();
+        automate.determinisation();
         automate.completion();
         automate.minimisation();
         automate.afficherAutomate();
