@@ -1175,21 +1175,36 @@ public class Automate implements Cloneable {
 
     public void minimisation(){
         if (!isMinimale()){
-            if (!isAsynchrone()){
-                if (isDeterministe()){
-                    if (isComplet()){
-                        System.out.printf("\n>>>    L'automate est en cours d'analyse ...");
-                        minimisationAnalyse();
-                        System.out.printf("\n>>>    L'automate est en cours de fusion ...");
-                        minimisationFusion();
-                        System.out.printf("\n>>>    L'automate MINIMAL est termine !!!");
-                        setMinimale(true);
+            boolean fin = false;
+            while (fin == false){
+                if (!isAsynchrone()){
+                    if (isDeterministe()){
+                        if (isComplet()){
+                            System.out.printf("\n>>>    L'automate est en cours d'analyse ...");
+                            minimisationAnalyse();
+                            System.out.printf("\n>>>    L'automate est en cours de fusion ...");
+                            minimisationFusion();
+                            System.out.printf("\n>>>    L'automate MINIMAL est termine !\n");
+                            setMinimale(true);
+                            fin = true;
+                        }
+                        else{System.out.printf("\n>>>    L'automate n'est pas complet ...");
+                        completion();}
                     }
-                    else{System.out.printf("\n>>>    L'automate n'est pas complet ...");}
+                    else{System.out.printf("\n>>>    L'automate n'est pas determinisate ...");
+                    determinisation_completion_synchrone();}
                 }
-                else{System.out.printf("\n>>>    L'automate n'est pas determinisate ...");}
+                else{System.out.printf("\n>>>    L'automate n'est pas synchrone ...");
+                Automate aTmp = this.determinisation_completion_asynchrone(); 
+                System.out.printf("\n>>>    L'automate est en cours d'analyse ...");
+                aTmp.minimisationAnalyse();
+                System.out.printf("\n>>>    L'automate est en cours de fusion ...");
+                aTmp.minimisationFusion();
+                System.out.printf("\n>>>    L'automate MINIMAL est termine !\n");
+                aTmp.setMinimale(true);
+                fin = true;
+                aTmp.afficherAutomate();}; 
             }
-            else{System.out.printf("\n>>>    L'automate n'est pas synchrone ...");} 
         }
         else{System.out.printf("\n>>>    L'automate est deja minimale ...");}
     }
@@ -1199,7 +1214,7 @@ public class Automate implements Cloneable {
         String a = "C";
         int b = 0;
         while (ok){
-            System.out.printf("\n_______________________%d_______________________\n", b);
+            //System.out.printf("\n_______________________%d_______________________\n", b);
             for (int i = 0; i < getTabEtats().size(); i++) {
                 if (getEtats(i).isSortie() && b==0) {
                     getEtats(i).setGroupeEtatMinimisation(a);
@@ -1231,7 +1246,7 @@ public class Automate implements Cloneable {
                     ok = false;
                 }
             }
-
+/*
             for (int i = 0; i < getTabEtats().size(); i++) {
                 System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
                 System.out.printf("(%3s)", getEtats(i).getNom());
@@ -1239,10 +1254,10 @@ public class Automate implements Cloneable {
                 System.out.printf("(%3s) :", getEtats(i).getTabTransitions());
                 System.out.printf("%3s", getEtats(i).getGroupeMinimisation());
                 System.out.println();
-            }
+            }*/
 
         }
-        System.out.printf("\n>>>    Fin analyse");
+        //System.out.printf("\n>>>    Fin analyse");
     }
 
     private void minimisationSuivant(Etat monEtat, int dif) {
@@ -1303,7 +1318,7 @@ public class Automate implements Cloneable {
 
     private void minimisationFusion() {
         boolean modifier = false;
-        afficherAutomate();
+        //afficherAutomate();
         for (int i=0; i < getTabEtats().size(); i++) {
             //System.out.printf("\n>>>    %s ...", getTabEtats().size() );
             for (int j=0; j < getTabEtats().size(); j++) {
@@ -1319,7 +1334,7 @@ public class Automate implements Cloneable {
         }
         //System.out.print("\n>>>    fin ...");
         if (!modifier){
-            System.out.print("\n>>>    L'automate ne change pas !!! ");
+            System.out.print("\n>>>    L'automate ne change pas ! ");
         }
     }
 

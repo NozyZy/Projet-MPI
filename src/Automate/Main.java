@@ -10,7 +10,7 @@ public class Main {
         mot = jarvis.sorted(mot);
         System.out.println(mot);
 
-        Automate automate = Readwrite.readAutomateFile("index/E1-09.txt");
+        //Automate automate = Readwrite.readAutomateFile("index/E1-09.txt");
         //automate.lire_mot();
         /*if (automate.isPointer(automate.pointeur_Etat("3"))) {
             System.out.println("Yeah je suis pointer");

@@ -1,0 +1,108 @@
+<===================( Automate : #40 )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 6
+ Etats --------------> [0, 1, 2]
+ Alphabet -----------> [a, b]
+
+
+E--> **(0)** -->S
+(0)-b->(1)
+(0)-b->(2)
+
+E--> **(1)**
+(1)-a->(0)
+(1)-a->(2)
+(1)-b->(2)
+
+ **(2)** -->S
+(2)-a->(0)
+
+<=================================================>
+
+---------------------------> d : Déterminisation
+---------------------------> s : Standardisation
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Déterminisation (d) : ///
+
+
+
+Standardisation (s) :
+
+L'automate #40 n'est pas standard, car il possède 2 entrees.
+
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 11
+ Etats --------------> [0, 1, 2, i]
+ Alphabet -----------> [a, b]
+
+
+E--> **(i)** -->S
+(i)-b->(1)
+(i)-b->(2)
+(i)-a->(0)
+(i)-a->(2)
+(i)-b->(2)
+
+ **(0)** -->S
+(0)-b->(1)
+(0)-b->(2)
+
+ **(1)**
+(1)-a->(0)
+(1)-a->(2)
+(1)-b->(2)
+
+ **(2)** -->S
+(2)-a->(0)
+
+<=================================================>
+
+
+Complétion (c) :
+
+L'automate #40 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.
+ b ->  2b.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 10
+ Etats --------------> [0, 1, 2, P]
+ Alphabet -----------> [a, b]
+
+
+E--> **(0)** -->S
+(0)-b->(1)
+(0)-b->(2)
+(0)-a->(P)
+
+E--> **(1)**
+(1)-a->(0)
+(1)-a->(2)
+(1)-b->(2)
+
+ **(2)** -->S
+(2)-a->(0)
+(2)-b->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+
+Déterminisation complétion synchrone/asynchrone (a) : ///
+
+
+Minimisation (m) : ///
