@@ -11,7 +11,7 @@ public class Menu {
         int menu1 = 1;
 
         Multifonctions jarvis = new Multifonctions();//admin du menu
-
+        jarvis.clearConsole();
         jarvis.clearConsole();
         jarvis.autoSelection();
         jarvis.clearConsole();
