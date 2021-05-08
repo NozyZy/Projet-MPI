@@ -1,0 +1,94 @@
+<===================( Automate : #27 )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 5
+ Etats --------------> [0, 1, 2]
+ Alphabet -----------> [a, b]
+
+
+ **(0)** -->S
+(0)-a->(0)
+(0)-b->(0)
+
+E--> **(1)**
+(1)-a->(2)
+(1)-b->(2)
+
+ **(2)**
+(2)-b->(0)
+
+<=================================================>
+
+---------------------------> L'automate est déterministe
+---------------------------> L'automate est standard
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Complétion (c) :
+
+L'automate #27 n'est pas complet, à cause des transitions manquantes :
+ a ->  2a.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 8
+ Etats --------------> [0, 1, 2, P]
+ Alphabet -----------> [a, b]
+
+
+ **(0)** -->S
+(0)-a->(0)
+(0)-b->(0)
+
+E--> **(1)**
+(1)-a->(2)
+(1)-b->(2)
+
+ **(2)**
+(2)-b->(0)
+(2)-a->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #27 n'est pas complet, à cause des transitions manquantes :
+ a ->  2a.
+
+<===================( Automate : #27 )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 8
+ Etats --------------> [0, 1, 2, P]
+ Alphabet -----------> [a, b]
+
+
+ **(0)** -->S
+(0)-a->(0)
+(0)-b->(0)
+
+E--> **(1)**
+(1)-a->(2)
+(1)-b->(2)
+
+ **(2)**
+(2)-b->(0)
+(2)-a->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+Minimisation (m) : ///

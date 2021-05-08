@@ -1,0 +1,163 @@
+<===================( Automate : #21 )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 4
+ Etats --------------> [0, 1, 2, 3]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-d->(1)
+
+E--> **(1)** -->S
+(1)-a->(2)
+
+ **(2)**
+(2)-b->(3)
+
+ **(3)**
+(3)-c->(0)
+
+<=================================================>
+
+---------------------------> L'automate est déterministe
+---------------------------> s : Standardisation
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Standardisation (s) :
+
+L'automate #21 n'est pas standard, à cause des transitions suivantes :
+ 0d1
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 5
+ Etats --------------> [0, 1, 2, 3, i]
+ Alphabet -----------> [a, b, c, d]
+
+
+E--> **(i)** -->S
+(i)-a->(2)
+
+ **(0)**
+(0)-d->(1)
+
+ **(1)** -->S
+(1)-a->(2)
+
+ **(2)**
+(2)-b->(3)
+
+ **(3)**
+(3)-c->(0)
+
+<=================================================>
+
+
+Complétion (c) :
+
+
+L'automate #21 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.  2a.  3a.
+ b ->  0b.  1b.  3b.
+ c ->  0c.  1c.  2c.
+ d ->  1d.  2d.  3d.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 20
+ Etats --------------> [0, 1, 2, 3, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-d->(1)
+(0)-a->(P)
+(0)-b->(P)
+(0)-c->(P)
+
+E--> **(1)** -->S
+(1)-a->(2)
+(1)-b->(P)
+(1)-c->(P)
+(1)-d->(P)
+
+ **(2)**
+(2)-b->(3)
+(2)-a->(P)
+(2)-c->(P)
+(2)-d->(P)
+
+ **(3)**
+(3)-c->(0)
+(3)-a->(P)
+(3)-b->(P)
+(3)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
+
+
+
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #21 n'est pas standard, à cause des transitions suivantes :
+ 0d1
+L'automate #21 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.  2a.  3a.
+ b ->  0b.  1b.  3b.
+ c ->  0c.  1c.  2c.
+ d ->  1d.  2d.  3d.
+
+<===================( Automate : #21 )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 20
+ Etats --------------> [0, 1, 2, 3, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-d->(1)
+(0)-a->(P)
+(0)-b->(P)
+(0)-c->(P)
+
+E--> **(1)** -->S
+(1)-a->(2)
+(1)-b->(P)
+(1)-c->(P)
+(1)-d->(P)
+
+ **(2)**
+(2)-b->(3)
+(2)-a->(P)
+(2)-c->(P)
+(2)-d->(P)
+
+ **(3)**
+(3)-c->(0)
+(3)-a->(P)
+(3)-b->(P)
+(3)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
+
+
+Minimisation (m) : ///
