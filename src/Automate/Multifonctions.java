@@ -173,6 +173,8 @@ public class Multifonctions {
 
         setChoix(possi);
 
+        clearConsole();
+
         for (int i = 0; i < getDatos().length; i++) {
 
             if (this.choix.equals(toString(i + 1))) {
