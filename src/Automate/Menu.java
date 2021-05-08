@@ -21,8 +21,6 @@ public class Menu {
         automate.afficherAutomate();
         
         while (menu0 == 1) {//Boucle du menu
-           
-
             while (menu1 == 1) {
                 jarvis.laCarte();// affichage du menu + choix
                 
