@@ -1,9 +1,10 @@
-package Automate;
+//package Automate;
 
 import java.io.*;
 import java.lang.reflect.Array;
 import java.security.cert.TrustAnchor;
 import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -1278,6 +1279,21 @@ public class Automate implements Cloneable {
         boolean ok = true;
         String a = "C";
         int b = 0;
+        for (int i = 0; i < getTabEtats().size(); i++) {
+
+            System.out.printf(">>>  -%3s->",getEtats(i).getTabCharTransitions()); 
+            System.out.printf("(%3s) :",        getEtats(i).getTabTransitions()); 
+            System.out.println(); 
+        }
+
+        triTransition();
+        for (int i = 0; i < getTabEtats().size(); i++) {
+
+            System.out.printf(">>>  -%3s->",getEtats(i).getTabCharTransitions()); 
+            System.out.printf("(%3s) :",        getEtats(i).getTabTransitions()); 
+            System.out.println(); 
+        }
+
         while (ok) {
             // System.out.printf("\n_______________________%d_______________________\n", b);
             for (int i = 0; i < getTabEtats().size(); i++) {
@@ -1302,16 +1318,41 @@ public class Automate implements Cloneable {
             }
 
             b = b + 1;
-            /*
-             * for (int i = 0; i < getTabEtats().size(); i++) {
-             * System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
-             * System.out.printf("(%3s)", getEtats(i).getNom()); System.out.printf("-%3s->",
-             * getEtats(i).getTabCharTransitions()); System.out.printf("(%3s) :",
-             * getEtats(i).getTabTransitions()); System.out.printf("%3s",
-             * getEtats(i).getGroupeMinimisation()); System.out.println(); }
-             */
+            
+            for (int i = 0; i < getTabEtats().size(); i++) {
+            System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
+            System.out.printf("(%3s)", getEtats(i).getNom()); System.out.printf("-%3s->",getEtats(i).getTabCharTransitions()); 
+            System.out.printf("(%3s) :",        getEtats(i).getTabTransitions()); 
+            System.out.printf("%3s",            getEtats(i).getGroupeMinimisation()); 
+            System.out.println(); }
+             
         }
         // System.out.printf("\n>>> Fin analyse");
+    }
+    private void triTransition(){
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            ArrayList<String> LISTEdeTRANSITION = new ArrayList<String>();
+
+            for (int j = 0; j < getEtats(i).nbTransitions(); j++) {
+                LISTEdeTRANSITION.add(getEtats(i).getTabCharTransitions().get(j) + "-" + getEtats(i).getTransitions(j)) ;
+                //LISTEdeTRANSITION.add(i, getEtats(i).getTabCharTransitions().get(j)) ;
+            }
+
+            //System.out.println(LISTEdeTRANSITION);
+
+            Collections.sort(LISTEdeTRANSITION);
+            
+            //System.out.println(LISTEdeTRANSITION);
+
+            for (int j = 0; j < getEtats(i).nbTransitions(); j++) {
+
+                String[] a = LISTEdeTRANSITION.get(j).split("-");
+                //System.out.println(a);
+                
+                getEtats(i).setCharTransitions(j, a[0]);
+                getEtats(i).setTransitions(j, a[1]);
+            }
+        }
     }
 
     private void minimisationSuivant(Etat monEtat, int dif) {
