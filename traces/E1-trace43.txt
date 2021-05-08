@@ -1,0 +1,107 @@
+<===================( Automate : #43 )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 6
+ Etats --------------> [0, 1, 2]
+ Alphabet -----------> [a, b]
+
+
+E--> **(0)**
+(0)-a->(0)
+(0)-b->(0)
+(0)-b->(1)
+
+ **(1)**
+(1)-a->(2)
+
+ **(2)** -->S
+(2)-a->(2)
+(2)-b->(2)
+
+<=================================================>
+
+---------------------------> d : Déterminisation
+---------------------------> s : Standardisation
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Déterminisation (d) : ///
+
+
+
+Standardisation (s) :
+
+L'automate #43 n'est pas standard, à cause des transitions suivantes :
+ 0a0  0b0
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 9
+ Etats --------------> [0, 1, 2, i]
+ Alphabet -----------> [a, b]
+
+
+E--> **(i)**
+(i)-a->(0)
+(i)-b->(0)
+(i)-b->(1)
+
+ **(0)**
+(0)-a->(0)
+(0)-b->(0)
+(0)-b->(1)
+
+ **(1)**
+(1)-a->(2)
+
+ **(2)** -->S
+(2)-a->(2)
+(2)-b->(2)
+
+<=================================================>
+
+
+
+Complétion (c) :
+
+L'automate #43 n'est pas complet, à cause des transitions manquantes :
+ b ->  1b.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 9
+ Etats --------------> [0, 1, 2, P]
+ Alphabet -----------> [a, b]
+
+
+E--> **(0)**
+(0)-a->(0)
+(0)-b->(0)
+(0)-b->(1)
+
+ **(1)**
+(1)-a->(2)
+(1)-b->(P)
+
+ **(2)** -->S
+(2)-a->(2)
+(2)-b->(2)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+Déterminisation complétion synchrone/asynchrone (a) : ///
+
+Minimisation (m) : ///
+
+
+
+
