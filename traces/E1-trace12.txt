@@ -1,0 +1,129 @@
+<===================( Automate : #12 )======================>
+
+ # d'états ----------> 2
+ # de transitions ---> 4
+ Etats --------------> [0, 1]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-b->(0)
+(0)-d->(1)
+
+E--> **(1)** -->S
+(1)-a->(1)
+(1)-c->(0)
+
+<=================================================>
+
+---------------------------> L'automate est déterministe
+---------------------------> s : Standardisation
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Standardisation (s) :
+
+L'automate #12 n'est pas standard, à cause des transitions suivantes :
+ 0d1  1a1
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 6
+ Etats --------------> [0, 1, i]
+ Alphabet -----------> [a, b, c, d]
+
+
+E--> **(i)** -->S
+(i)-a->(1)
+(i)-c->(0)
+
+ **(0)**
+(0)-b->(0)
+(0)-d->(1)
+
+ **(1)** -->S
+(1)-a->(1)
+(1)-c->(0)
+
+<=================================================>
+
+
+Complétion (c) :
+
+L'automate #12 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.
+ b ->  1b.
+ c ->  0c.
+ d ->  1d.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 12
+ Etats --------------> [0, 1, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-b->(0)
+(0)-d->(1)
+(0)-a->(P)
+(0)-c->(P)
+
+E--> **(1)** -->S
+(1)-a->(1)
+(1)-c->(0)
+(1)-b->(P)
+(1)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
+
+
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #12 n'est pas standard, à cause des transitions suivantes :
+ 0d1  1a1
+L'automate #12 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.
+ b ->  1b.
+ c ->  0c.
+ d ->  1d.
+
+<===================( Automate : #12 )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 12
+ Etats --------------> [0, 1, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-b->(0)
+(0)-d->(1)
+(0)-a->(P)
+(0)-c->(P)
+
+E--> **(1)** -->S
+(1)-a->(1)
+(1)-c->(0)
+(1)-b->(P)
+(1)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
+
+Minimisation (m) : ///

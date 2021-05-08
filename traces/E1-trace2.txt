@@ -1,0 +1,41 @@
+<===================( Automate : #02 )======================>
+
+ # d'états ----------> 1
+ # de transitions ---> 1
+ Etats --------------> [0]
+ Alphabet -----------> [a]
+
+
+E--> **(0)** -->S
+(0)-a->(0)
+
+<=================================================>
+
+---------------------------> L'automate est déterministe
+---------------------------> s : Standardisation
+---------------------------> L'automate est complet
+---------------------------> L'automate est fini
+---------------------------> m : Miniminisation
+
+Standardisation (s) :
+
+L'automate #02 n'est pas standard, à cause des transitions suivantes :
+ 0a0
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 2
+ # de transitions ---> 2
+ Etats --------------> [0, i]
+ Alphabet -----------> [a]
+
+
+E--> **(i)** -->S
+(i)-a->(0)
+
+ **(0)** -->S
+(0)-a->(0)
+
+<=================================================>
+
+
+Minimisation (m) :

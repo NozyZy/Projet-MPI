@@ -34,6 +34,11 @@ public class Main {
         //System.out.println();
         //automate.standardisation("i");
         //automate.setLabel("Standardisé");
+        automate.afficherAutomate();
+        automate.determinisation();
+        automate.completion();
+        automate.minimisation();
+        automate.afficherAutomate();
         //automate.afficherAutomate();
         //automate.completion();
         //automate.minimisation();
