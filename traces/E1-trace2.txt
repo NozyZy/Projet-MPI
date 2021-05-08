@@ -17,7 +17,7 @@ E--> **(0)** -->S
 ---------------------------> L'automate est fini
 ---------------------------> m : Miniminisation
 
-Standardisation :
+Standardisation (s) :
 
 L'automate #02 n'est pas standard, à cause des transitions suivantes :
  0a0
@@ -36,3 +36,6 @@ E--> **(i)** -->S
 (0)-a->(0)
 
 <=================================================>
+
+
+Minimisation (m) :

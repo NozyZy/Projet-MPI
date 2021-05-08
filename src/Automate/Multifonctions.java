@@ -1,4 +1,4 @@
-//package Automate;
+package Automate;
 
 import java.io.File;
 import java.util.Scanner;
