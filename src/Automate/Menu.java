@@ -167,7 +167,8 @@ public class Menu {
                     else {
                         comp.afficherAutomate();
                         System.out.println("Langage complémentaire (k) :\n");
-                        comp.langage_complementaire();
+                        if (comp.isAsynchrone()) comp = comp.langage_complementaire_asynchrone();
+                        else comp.langage_complementaire_synchrone();
                         comp.setLabel("Complémentaire");
                         comp.afficherAutomate();
                     }
