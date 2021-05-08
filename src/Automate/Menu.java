@@ -1,4 +1,4 @@
-
+package Automate;
 
 import java.util.Objects;
 
@@ -157,6 +157,19 @@ public class Menu {
                         Automate sync = async.eliminationEpsilon();
                         sync.setLabel("Automate fini");
                         sync.afficherAutomate();
+                    }
+                }
+
+                if (jarvis.getChoix().equals("k")) {//Choix elimination epsilon
+                    Automate comp = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    jarvis.clearConsole();
+                    if (comp == null) jarvis.error();
+                    else {
+                        comp.afficherAutomate();
+                        System.out.println("Langage complémentaire (k) :\n");
+                        comp.langage_complementaire();
+                        comp.setLabel("Complémentaire");
+                        comp.afficherAutomate();
                     }
                 }
 

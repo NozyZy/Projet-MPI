@@ -16,4 +16,34 @@ E--> **(0)** -->S
 ---------------------------> L'automate est fini
 ---------------------------> m : Miniminisation
 
-Minimisation : ///
+Minimisation :
+
+>>>    L'automate ne change pas !
+
+<===================( Automate : Minimisé )======================>
+
+ # d'états ----------> 1
+ # de transitions ---> 0
+ Etats --------------> [0]
+ Alphabet -----------> []
+
+
+E--> **(0)** -->S
+
+<=================================================>
+
+
+
+Langage complémentaire (k) :
+
+<===================( Automate : Complémentaire )======================>
+
+ # d'états ----------> 1
+ # de transitions ---> 0
+ Etats --------------> [0]
+ Alphabet -----------> []
+
+
+E--> **(0)**
+
+<=================================================>
