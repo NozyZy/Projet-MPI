@@ -21,7 +21,7 @@ public class Etat {
      * @param nom
      * @param index
      */
-    public Etat(String nom, int index){
+    public Etat(String nom, int index) {
         setNom(nom);
         setIndex(index);
         setGroupeEtatMinimisation("-");
