@@ -1,4 +1,4 @@
-package Automate;
+
 
 import java.io.File;
 import java.util.Scanner;
@@ -157,7 +157,7 @@ public class Multifonctions {
                         + "---------------------------> g : Changer d'automate\n"
                         + "---------------------------> e : exit\n");*/
 
-        setChoix("dscbamvge");
+        setChoix("dDsScCbBaAmMvVgGeE");
     }
 
     public void autoSelection(){

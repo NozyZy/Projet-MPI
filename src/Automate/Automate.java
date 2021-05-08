@@ -1,11 +1,9 @@
-package Automate;
+
 
 import java.io.*;
 import java.util.Collections;
 import java.util.Scanner;
 
-import javax.lang.model.element.Element;
-import javax.lang.model.util.ElementScanner6;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -552,7 +550,8 @@ public class Automate implements Cloneable {
     public void standardisation(String nom){
         if (isStandard()) {
             System.out.println("déjà standard !");
-        } else {
+        } 
+        else{
             setEtats(nom); //creation de l'état initiale
 
             for (int i = 0; i < getTabEtats().size(); i++) {
@@ -575,6 +574,7 @@ public class Automate implements Cloneable {
             }
 
             pointeur_Etat(nom).setEntree(true);//on le met en entrée
+            nettoyage_transition(pointeur_Etat(nom));
             allVerifs(false);
         }
     }
@@ -649,7 +649,6 @@ public class Automate implements Cloneable {
             //System.out.println("hey je existe déja ---------------------------------------- > : "+ a.getNom() + b.getNom());
         }
         else{
-           
             setEtats(a.getNom() + b.getNom());
             pointeur_Etat(a.getNom()).setPolymerisation();
             pointeur_Etat(b.getNom()).setPolymerisation();
@@ -785,20 +784,25 @@ public class Automate implements Cloneable {
      * Fusionne les transitions identique d'un element. Si element x a 2 transions de a ==> x a 1 transition a qui pointe vers un nouvel element consituer des transitions
      * @param element
      */
-    public void fusion_transition(Etat element){
+    public void fusion_transition(Etat element) {
 
         String memory_element = "";
         String memory_char;
+        String memory_transition;
         int occ;
-        
-        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//fusion des transition
-            
-            memory_char = element.getCharTransitions(i);
 
-            
+        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//fusion des transition
+
+            memory_char = element.getCharTransitions(i);
+            memory_transition = element.getTransitions(i);
+
             for (int j = 0; j < element.getTabTransitions().size(); j++) {
-                if (element.getCharTransitions(j).equals(memory_char)){
-                    memory_element += element.getTransitions(j);
+                if (element.getCharTransitions(j).equals(memory_char)) {
+                    if (element.getTransitions(j).equals(memory_transition)) {
+                        memory_element = element.getTransitions(j);
+                    } else {
+                        memory_element += element.getTransitions(j);
+                    }
                 }
             }
             element.setTransitions(i, memory_element);
@@ -808,18 +812,44 @@ public class Automate implements Cloneable {
         for (int i = 0; i < element.getTabCharTransitions().size(); i++) {//Nettoyage
             occ = 0;
             memory_char = element.getCharTransitions(i);
-
+        
             for (int j = 0; j < element.getTabTransitions().size(); j++) {
-                if (element.getCharTransitions(j).equals(memory_char)){
-                  occ++;
-                  if (occ > 1) {
-                      suppression_Transition(element, j);
-                  }
+                if (element.getCharTransitions(j).equals(memory_char)) {
+                    occ++;
+                    if (occ > 1) {
+                        suppression_Transition(element, j);
+                    }
                 }
             }
         }
 
     }
+    
+    public void nettoyage_transition(Etat element) {
+
+        String memory_char;
+        String memory_transition;
+        int occ;
+
+        for (int i = 0; i < element.getTabCharTransitions().size(); i++) {// Nettoyage
+            occ = 0;
+            memory_char = element.getCharTransitions(i);
+            memory_transition = element.getTransitions(i);
+
+
+            for (int j = 0; j < element.getTabTransitions().size(); j++) {
+                if (element.getCharTransitions(j).equals(memory_char)) {
+                    if (element.getTransitions(j).equals(memory_transition)) {
+                        occ++;
+                        if (occ > 1) {
+                            suppression_Transition(element, j);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * Fonction qui cree tout les nouveaux état a partir d'un element, la fonction va chercher dans les transitions les nouveaux états (pour l'instant pas utilisé)
@@ -860,7 +890,7 @@ public class Automate implements Cloneable {
      * @param transition -> Chemin souhaiter en string (a,b,c...)
      */
     public void lecture_automate_branche(Etat element, String transition){
- 
+
         System.out.print(" -"+transition+"-> "+ element.nom);
         
         if (element.getTabCharTransitions().contains(transition)){
@@ -882,10 +912,10 @@ public class Automate implements Cloneable {
         int fusion = 0;
         
         for (int i = 0; i < getTabEtats().size(); i++) {
-           if (getEtats(i).getPolymerisation() > 0){
-               //getEtats(i).affiche_etat();
-               fusion += 1;
-           }
+            if (getEtats(i).getPolymerisation() > 0){
+                //getEtats(i).affiche_etat();
+                fusion += 1;
+            }
         }
         //System.out.println("------------------> nb fusion etat 4 : " + pointeur_Etat("4").getPolymerisation());
         //System.out.println("--------------------> nb fusion "+fusion);
@@ -894,16 +924,13 @@ public class Automate implements Cloneable {
             if (getEtats(i).getPolymerisation() > 0) {
                 //System.out.println("----------------------------->2");
                 //getEtats(i).affiche_etat();
-               if (!isPointer(getEtats(i), fusion)) {
-                //System.out.println("Je supprime ----------> "+getEtats(i).nom);
-                   suppression_Etat(getEtats(i));
-                   i = 0;
-               }
+            if (!isPointer(getEtats(i), fusion)) {
+                System.out.println("Je supprime ----------> "+getEtats(i).nom);
+                suppression_Etat(getEtats(i));
+                i = 0;
+            }
             }
         }
-
-
-
     }
 
     /**
@@ -1039,9 +1066,9 @@ public class Automate implements Cloneable {
         String combo = "";
 
         for (int i = 0; i < getTabEtats().size(); i++) {
-           if (getEtats(i).isEntree()) {
-               combo += getEtats(i).getNom();
-           }
+            if (getEtats(i).isEntree()) {
+            combo += getEtats(i).getNom();
+            }
         }
 
         standardisation(combo);
