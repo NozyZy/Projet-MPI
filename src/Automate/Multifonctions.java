@@ -1,6 +1,7 @@
 
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -181,18 +182,16 @@ public class Multifonctions {
         }
     }
 
-    public String sorted(String a, String b) {
-        String nom = a + b;
-        String reverse = b + a;
+    public String sorted(String mot) {
+        // convert input string to char array
+        char tempArray[] = mot.toCharArray();
 
-        int x = a.hashCode();
-        int y = b.hashCode();
+        // sort tempArray
+        Arrays.sort(tempArray);
 
-        if (x > y) {
-            //System.out.println("-------------------------> reverse "+ nom +" = "+ reverse );
-            return reverse;
-        }
-        return nom;
+        // return new sorted string
+        return new String(tempArray);
+    
     }
 
     public boolean isInArray(char[] array, char val) {

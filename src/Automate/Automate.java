@@ -1,7 +1,6 @@
 
 
 import java.io.*;
-import java.security.cert.TrustAnchor;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -761,7 +760,7 @@ public class Automate implements Cloneable {
         return false;
     }
 
-  
+
     public boolean isPointer(Etat element, int x) {
         
         for (int i = 0; i < getTabEtats().size()-x; i++) {
@@ -806,7 +805,7 @@ public class Automate implements Cloneable {
                     }
                 }
             }
-            element.setTransitions(i, memory_element);
+            element.setTransitions(i, jarvis.sorted(memory_element));
             memory_element = "";
         }
 
@@ -925,7 +924,7 @@ public class Automate implements Cloneable {
             if (getEtats(i).getPolymerisation() > 0) {
                 //System.out.println("----------------------------->2");
                 //getEtats(i).affiche_etat();
-            if (!isPointer(getEtats(i), fusion)) {
+            if (!isPointer(getEtats(i), fusion) && !isPointer(getEtats(i))) {
                 System.out.println("Je supprime ----------> "+getEtats(i).nom);
                 suppression_Etat(getEtats(i));
                 i = 0;
@@ -1298,7 +1297,6 @@ public class Automate implements Cloneable {
             //System.out.println("hey je existe déja ---------------------------------------- > : "+ a.getNom() + b.getNom());
         }
         else{
-           
             setEtats(a.getNom() + b.getNom());
             pointeur_Etat(a.getNom()).setPolymerisation();
             pointeur_Etat(b.getNom()).setPolymerisation();
