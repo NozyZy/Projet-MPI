@@ -42,7 +42,36 @@ E--> **(8)**
 ---------------------------> m : Miniminisation
 
 
-Déterminisation (d) : ///
+Déterminisation (d) :
+
+L'automate #20 n'est pas déterministe, car il possède 5 entrees.
+
+<===================( Automate : Determinisé )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 7
+ Etats --------------> [01678, 2, 3, 4, 5]
+ Alphabet -----------> [a, b, c, d]
+
+
+E--> **(01678)**
+(01678)-d->(5)
+(01678)-a->(2)
+(01678)-b->(3)
+(01678)-c->(4)
+
+ **(2)**
+(2)-b->(3)
+
+ **(3)**
+(3)-c->(4)
+
+ **(4)**
+(4)-d->(5)
+
+ **(5)** -->S
+
+<=================================================>
 
 
 
@@ -172,7 +201,63 @@ E--> **(8)**
 <=================================================>
 
 
-Déterminisation complétion synchrone/asynchrone (a) : ///
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #20 n'est pas standard, car il possède 5 entrees.
+
+L'automate #20 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.  2a.  3a.  4a.  5a.  7a.  8a.
+ b ->  0b.  1b.  3b.  4b.  5b.  6b.  8b.
+ c ->  0c.  1c.  2c.  4c.  5c.  6c.  7c.
+ d ->  1d.  2d.  3d.  5d.  6d.  7d.  8d.
+
+L'automate #20 n'est pas déterministe, car il possède 5 entrees.
+
+<===================( Automate : #20 )======================>
+
+ # d'états ----------> 6
+ # de transitions ---> 24
+ Etats --------------> [01678, 2, 3, 4, 5, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+E--> **(01678)**
+(01678)-d->(5)
+(01678)-a->(2)
+(01678)-b->(3)
+(01678)-c->(4)
+
+ **(2)**
+(2)-b->(3)
+(2)-a->(P)
+(2)-c->(P)
+(2)-d->(P)
+
+ **(3)**
+(3)-c->(4)
+(3)-a->(P)
+(3)-b->(P)
+(3)-d->(P)
+
+ **(4)**
+(4)-d->(5)
+(4)-a->(P)
+(4)-b->(P)
+(4)-c->(P)
+
+ **(5)** -->S
+(5)-a->(P)
+(5)-b->(P)
+(5)-c->(P)
+(5)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
 
 
 Minimisation (m) : ///

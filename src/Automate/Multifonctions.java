@@ -1,4 +1,4 @@
-
+package Automate;
 
 import java.io.File;
 import java.util.Arrays;
@@ -82,7 +82,7 @@ public class Multifonctions {
             System.out.print("Tapez votre choix : ");
             this.choix = scanner.next();
 
-            if (mot.length() > 9) {
+            if (mot.length() > 10) {
                 taille--;
             }
 
@@ -92,13 +92,13 @@ public class Multifonctions {
                     lecture = false;
                 }
 
-                if (i == 10 && getChoix().equals("10")){
+                if (i == 11 && getChoix().equals("10")){
                     lecture = false;
                     //System.out.println("----------> saisie = "+getChoix());
                     //System.out.println("----------> dur = " + mot.substring(i, i + 2));
                 }
 
-                if (i > 10 && getChoix().equals(mot.substring(i, i + 2))) {
+                if (i > 11 && getChoix().equals(mot.substring(i, i + 2))) {
                     //System.out.println("----------> saisie = "+getChoix());
                     //System.out.println("----------> dur =  " + mot.substring(i, i + 2));
                     lecture = false;
@@ -144,6 +144,7 @@ public class Multifonctions {
 
         System.out.println(
                 "---------------------------> m : Miniminisation \n"
+                + "---------------------------> k : Langage complementaire\n"
                 + "---------------------------> v : Verifier la reconnaissance d'un mot\n"
                 + "---------------------------> g : Changer d'automate\n"
                 + "---------------------------> e : exit\n");
@@ -158,7 +159,7 @@ public class Multifonctions {
                         + "---------------------------> g : Changer d'automate\n"
                         + "---------------------------> e : exit\n");*/
 
-        setChoix("dDsScCbBaAmMvVgGeE");
+        setChoix("dscbamkvge");
     }
 
     public void autoSelection(){

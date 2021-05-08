@@ -23,7 +23,27 @@ E--> **(1)**
 
 
 
-Déterminisation (d) : ///
+Déterminisation (d) :
+
+L'automate #07 n'est pas deterministe, à cause des transitions suivantes :
+ 1a1  1a0
+
+<===================( Automate : Determinisé )======================>
+
+ # d'états ----------> 2
+ # de transitions ---> 2
+ Etats --------------> [01, 1]
+ Alphabet -----------> [a]
+
+
+ **(01)** -->S
+(01)-a->(01)
+
+E--> **(1)**
+(1)-a->(01)
+
+<=================================================>
+
 
 
 
@@ -80,6 +100,57 @@ E--> **(1)**
 
 
 
-Déterminisation complétion synchrone/asynchrone (a) : ///
+Déterminisation complétion synchrone/asynchrone (a) :
 
-Minimisation (m) : ///
+'automate #07 n'est pas standard, à cause des transitions suivantes :
+ 1a1
+L'automate #07 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.
+
+L'automate #07 n'est pas deterministe, à cause des transitions suivantes :
+ 1a1  1a0
+
+<===================( Automate : #07 )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 3
+ Etats --------------> [01, 1, P]
+ Alphabet -----------> [a]
+
+
+ **(01)** -->S
+(01)-a->(01)
+
+E--> **(1)**
+(1)-a->(01)
+
+ **(P)**
+(P)-a->(P)
+
+<=================================================>
+
+
+
+
+Minimisation (m) :
+
+>>>    L'automate ne change pas !
+
+<===================( Automate : Minimisé )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 3
+ Etats --------------> [01, 1, P]
+ Alphabet -----------> [a]
+
+
+ **(01)** -->S
+(01)-a->(01)
+
+E--> **(1)**
+(1)-a->(01)
+
+ **(P)**
+(P)-a->(P)
+
+<=================================================>
