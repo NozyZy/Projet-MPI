@@ -21,6 +21,7 @@ E--> **(0)**
 ---------------------------> m : Miniminisation
 
 
+
 Complétion (c) :
 
 L'automate #04 n'est pas complet, à cause des transitions manquantes :
@@ -44,6 +45,7 @@ E--> **(0)**
 (P)-a->(P)
 
 <=================================================>
+
 
 
 Déterminisation complétion synchrone/asynchrone (a) :
@@ -71,6 +73,7 @@ E--> **(0)**
 <=================================================>
 
 
+
 Minimisation (m) :
 
 >>>    Fusion des Etats : 0 et de 1 ...
@@ -88,6 +91,8 @@ E--> **(P01)**
 (P01)-a->(P01)
 
 <=================================================>
+
+
 
 
 Langage complémentaire (k) :

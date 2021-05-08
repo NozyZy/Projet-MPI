@@ -23,6 +23,7 @@ E--> **(1)**
 
 
 
+
 Déterminisation (d) :
 
 L'automate #07 n'est pas deterministe, à cause des transitions suivantes :
@@ -102,7 +103,7 @@ E--> **(1)**
 
 Déterminisation complétion synchrone/asynchrone (a) :
 
-'automate #07 n'est pas standard, à cause des transitions suivantes :
+L'automate #07 n'est pas standard, à cause des transitions suivantes :
  1a1
 L'automate #07 n'est pas complet, à cause des transitions manquantes :
  a ->  0a.

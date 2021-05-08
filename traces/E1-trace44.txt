@@ -37,6 +37,7 @@ E--> **(0)**
 Déterminisé (d) : ///
 
 
+
 Complétion (c) :
 
 L'automate #44 n'est pas complet, à cause des transitions manquantes :
@@ -74,6 +75,8 @@ E--> **(0)**
 (P)-b->(P)
 
 <=================================================>
+
+
 
 
 Déterminisation complétion synchrone/asynchrone (a) : ///

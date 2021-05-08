@@ -26,6 +26,7 @@ E--> **(3)**
 ---------------------------> m : Miniminisation
 
 
+
 Déterminisation (d) :
 
 L'automate #06 n'est pas déterministe, car il possède 2 entrees.
@@ -77,6 +78,7 @@ E--> **(i)**
 (3)-b->(0)
 
 <=================================================>
+
 
 
 Complétion (c) :

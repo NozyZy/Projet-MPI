@@ -107,6 +107,30 @@ E--> **(2)** -->S
 Déterminisation complétion synchrone/asynchrone (a) : ///
 
 
-Minimisation (m) : ///
+Minimisation (m) :
+
+>>>    Fusion des Etats : 02 et de 12 ...
+
+<===================( Automate : Minimisé )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 6
+ Etats --------------> [01, 0212, P]
+ Alphabet -----------> [a, b]
+
+
+E--> **(0212)** -->S
+(0212)-a->(01)
+(0212)-b->(0212)
+
+ **(01)** -->S
+(01)-a->(1)
+(01)-b->(0122)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
 
 

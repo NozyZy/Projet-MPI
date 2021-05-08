@@ -191,7 +191,6 @@ public class Etat {
             System.out.print("(" + getNom() + ")");
             System.out.print("-" + getTabCharTransitions().get(j) + "->");
             System.out.println("(" + getTabTransitions().get(j) + "), ");
-
         }
     }
 }

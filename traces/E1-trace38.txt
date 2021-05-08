@@ -31,4 +31,22 @@ E--> **(0)** -->S
 ---------------------------> m : Miniminisation
 
 
-Minimisation (m) : ///
+Minimisation (m) :
+
+>>>    Fusion des Etats : 0 et de 1 ...
+>>>    Fusion des Etats : 01 et de 3 ...
+>>>    Fusion des Etats : 2 et de 013 ...
+
+<===================( Automate : Minimisé )======================>
+
+ # d'états ----------> 1
+ # de transitions ---> 2
+ Etats --------------> [2013]
+ Alphabet -----------> [a, b]
+
+
+E--> **(2013)** -->S
+(2013)-a->(2013)
+(2013)-b->(2013)
+
+<=================================================>

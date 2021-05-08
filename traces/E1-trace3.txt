@@ -21,6 +21,7 @@ E--> **(0)**
 ---------------------------> m : Miniminisation
 
 
+
 Complétion (c) :
 
 L'automate #03 n'est pas complet, à cause des transitions manquantes :
@@ -44,6 +45,7 @@ E--> **(0)**
 (P)-a->(P)
 
 <=================================================>
+
 
 
 Déterminisation complétion synchrone/asynchrone (a) :
@@ -72,7 +74,7 @@ E--> **(0)**
 
 
 
-Munimisation (m) :
+Minimisation (m) :
 
 >>>    L'automate ne change pas !
 

@@ -166,7 +166,6 @@ public class Menu {
                     if (comp == null) jarvis.error();
                     else {
                         comp.afficherAutomate();
-                        System.out.println("Langage complémentaire (k) :\n");
                         if (comp.isAsynchrone()) comp = comp.langage_complementaire_asynchrone();
                         else comp.langage_complementaire_synchrone();
                         comp.setLabel("Complémentaire");
