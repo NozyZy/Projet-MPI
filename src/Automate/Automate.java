@@ -1314,10 +1314,10 @@ public class Automate implements Cloneable {
         jarvis.setChoix();
 
         if (contains(jarvis.getChoix())) {
-            System.out.print(" [" + jarvis.getChoix()+"] ==> existe ");
+            System.out.print(" [" + jarvis.getChoix()+"] ==> existe dans 42");
         }
         else {
-            System.out.print(" [" + jarvis.getChoix()+"] ==> n'existe pas ");
+            System.out.print(" [" + jarvis.getChoix()+"] ==> n'existe pas dans ");
         }
         System.out.print(getLabel());
     }
