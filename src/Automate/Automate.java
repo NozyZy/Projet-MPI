@@ -626,12 +626,22 @@ public class Automate implements Cloneable {
         }
     }
 
-    public void langage_complementaire() {
+    public void langage_complementaire_synchrone() {
         if (!isDeterministe()) determinisation();
         if (!isComplet()) completion();
         for (int i = 0; i < getNbEtats(); i++) {
             getEtats(i).setSortie(!getEtats(i).isSortie());
         }
+    }
+
+    public Automate langage_complementaire_asynchrone() {
+        Automate newAuto = eliminationEpsilon();
+        if (!newAuto.isDeterministe()) newAuto.determinisation();
+        if (!newAuto.isComplet()) newAuto.completion();
+        for (int i = 0; i < newAuto.getTabEtats().size(); i++) {
+            newAuto.getEtats(i).setSortie(!getEtats(i).isSortie());
+        }
+        return newAuto;
     }
 
     /**
