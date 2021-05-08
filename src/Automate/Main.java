@@ -11,7 +11,8 @@ public class Main {
         //mot = jarvis.sorted(mot);
         //System.out.println(mot);
 
-        Automate automate = Readwrite.readAutomateFile("index/test.txt");
+        Automate automate = Readwrite.readAutomateFile("index/E1-09.txt");
+        automate.lire_mot();
         /*if (automate.isPointer(automate.pointeur_Etat("3"))) {
             System.out.println("Yeah je suis pointer");
         }
@@ -38,6 +39,10 @@ public class Main {
         automate.completion();
         automate.minimisation();
         automate.afficherAutomate();
+        //automate.afficherAutomate();
+        //automate.completion();
+        //automate.minimisation();
+        //automate.afficherAutomate();
         //System.out.println(automate.nbEtats);
         //automate.fusion_multiple(automate.getNbEntrees()).affiche_etat("all");
         //automate.setLabel("Deterministe");

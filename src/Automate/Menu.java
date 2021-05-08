@@ -1,5 +1,7 @@
 //package Automate;
 
+import java.util.Objects;
+
 /**
  * Menu du programme qui permet de selectionner les actions, on enverra a chaque fois un clone de l'automate initiale
  */
@@ -15,16 +17,19 @@ public class Menu {
 
         Automate automate = Readwrite.readAutomateFile(jarvis.getPathfinder());
 
-        assert automate != null;
+
         jarvis.clearConsole();
 
+        if (automate == null) {
+            jarvis.error();
+            return;
+        }
         automate.afficherAutomate();
         
         while (menu0 == 1) {//Boucle du menu
-           
 
             while (menu1 == 1) {
-                jarvis.laCarte();// affichage du menu + choix
+                jarvis.laCarte(Objects.requireNonNull(Readwrite.readAutomateFile(jarvis.getPathfinder())));// affichage du menu + choix
                 
                 if (jarvis.getChoix().equals("g")) {
                     //boolean mario = true;
@@ -57,21 +62,34 @@ public class Menu {
                 if (jarvis.getChoix().equals("d")) {//Choix determinisation
                     Automate deter = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
-                    deter.afficherAutomate();
-                    deter.determinisation();
-                    deter.setLabel("Determinisé");
-                    deter.afficherAutomate();
+                    if (deter == null) jarvis.error();
+                    else {
+                        deter.afficherAutomate();
+                        deter.verifDeterministe(true);
+                        deter.determinisation();
+                        deter.setLabel("Determinisé");
+                        deter.afficherAutomate();
+                    }
                 }
 
-                if (jarvis.getChoix().equals("a")) {// Choix determinisation+complétion synchrone
+                if (jarvis.getChoix().equals("a")) {// Choix determinisation+complétion synchrone/asynchrone
                     Automate komba = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
-                    komba.afficherAutomate();
-                    Automate newkomba = komba.determinisation_completion_asynchrone();
-                    newkomba.afficherAutomate();
+                    if (komba == null) jarvis.error();
+                    else {
+                        komba.afficherAutomate();
+                        komba.allVerifs(true);
+                        if (komba.isAsynchrone()) {
+                            Automate newkomba = komba.determinisation_completion_asynchrone();
+                            newkomba.afficherAutomate();
+                        } else {
+                            komba.determinisation_completion_synchrone();
+                            komba.afficherAutomate();
+                        }
+                    }
                 }
 
-                if (jarvis.getChoix().equals("k")) {// Choix determinisation+complétion synchrone
+                /*if (jarvis.getChoix().equals("k")) {// Choix determinisation+complétion synchrone
                     Automate kombo = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     if (kombo.isAsynchrone()) {
                         if (kombo.isAsynchrone()) {
@@ -87,35 +105,67 @@ public class Menu {
                         kombo.setLabel("Deterministe complet synchrone");
                         kombo.afficherAutomate();
                     }
-                }
-
-                
+                }*/
 
                 if (jarvis.getChoix().equals("s")) {// Choix Standard
                     Automate standard = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
-                    standard.afficherAutomate();
-                    standard.standardisation("i");
-                    standard.setLabel("Standardisé");
-                    standard.afficherAutomate();
+                    if (standard == null) jarvis.error();
+                    else {
+                        standard.afficherAutomate();
+                        standard.verifStandard(true);
+                        standard.standardisation("i");
+                        standard.setLabel("Standardisé");
+                        standard.afficherAutomate();
+                    }
                 }
 
                 if (jarvis.getChoix().equals("c")) {// Choix Complet
                     Automate complet = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
-                    complet.afficherAutomate();
-                    complet.completion();
-                    complet.setLabel("Complet");
-                    complet.afficherAutomate();
+                    if (complet == null) jarvis.error();
+                    else {
+                        complet.afficherAutomate();
+                        complet.verifComplet(true);
+                        complet.completion();
+                        complet.setLabel("Complet");
+                        complet.afficherAutomate();
+                    }
                 }
 
                 if (jarvis.getChoix().equals("m")) {// Choix Mini
                     Automate mini = Readwrite.readAutomateFile(jarvis.getPathfinder());
                     jarvis.clearConsole();
-                    mini.afficherAutomate();
-                    mini.standardisation("i");
-                    mini.setLabel("Standardisé");
-                    mini.afficherAutomate();
+                    if (mini == null) jarvis.error();
+                    else {
+                        mini.afficherAutomate();
+                        mini.minimisation();
+                        mini.setLabel("Minimisé");
+                        mini.afficherAutomate();
+                    }
+                }
+
+                if (jarvis.getChoix().equals("b")) {//Choix elimination epsilon
+                    Automate async = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    jarvis.clearConsole();
+                    if (async == null) jarvis.error();
+                    else {
+                        async.afficherAutomate();
+                        async.verifAsynchrone(true);
+                        Automate sync = async.eliminationEpsilon();
+                        sync.setLabel("Automate fini");
+                        sync.afficherAutomate();
+                    }
+                }
+
+                if (jarvis.getChoix().equals("v")) {//Choix verif mot
+                    Automate auto = Readwrite.readAutomateFile(jarvis.getPathfinder());
+                    jarvis.clearConsole();
+                    if (auto == null) jarvis.error();
+                    else {
+                        auto.afficherAutomate();
+                        auto.lire_mot();
+                    }
                 }
 
             }

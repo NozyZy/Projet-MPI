@@ -35,7 +35,6 @@ public class Automate implements Cloneable {
     int initnbTransitions;
     boolean deterministe;
     boolean standard;
-    
     boolean complet;
     boolean asynchrone;
     boolean minimale;
@@ -50,6 +49,7 @@ public class Automate implements Cloneable {
         this.etats = etats;
         this.nbEntrees = nbEntrees;
         this.nbEtats = nbEtats;
+        setAlphabet();
         allVerifs(true);
     }
 
@@ -92,7 +92,8 @@ public class Automate implements Cloneable {
         }
         lecture.close();// fermeture de la lecture du txt
         nbTransitions = getInitnbTransitions();
-        allVerifs(true);
+        setAlphabet();
+        allVerifs(false);
     }
 
     public void verifAsynchrone(boolean doesPrint) {
@@ -117,7 +118,7 @@ public class Automate implements Cloneable {
 
     public void verifStandard(boolean doesPrint) {
         if (getNbEntrees() != 1){
-            if (doesPrint) System.out.println("L'automate " + label + " n'est pas standard, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + label + " n'est pas standard, car il possède " + getNbEntrees() + " entrees.\n");
             setStandard(false);
         }
         else {
@@ -145,7 +146,6 @@ public class Automate implements Cloneable {
 
     public void verifComplet(boolean doesPrint) {
         boolean isComplet = true;
-        setAlphabet();
         int j;
         for (Character alpha: alphabet) {
             boolean thisOne = false;
@@ -178,15 +178,14 @@ public class Automate implements Cloneable {
 
     public boolean verifDeterministe(boolean doesPrint) {
         if (getNbEntrees() != 1) {
-            if (doesPrint) System.out.println("L'automate " + getLabel() + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.");
+            if (doesPrint) System.out.println("L'automate " + getLabel() + " n'est pas déterministe, car il possède " + getNbEntrees() + " entrees.\n");
             setDeterministe(false);
             return false;
         }
 
         else{
             boolean isDeterministe = true;
-
-            for(Character alpha: alphabet){
+            for(Character alpha: this.alphabet){
                 boolean thisOne = false;
 
                 for (int i = 0; i < getNbEtats(); i++) {
@@ -257,7 +256,7 @@ public class Automate implements Cloneable {
                 }
             }
         }
-        Collections.sort(alphabet);
+        Collections.sort(this.alphabet);
     }
 
     /**
@@ -508,13 +507,13 @@ public class Automate implements Cloneable {
      * Affiche l'automate en string
      */
     public void afficherAutomate() {
-        System.out.println("\n<=========( Voici l'automate : "+ getLabel() +" )==========>\n");
         /**System.out.println(" Standard -----------> " + isStandard());
         System.out.println(" Complet ------------> " + isComplet());
         System.out.println(" Deterministe -------> " + isDeterministe());
         System.out.println(" Asynchrone ---------> " + isAsynchrone());
         System.out.println(" Minimal ------------> " + isMinimale());
         System.out.println();**/
+        System.out.println("<===================( Automate : " + label + " )======================>\n");
         System.out.println(" # d'états ----------> " + getNbEtats());
         System.out.println(" # de transitions ---> " + findNbTransitions());
         System.out.println(" Etats --------------> " + getEtats());
@@ -553,7 +552,7 @@ public class Automate implements Cloneable {
      */
     public void standardisation(String nom){
         if (isStandard()) {
-            System.out.println("L'automate est déjà standard !");
+            System.out.println("déjà standard !");
         } else {
             setEtats(nom); //creation de l'état initiale
 
@@ -1056,7 +1055,6 @@ public class Automate implements Cloneable {
      * Fonction de determinisation
      */
     public void determinisation(){
-
         if (!verifDeterministe(false)) {
             if (getNbEntrees() <= 1) {
                 // System.out.println("checked");
@@ -1081,7 +1079,7 @@ public class Automate implements Cloneable {
         int i, j;
         int etatIndex = 0, etatNum = 0;
         boolean exists = false;
-
+        if (!isDeterministe()) System.out.println("L'automate n'est pas déterministe, le résultat peut donc être erroné !");
         while(etatNum < this.getNbEntrees() && !exists) {
             if (getEtats(etatIndex).isEntree()) {
 
@@ -1185,6 +1183,7 @@ public class Automate implements Cloneable {
                 System.out.printf("%3s", getEtats(i).getGroupeMinimisation());
                 System.out.println();
             }
+
         }
         System.out.printf("\n>>>    Fin analyse");
     }
@@ -1192,6 +1191,7 @@ public class Automate implements Cloneable {
     private void minimisationSuivant(Etat monEtat, int dif) {
         String Etat = monEtat.getNom();
         String string = monEtat.getGroupeEtatMinimisation();
+
         //boolean modifier = true;
         //while(modifier == true){
             //modifier = false;
@@ -1204,6 +1204,7 @@ public class Automate implements Cloneable {
                             getEtats(i).setGroupeMinimisation(j, string);
                         }
                         else{ getEtats(i).setGroupeMinimisation(string);}
+
                     }
                     else {
                         if (getEtats(i).getGroupeMinimisation().size() != getEtats(i).nbTransitions()){
@@ -1394,7 +1395,7 @@ public class Automate implements Cloneable {
 
                 if (i-1 > allNewStates.length) allNewStates = (String[])jarvis.resizeArray(allNewStates, i+1);
             }
-            
+            newAuto.setAlphabet();
             newAuto.determinisation();
             newAuto.allVerifs(false);
             return newAuto;
@@ -1412,5 +1413,21 @@ public class Automate implements Cloneable {
             }
         }
         return epsilonLabels;
+    }
+
+    /**
+     * Permet de lire l'alphabet et verifier son existence
+     */
+
+    public void lire_mot() {
+        jarvis.setChoix();
+
+        if (contains(jarvis.getChoix())) {
+            System.out.print(" [" + jarvis.getChoix()+"] ==> existe ");
+        }
+        else {
+            System.out.print(" [" + jarvis.getChoix()+"] ==> n'existe pas ");
+        }
+        System.out.print(getLabel());
     }
 }
