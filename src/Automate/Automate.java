@@ -1,6 +1,7 @@
-package Automate;
+//package Automate;
 
 import java.io.*;
+import java.security.cert.TrustAnchor;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -950,7 +951,6 @@ public class Automate implements Cloneable {
                     }
                 }
             }
-
         }
     }
 
@@ -1064,9 +1064,10 @@ public class Automate implements Cloneable {
             else {
                 mitose(fusion_Entrees());
             }
-
+            setDeterministe(true);
             nettoyage();   
         }
+        
     }
 
     /**
@@ -1120,13 +1121,12 @@ public class Automate implements Cloneable {
             if (!isAsynchrone()){
                 if (isDeterministe()){
                     if (isComplet()){
-                        //laMinimalisation();
                         System.out.printf("\n>>>    L'automate est en cours d'analyse ...");
                         minimisationAnalyse();
                         System.out.printf("\n>>>    L'automate est en cours de fusion ...");
                         minimisationFusion();
                         System.out.printf("\n>>>    L'automate MINIMAL est termine !!!");
-                        afficherAutomate();
+                        setMinimale(true);
                     }
                     else{System.out.printf("\n>>>    L'automate n'est pas complet ...");}
                 }
@@ -1142,7 +1142,7 @@ public class Automate implements Cloneable {
         String a = "C";
         int b = 0;
         while (ok){
-            System.out.printf("\n______________________________________________\n");
+            System.out.printf("\n_______________________%d_______________________\n", b);
             for (int i = 0; i < getTabEtats().size(); i++) {
                 if (getEtats(i).isSortie() && b==0) {
                     getEtats(i).setGroupeEtatMinimisation(a);
@@ -1150,76 +1150,185 @@ public class Automate implements Cloneable {
                 else if (b==0){
                     getEtats(i).setGroupeEtatMinimisation(a+b);
                 }
+                minimisationSuivant(getEtats(i), b);
+            }
+            
+            boolean ok1 = false;
 
-                ok = minimisationSuivant(getEtats(i), b);
+            while (ok1 == false){
+                for (int i = 0; i < getTabEtats().size(); i++) {
+                    ok1 = coloration(getEtats(i), b);
+                }
+            }
 
-                System.out.printf(">>>    %s", getEtats(i).getGroupeEtatMinimisation());
+            b=b+1;
+            System.out.printf("\n");
+
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                minimisationSuivant(getEtats(i), b);
+            }
+
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                ok1 = coloration(getEtats(i), b);
+                if (ok1 == true){
+                    ok = false;
+                }
+            }
+
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
                 System.out.printf("(%3s)", getEtats(i).getNom());
                 System.out.printf("-%3s->", getEtats(i).getTabCharTransitions());
                 System.out.printf("(%3s) :", getEtats(i).getTabTransitions());
-                System.out.printf("%s", getEtats(i).getGroupeMinimisation());
+                System.out.printf("%3s", getEtats(i).getGroupeMinimisation());
                 System.out.println();
             }
-            b++;
+
         }
-        setMinimale(true);
+        System.out.printf("\n>>>    Fin analyse");
     }
 
-    private boolean minimisationSuivant(Etat monEtat, int dif) {
+    private void minimisationSuivant(Etat monEtat, int dif) {
         String Etat = monEtat.getNom();
         String string = monEtat.getGroupeEtatMinimisation();
-        
-        for (int i = 0; i < getNbEtats(); i++) {
-            for (int j = 0; j < getEtats(i).nbTransitions(); j++) {
-                //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), Etat);
-                if (Etat.intern() == getEtats(i).getTransitions(j).intern()){
-                    //System.out.printf("trouver\n");
-                    if (getEtats(i).getGroupeMinimisation().size() == getEtats(i).nbTransitions() ){
-                        getEtats(i).setGroupeMinimisation(j, string);
+
+        //boolean modifier = true;
+        //while(modifier == true){
+            //modifier = false;
+            for (int i=0; i < getTabEtats().size(); i++) {
+                for (int j=0; j < getEtats(i).nbTransitions(); j++) {
+                    //System.out.printf("-%s- et -%s-\n", getEtats(i).getTabTransitions().get(j), Etat);
+                    if (Etat.intern() == getEtats(i).getTransitions(j).intern()){
+                        //System.out.printf("trouver\n");
+                        if (getEtats(i).getGroupeMinimisation().size() == getEtats(i).nbTransitions() ){
+                            getEtats(i).setGroupeMinimisation(j, string);
+                        }
+                        else{ getEtats(i).setGroupeMinimisation(string);}
+
                     }
-                    else{ getEtats(i).setGroupeMinimisation(string);}
-                }
-                else {
-                    if (getEtats(i).getGroupeMinimisation().size() != getEtats(i).nbTransitions()){
-                        getEtats(i).setGroupeMinimisation((String) string + dif);
+                    else {
+                        if (getEtats(i).getGroupeMinimisation().size() != getEtats(i).nbTransitions()){
+                            getEtats(i).setGroupeMinimisation((String) string + dif);
+                        }
+                        //modifier = false;
                     }
                 }
             }
-        }
-        return coloration(monEtat, dif);
+            //modifier = coloration(monEtat, dif);
+        //}
+        //return modifier;
     }
 
     private boolean coloration(Etat monEtat, int dif){
         String string = monEtat.getGroupeEtatMinimisation();
-
+        String NomEtat = monEtat.getNom();
+        ArrayList<String> Transition = monEtat.getTabCharTransitions();
+        ArrayList<String> CodeCouleur = monEtat.getGroupeMinimisation();
+        boolean modifier = true;
         for (int i=0; i < getTabEtats().size(); i++) {
-            for (int j=0; j < getTabEtats().size(); j++) {
-                if (getEtats(i).getGroupeEtatMinimisation().intern().equals(getEtats(j).getGroupeEtatMinimisation().intern())){
-                    if (!getEtats(i).getGroupeMinimisation().equals(getEtats(j).getGroupeMinimisation())) {
-                        getEtats(j).setGroupeEtatMinimisation((String) string + dif);
-                        return true;
+                if (!getEtats(i).getNom().equals(NomEtat)){
+                    if (string.equals(getEtats(i).getGroupeEtatMinimisation())){
+                        if (getEtats(i).getTabCharTransitions().equals(Transition)){
+                            if (getEtats(i).getGroupeMinimisation().equals(CodeCouleur)){
+                                //System.out.printf("\n>>>    Identique " );
+                            }
+                            else{
+                                getEtats(i).setGroupeEtatMinimisation((String) string + dif);
+                                //System.out.printf("\n>>>    fusion " );
+                                modifier = false;
+                            }
+                        }
                     }
                 }
-            }
         }
-        return false;
+        return modifier;
     }
 
     private void minimisationFusion() {
         boolean modifier = false;
+        afficherAutomate();
         for (int i=0; i < getTabEtats().size(); i++) {
+            //System.out.printf("\n>>>    %s ...", getTabEtats().size() );
             for (int j=0; j < getTabEtats().size(); j++) {
-                if (getEtats(i).getNom().intern() !=  getEtats(j).getNom().intern()){
-                    if (getEtats(i).getGroupeEtatMinimisation().intern() == getEtats(j).getGroupeEtatMinimisation().intern()){
-                        fusion_Etat(getEtats(i), getEtats(j));
+                if (!getEtats(i).getNom().intern().equals(getEtats(j).getNom().intern())){
+                    if (getEtats(i).getGroupeEtatMinimisation().equals(getEtats(j).getGroupeEtatMinimisation())){
+                        System.out.printf("\n>>>    Fusion des Etat : %s et de %s ...", getEtats(i).getNom(), getEtats(j).getNom() );
+                        fusion_Etat_Minimal(getEtats(i),getEtats(j) );
                         modifier = true;
                     }
                 }
+                //afficherAutomate();
             }
         }
+        //System.out.print("\n>>>    fin ...");
         if (!modifier){
-            System.out.print("\n>>>    L'automate est inchanger ...");
+            System.out.print("\n>>>    L'automate ne change pas !!! ");
         }
+    }
+
+    public void fusion_Etat_Minimal(Etat a, Etat b){
+        if ((a == null || b == null) || (doesEtatExist(b.getNom()+a.getNom()))){
+            //System.out.println("hey je existe déja ---------------------------------------- > : "+ a.getNom() + b.getNom());
+        }
+        else{
+           
+            setEtats(a.getNom() + b.getNom());
+            pointeur_Etat(a.getNom()).setPolymerisation();
+            pointeur_Etat(b.getNom()).setPolymerisation();
+
+            if ((pointeur_Etat(a.getNom()).isSortie()) || pointeur_Etat(b.getNom()).isSortie()) {
+                pointeur_Etat(a.getNom() + b.getNom()).setSortie(true);
+            }
+
+            if ((pointeur_Etat(a.getNom()).isEntree()) || pointeur_Etat(b.getNom()).isEntree()) {
+                pointeur_Etat(a.getNom() + b.getNom()).setEntree(true);
+            }
+
+            for (int i = 0; i < pointeur_Etat(a.getNom()).getTabTransitions().size(); i++) {
+                pointeur_Etat(a.getNom() + b.getNom()).setTotalTransitions(pointeur_Etat(a.getNom()).getCharTransitions(i), pointeur_Etat(a.getNom()).getTransitions(i));
+                pointeur_Etat(a.getNom() + b.getNom()).setGroupeEtatMinimisation(a.getGroupeEtatMinimisation());
+            }
+            
+            for (int i=0; i < getTabEtats().size(); i++) {
+                for (int j=0; j < getEtats(i).nbTransitions(); j++) {
+                    if (getEtats(i).getTabTransitions().get(j).equals(a.getNom())){
+                        getEtats(i).setTransitions(j, (a.getNom() + b.getNom()));
+                    }
+                    if (getEtats(i).getTabTransitions().get(j).equals(b.getNom())){
+                        getEtats(i).setTransitions(j, (a.getNom() + b.getNom()));
+                    }
+                }
+            }
+
+            nettoyageMinimal();
+        }
+    }
+
+    public void nettoyageMinimal(){
+        int fusion = 0;
+        
+        for (int i = 0; i < getTabEtats().size(); i++) {
+           if (getEtats(i).getPolymerisation() > 0){
+               //getEtats(i).affiche_etat();
+               fusion += 1;
+           }
+        }
+        //System.out.println("------------------> nb fusion etat 4 : " + pointeur_Etat("4").getPolymerisation());
+        //System.out.println("--------------------> nb fusion "+fusion);
+
+        for (int i = 0; i < getTabEtats().size(); i++) {
+            if (getEtats(i).getPolymerisation() > 0) {
+                //System.out.println("----------------------------->2");
+                //getEtats(i).affiche_etat();
+               if (!isPointer(getEtats(i), fusion)) {
+                //System.out.println("Je supprime ----------> "+getEtats(i).nom);
+                   suppression_Etat(getEtats(i));
+                   i = 0;
+               }
+            }
+        }
+
+
     }
 
     public Automate eliminationEpsilon() {

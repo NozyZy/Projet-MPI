@@ -1,0 +1,23 @@
+#testeMinimisation
+6
+0
+3
+4
+6
+7
+P
+1 0
+3 0 4 7
+12
+0 a 3
+0 b 6
+3 a P
+3 b 4
+4 a 3
+4 b 6
+6 a 7
+6 b P
+7 a 3
+7 b 6
+P a P
+P b P
