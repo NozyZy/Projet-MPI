@@ -174,7 +174,7 @@ public class Multifonctions {
 
         for (int i = 0; i < getDatos().length; i++) {
 
-            if (this.choix.equals(toString(i+1))) {
+            if (this.choix.equals(toString(i + 1))) {
                 //System.out.println("\n"+"Voici le fichier : " + getDatos(i).getName());
                 //System.out.println("Et son adresse : " + getDatos(i).getPath());
                 setPathfinder(getDatos(i).getPath());

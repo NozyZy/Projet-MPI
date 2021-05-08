@@ -913,9 +913,9 @@ public class Automate implements Cloneable {
         int fusion = 0;
         int occ = 0;
 
-        for (int i = 0; i < getTabEtats().size(); i++) {
+        /**for (int i = 0; i < getTabEtats().size(); i++) {
             System.out.println("Etat : " + getEtats(i).nom + ", index : " + getTabEtats().indexOf(getEtats(i)));
-        }
+        }**/
         
         for (int i = 0; i < getTabEtats().size(); i++) {
             if (getEtats(i).getPolymerisation() > 0){
@@ -932,7 +932,7 @@ public class Automate implements Cloneable {
                 //getEtats(i).affiche_etat();
                 if (!getEtats(i).isEntree()) {
                     if (!isPointer(getEtats(i), fusion)) {
-                        getEtats(i).affiche_etat();
+                        //getEtats(i).affiche_etat();
                         occ = 0;
 
                         for (int j = getTabEtats().size() - 1; j > getTabEtats().indexOf(getEtatEntree(0)); j--) {
@@ -942,7 +942,7 @@ public class Automate implements Cloneable {
 
                                     if (getEtats(j).getTransitions(j2).equals((getEtats(i).nom))) {
                                         occ++;
-                                        System.out.println("etat : "+getEtats(j).nom+" pointe vers "+getEtats(i).nom);
+                                        //System.out.println("etat : "+getEtats(j).nom+" pointe vers "+getEtats(i).nom);
                                     }
                                 }
                             }

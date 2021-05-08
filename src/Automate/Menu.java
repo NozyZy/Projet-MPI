@@ -14,16 +14,18 @@ public class Menu {
 
         jarvis.clearConsole();
         jarvis.autoSelection();
+        jarvis.clearConsole();
 
         Automate automate = Readwrite.readAutomateFile(jarvis.getPathfinder());
 
 
-        jarvis.clearConsole();
+        
 
         if (automate == null) {
             jarvis.error();
             return;
         }
+
         automate.afficherAutomate();
         
         while (menu0 == 1) {//Boucle du menu
