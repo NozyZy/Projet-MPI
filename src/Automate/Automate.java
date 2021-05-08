@@ -1,6 +1,7 @@
 package Automate;
 
 import java.io.*;
+import java.security.cert.TrustAnchor;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -1234,28 +1235,21 @@ public class Automate implements Cloneable {
                 minimisationSuivant(getEtats(i), b);
             }
             
-            boolean ok1 = false;
+            int conteur_de_fals = 0;
 
-            while (!ok1){
-                for (int i = 0; i < getTabEtats().size(); i++) {
-                    ok1 = coloration(getEtats(i), b);
+            for (int i = 0; i < getTabEtats().size(); i++) {
+                if (!coloration(getEtats(i), b)){
+                    conteur_de_fals++;
                 }
             }
+
+            if (conteur_de_fals==0){
+                ok = false;
+            }
+
 
             b=b+1;
-            System.out.printf("\n");
 
-            for (int i = 0; i < getTabEtats().size(); i++) {
-                minimisationSuivant(getEtats(i), b);
-            }
-
-            for (int i = 0; i < getTabEtats().size(); i++) {
-                ok1 = coloration(getEtats(i), b);
-                if (ok1){
-                    ok = false;
-                }
-            }
-/*
             for (int i = 0; i < getTabEtats().size(); i++) {
                 System.out.printf(">>>    %3s", getEtats(i).getGroupeEtatMinimisation());
                 System.out.printf("(%3s)", getEtats(i).getNom());
@@ -1263,7 +1257,7 @@ public class Automate implements Cloneable {
                 System.out.printf("(%3s) :", getEtats(i).getTabTransitions());
                 System.out.printf("%3s", getEtats(i).getGroupeMinimisation());
                 System.out.println();
-            }*/
+            }
 
         }
         //System.out.printf("\n>>>    Fin analyse");
