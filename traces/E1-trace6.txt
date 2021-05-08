@@ -1,0 +1,157 @@
+<===================( Automate : #06 )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 2
+ Etats --------------> [0, 1, 2, 3]
+ Alphabet -----------> [a, b]
+
+
+ **(0)** -->S
+
+E--> **(1)**
+(1)-a->(2)
+
+ **(2)** -->S
+
+E--> **(3)**
+(3)-b->(0)
+
+<=================================================>
+
+---------------------------> d : Déterminisation
+---------------------------> s : Standardisation
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Déterminisation (d) :
+
+L'automate #06 n'est pas déterministe, car il possède 2 entrees.
+
+<===================( Automate : Determinisé )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 2
+ Etats --------------> [0, 13, 2]
+ Alphabet -----------> [a, b]
+
+
+E--> **(13)**
+(13)-a->(2)
+(13)-b->(0)
+
+ **(0)** -->S
+
+ **(2)** -->S
+
+<=================================================>
+
+
+
+Standardisation (s) :
+
+L'automate #06 n'est pas standard, car il possède 2 entrees.
+
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 4
+ Etats --------------> [0, 1, 2, 3, i]
+ Alphabet -----------> [a, b]
+
+
+E--> **(i)**
+(i)-a->(2)
+(i)-b->(0)
+
+ **(0)** -->S
+
+ **(1)**
+(1)-a->(2)
+
+ **(2)** -->S
+
+ **(3)**
+(3)-b->(0)
+
+<=================================================>
+
+
+Complétion (c) :
+
+L'automate #06 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.  2a.  3a.
+ b ->  0b.  1b.  2b.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 10
+ Etats --------------> [0, 1, 2, 3, P]
+ Alphabet -----------> [a, b]
+
+
+ **(0)** -->S
+(0)-a->(P)
+(0)-b->(P)
+
+E--> **(1)**
+(1)-a->(2)
+(1)-b->(P)
+
+ **(2)** -->S
+(2)-a->(P)
+(2)-b->(P)
+
+E--> **(3)**
+(3)-b->(0)
+(3)-a->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #06 n'est pas standard, car il possède 2 entrees.
+
+L'automate #06 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.  2a.  3a.
+ b ->  0b.  1b.  2b.
+
+L'automate #06 n'est pas déterministe, car il possède 2 entrees.
+
+<===================( Automate : #06 )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 8
+ Etats --------------> [0, 13, 2, P]
+ Alphabet -----------> [a, b]
+
+
+E--> **(13)**
+(13)-a->(2)
+(13)-b->(0)
+
+ **(0)** -->S
+(0)-a->(P)
+(0)-b->(P)
+
+ **(2)** -->S
+(2)-a->(P)
+(2)-b->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+Minimisation (m) : ///

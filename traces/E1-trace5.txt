@@ -1,0 +1,158 @@
+<===================( Automate : #05 )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 6
+ Etats --------------> [0, 1, 2, 3, 4]
+ Alphabet -----------> [a, b]
+
+
+ **(0)**
+(0)-a->(0)
+(0)-b->(0)
+
+E--> **(1)**
+(1)-a->(2)
+(1)-b->(0)
+
+ **(2)** -->S
+
+E--> **(3)**
+(3)-a->(0)
+(3)-b->(4)
+
+ **(4)** -->S
+
+<=================================================>
+
+
+---------------------------> d : Déterminisation
+---------------------------> s : Standardisation
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Déterminisation (d) : ///
+
+
+
+Standardisation (s) :
+
+L'automate #05 n'est pas standard, car il possède 2 entrees.
+
+<===================( Automate : Standardisé )======================>
+
+ # d'états ----------> 6
+ # de transitions ---> 10
+ Etats --------------> [0, 1, 2, 3, 4, i]
+ Alphabet -----------> [a, b]
+
+
+E--> **(i)**
+(i)-a->(2)
+(i)-b->(0)
+(i)-a->(0)
+(i)-b->(4)
+
+ **(0)**
+(0)-a->(0)
+(0)-b->(0)
+
+ **(1)**
+(1)-a->(2)
+(1)-b->(0)
+
+ **(2)** -->S
+
+ **(3)**
+(3)-a->(0)
+(3)-b->(4)
+
+ **(4)** -->S
+
+<=================================================>
+
+
+Complétion (c) :
+
+L'automate #05 n'est pas complet, à cause des transitions manquantes :
+ a ->  2a.  4a.
+ b ->  2b.  4b.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 6
+ # de transitions ---> 12
+ Etats --------------> [0, 1, 2, 3, 4, P]
+ Alphabet -----------> [a, b]
+
+
+ **(0)**
+(0)-a->(0)
+(0)-b->(0)
+
+E--> **(1)**
+(1)-a->(2)
+(1)-b->(0)
+
+ **(2)** -->S
+(2)-a->(P)
+(2)-b->(P)
+
+E--> **(3)**
+(3)-a->(0)
+(3)-b->(4)
+
+ **(4)** -->S
+(4)-a->(P)
+(4)-b->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #05 n'est pas standard, car il possède 2 entrees.
+
+L'automate #05 n'est pas complet, à cause des transitions manquantes :
+ a ->  2a.  4a.
+ b ->  2b.  4b.
+
+L'automate #05 n'est pas déterministe, car il possède 2 entrees.
+
+<===================( Automate : #05 )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 8
+ Etats --------------> [04, 13, 20, P]
+ Alphabet -----------> [a, b]
+
+
+ **(04)** -->S
+(04)-a->(0)
+(04)-b->(0)
+
+ **(20)** -->S
+(20)-a->(0)
+(20)-b->(0)
+
+E--> **(13)**
+(13)-a->(20)
+(13)-b->(04)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>
+
+
+Minimisation : ///
+
+

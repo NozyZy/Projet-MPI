@@ -1,0 +1,71 @@
+<===================( Automate : #04 )======================>
+
+ # d'états ----------> 2
+ # de transitions ---> 1
+ Etats --------------> [0, 1]
+ Alphabet -----------> [a]
+
+
+E--> **(0)**
+(0)-a->(1)
+
+ **(1)**
+
+<=================================================>
+
+---------------------------> L'automate est déterministe
+---------------------------> L'automate est standard
+---------------------------> c : Complétion
+---------------------------> L'automate est fini
+---------------------------> a : Déterminisation complétion synchrone/asynchrone
+---------------------------> m : Miniminisation
+
+
+Complétion (c) :
+
+L'automate #04 n'est pas complet, à cause des transitions manquantes :
+ a ->  1a.
+
+<===================( Automate : Complet )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 3
+ Etats --------------> [0, 1, P]
+ Alphabet -----------> [a]
+
+
+E--> **(0)**
+(0)-a->(1)
+
+ **(1)**
+(1)-a->(P)
+
+ **(P)**
+(P)-a->(P)
+
+<=================================================>
+
+
+Déterminisation complétion synchrone/asynchrone (a) :
+
+L'automate #04 n'est pas complet, à cause des transitions manquantes :
+ a ->  1a.
+
+<===================( Automate : #04 )======================>
+
+ # d'états ----------> 3
+ # de transitions ---> 3
+ Etats --------------> [0, 1, P]
+ Alphabet -----------> [a]
+
+
+E--> **(0)**
+(0)-a->(1)
+
+ **(1)**
+(1)-a->(P)
+
+ **(P)**
+(P)-a->(P)
+
+<=================================================>
