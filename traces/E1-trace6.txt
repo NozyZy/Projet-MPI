@@ -24,6 +24,7 @@ E--> **(3)**
 ---------------------------> L'automate est fini
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
+---------------------------> k : Langage complementaire
 
 
 
@@ -159,30 +160,28 @@ E--> **(13)**
 
 Minimisation (m) :
 
->>>    Fusion des Etats : 0 et de 2 ...
-
+Fusion des Etats : 04 et de 02 ...
 <===================( Automate : Minimisé )======================>
 
  # d'états ----------> 3
  # de transitions ---> 6
- Etats --------------> [02, 13, P]
+ Etats --------------> [0402, 13, P]
  Alphabet -----------> [a, b]
 
 
- **(02)** -->S
-(02)-a->(P)
-(02)-b->(P)
+ **(0402)** -->S
+(0402)-a->(0)
+(0402)-b->(0)
 
 E--> **(13)**
-(13)-a->(02)
-(13)-b->(02)
+(13)-a->(0402)
+(13)-b->(0402)
 
  **(P)**
 (P)-a->(P)
 (P)-b->(P)
 
 <=================================================>
-
 
 
 Langage complémentaire (k) :

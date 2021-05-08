@@ -32,7 +32,7 @@ E--> **(0)** -->S
 ---------------------------> L'automate est fini
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
-
+---------------------------> k : Langage complementaire
 
 Standardisation (s) :
 

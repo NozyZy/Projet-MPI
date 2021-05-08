@@ -28,10 +28,34 @@ E--> **(1)** -->S
 ---------------------------> L'automate est fini
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
+---------------------------> k : Langage complementaire
+
+Déterminisation (d) :
+
+L'automate #22 n'est pas deterministe, à cause des transitions suivantes :
+ 1a0  1a2  1a3
+
+<===================( Automate : Determinisé )======================>
+
+ # d'états ----------> 4
+ # de transitions ---> 4
+ Etats --------------> [0, 1, 2, 3]
+ Alphabet -----------> [a, b, c, d]
 
 
-Déterminisation (d) : ///
+ **(0)**
+(0)-d->(1)
 
+E--> **(1)** -->S
+(1)-a->(023)
+
+ **(2)**
+(2)-b->(3)
+
+ **(3)**
+(3)-c->(0)
+
+<=================================================>
 
 Standardisation (s) :
 
@@ -65,8 +89,6 @@ E--> **(i)** -->S
 (3)-c->(0)
 
 <=================================================>
-
-
 
 Complétion (c) :
 
@@ -118,8 +140,145 @@ E--> **(1)** -->S
 
 <=================================================>
 
+Déterminisation complétion synchrone/asynchrone (a) :
 
-Déterminisation complétion synchrone/asynchrone (a) : ///
+L'automate #22 n'est pas standard, à cause des transitions suivantes :
+ 0d1
+L'automate #22 n'est pas complet, à cause des transitions manquantes :
+ a ->  0a.  2a.  3a.
+ b ->  0b.  1b.  3b.
+ c ->  0c.  1c.  2c.
+ d ->  1d.  2d.  3d.
+
+L'automate #22 n'est pas deterministe, à cause des transitions suivantes :
+ 1a0  1a2  1a3
+
+<===================( Automate : #22 )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 20
+ Etats --------------> [0, 1, 2, 3, P]
+ Alphabet -----------> [a, b, c, d]
 
 
-Minimisation (m) : ///
+ **(0)**
+(0)-d->(1)
+(0)-a->(P)
+(0)-b->(P)
+(0)-c->(P)
+
+E--> **(1)** -->S
+(1)-a->(023)
+(1)-b->(P)
+(1)-c->(P)
+(1)-d->(P)
+
+ **(2)**
+(2)-b->(3)
+(2)-a->(P)
+(2)-c->(P)
+(2)-d->(P)
+
+ **(3)**
+(3)-c->(0)
+(3)-a->(P)
+(3)-b->(P)
+(3)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
+
+Minimisation (m) :
+
+
+>>>    L'automate ne change pas !
+
+<===================( Automate : Minimisé )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 20
+ Etats --------------> [0, 1, 2, 3, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)**
+(0)-a->(P)
+(0)-b->(P)
+(0)-c->(P)
+(0)-d->(1)
+
+E--> **(1)** -->S
+(1)-a->(023)
+(1)-b->(P)
+(1)-c->(P)
+(1)-d->(P)
+
+ **(2)**
+(2)-a->(P)
+(2)-b->(3)
+(2)-c->(P)
+(2)-d->(P)
+
+ **(3)**
+(3)-a->(P)
+(3)-b->(P)
+(3)-c->(0)
+(3)-d->(P)
+
+ **(P)**
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>
+
+
+
+
+Langage complémentaire (k) :
+
+<===================( Automate : Complémentaire )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 20
+ Etats --------------> [0, 1, 2, 3, P]
+ Alphabet -----------> [a, b, c, d]
+
+
+ **(0)** -->S
+(0)-d->(1)
+(0)-a->(P)
+(0)-b->(P)
+(0)-c->(P)
+
+E--> **(1)**
+(1)-a->(023)
+(1)-b->(P)
+(1)-c->(P)
+(1)-d->(P)
+
+ **(2)** -->S
+(2)-b->(3)
+(2)-a->(P)
+(2)-c->(P)
+(2)-d->(P)
+
+ **(3)** -->S
+(3)-c->(0)
+(3)-a->(P)
+(3)-b->(P)
+(3)-d->(P)
+
+ **(P)** -->S
+(P)-a->(P)
+(P)-b->(P)
+(P)-c->(P)
+(P)-d->(P)
+
+<=================================================>

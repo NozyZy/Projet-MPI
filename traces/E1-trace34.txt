@@ -38,7 +38,7 @@ E--> **(0)**
 ---------------------------> b : Eliminer les transitions epsilon
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
-
+---------------------------> k : Langage complementaire
 
 Complétion (c) :
 
@@ -95,7 +95,6 @@ E--> **(0)**
 
 <=================================================>
 
-
 Eliminer les transitions epsilon (b) :
 
 L'automate #34 est asynchrone, à cause des transitions suivantes :
@@ -122,7 +121,6 @@ E--> **(0')**
 (3')-b->(3')
 
 <=================================================>
-
 
 Déterminisation complétion synchrone/asynchrone (a) :
 
@@ -162,5 +160,37 @@ E--> **(0')**
 
 <=================================================>
 
-
 Minimisation (m) : ///
+
+
+Langage complémentaire (k) :
+
+<===================( Automate : Complémentaire )======================>
+
+ # d'états ----------> 5
+ # de transitions ---> 10
+ Etats --------------> [0', 2', 3', 3'5', P]
+ Alphabet -----------> [a, b]
+
+
+E--> **(0')** -->S
+(0')-a->('2)
+(0')-b->(''35)
+
+ **(3'5')** -->S
+(3'5')-b->(3'5')
+(3'5')-a->(P)
+
+ **(2')** -->S
+(2')-b->(3')
+(2')-a->(P)
+
+ **(3')** -->S
+(3')-b->(3')
+(3')-a->(P)
+
+ **(P)** -->S
+(P)-a->(P)
+(P)-b->(P)
+
+<=================================================>

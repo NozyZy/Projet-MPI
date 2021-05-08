@@ -26,11 +26,9 @@ E--> **(0)**
 ---------------------------> L'automate est fini
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
-
+---------------------------> k : Langage complementaire
 
 Déterminisation (d) : ///
-
-
 
 Standardisation (s) :
 
@@ -62,8 +60,6 @@ E--> **(i)**
 (2)-b->(2)
 
 <=================================================>
-
-
 
 Complétion (c) :
 
@@ -97,11 +93,10 @@ E--> **(0)**
 
 <=================================================>
 
-
 Déterminisation complétion synchrone/asynchrone (a) : ///
 
 Minimisation (m) : ///
 
-
+Langage complémentaire (k) : ///
 
 

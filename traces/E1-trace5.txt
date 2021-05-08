@@ -31,6 +31,7 @@ E--> **(3)**
 ---------------------------> L'automate est fini
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
+---------------------------> k : Langage complementaire
 
 
 

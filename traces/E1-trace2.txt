@@ -16,6 +16,9 @@ E--> **(0)** -->S
 ---------------------------> L'automate est complet
 ---------------------------> L'automate est fini
 ---------------------------> m : Miniminisation
+---------------------------> k : Langage complementaire
+
+
 
 Standardisation (s) :
 

@@ -88,6 +88,7 @@ E--> **(0)**
 ---------------------------> b : Eliminer les transitions epsilon
 ---------------------------> a : Déterminisation complétion synchrone/asynchrone
 ---------------------------> m : Miniminisation
+---------------------------> k : Langage complementaire
 
 Complétion (c) :
 
@@ -147,8 +148,6 @@ E--> **(0)**
 
 <=================================================>
 
-
-
 Eliminer les transitions epsilon (b) :
 
 L'automate #31 est asynchrone, à cause des transitions suivantes :
@@ -183,7 +182,6 @@ E--> **(0')** -->S
 (3')-b->(3')
 
 <=================================================>
-
 
 Déterminisation complétion synchrone/asynchrone (a) :
 
